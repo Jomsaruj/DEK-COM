@@ -4,5 +4,10 @@ Community website for students with IT profession to show their potential, commu
 
 This application is a part of [Individual Software Process 01219245](https://cpske.github.io/ISP/) course, written in Python using Django. 
 
+## Project Documents
+
+* [Vision Statement](../../wiki/Vision%20Statement)
+* [Requirements](../../wiki/Requirements)
+
 
 
