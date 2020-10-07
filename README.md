@@ -6,7 +6,7 @@ This application is a part of [Individual Software Process 01219245](https://cps
 
 ## Project Documents
 
-* [Vision Statement](../../wiki/Vision%20Statement)
+* [Vision Statement](../../wiki/Vision%20of%20DEK%20COM%20application)
 * [Requirements](../../wiki/Requirements)
 
 Iterations
