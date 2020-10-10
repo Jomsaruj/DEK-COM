@@ -16,4 +16,4 @@ Iterations
 
 
 ## Licensing
-Contact @Jomsaruj, @markna551, @Ing140943, @patiphan2000’s license.
+Contact @Jomsaruj, @markna551, @Ing140943, @patiphan2000’s to license.
