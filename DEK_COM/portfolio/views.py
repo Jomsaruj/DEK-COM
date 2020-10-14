@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 
 
 def index(request):
@@ -15,11 +16,12 @@ def signup(request):
 
 
 def signin(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    user = authenticate(request, username=username, password=password)
+    username = request.GET.get('username')
+    password = request.GET.get('password')
+    user = authenticate(username=username, password=password)
     if user is not None:
-        login(request, user)
+        auth_login(request, user)
         return render(request, 'portfolio/home.html')
     else:
         return render(request, 'portfolio/signup.html')
+

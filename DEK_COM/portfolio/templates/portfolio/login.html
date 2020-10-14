@@ -8,10 +8,12 @@
     <h2>Log In</h2>
     <form action="{% url 'portfolio:signin' %}" method="signin">
         {% csrf_token %}
+
     <label for="username">Username:</label>
     <input type="text" id="username" name="username"><br><br>
     <label for="password">Password:</label>
     <input type="text" id="password" name="password"><br><br>
+
     <input type="submit" value="Log In">
     </form>
     <p>
