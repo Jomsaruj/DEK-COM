@@ -5,6 +5,13 @@
     <title>DEK-COM.com</title>
 </head>
 <body>
-    <a href="{% url 'portfolio:login'%}">Login</a>
+    {% if messages %}
+    <a class="messages">
+        {% for msg in messages %}
+        <a class="{{msg.tags}}">{{ msg }}
+        {% endfor %}
+    <p>
+    {% endif %}
+    <a href="{% url 'portfolio:login'%}">Log In</a>
 </body>
 </html>

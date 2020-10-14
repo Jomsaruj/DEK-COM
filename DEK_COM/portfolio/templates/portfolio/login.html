@@ -6,6 +6,15 @@
 </head>
 <body>
     <h2>Log In</h2>
+
+    {% if messages %}
+    <a class="messages">
+        {% for msg in messages %}
+        <a class="{{msg.tags}}">{{ msg }}
+        {% endfor %}
+    <p>
+    {% endif %}
+
     <form action="{% url 'portfolio:signin' %}" method="signin">
         {% csrf_token %}
 
