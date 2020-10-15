@@ -1,4 +1,26 @@
 {% extends "portfolio/base.html" %}
+
+{% block title %}
+    <h1>Registration</h1>
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
 {% block content %}
-    <p> this is registration page </p>
+    <div class="content-section">
+        <from method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form.as_p }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Sign Up</button>
+            </div>
+        </from>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already Have An Account? <a class="ml-2" href="#">Sign In</a>
+            </small>
+        </div>
+    </div>
 {% endblock content %}

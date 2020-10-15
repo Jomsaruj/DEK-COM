@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>DEK-COM</title>
-</head>
-<body>
-    <a href="{% url 'login'%}">Login</a>
+{% extends "portfolio/base.html" %}
 
-</body>
-</html>
+{% block title %}
+<h1>Portfolio</h1>
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <p>portfolio page</p>
+{% endblock %}
