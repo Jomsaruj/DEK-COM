@@ -5,14 +5,12 @@
 {% endblock %}
 
 {% block content %}
-        <from role="form" method="post">
+        <from action="" method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
                 {{ form.as_p }}
             </fieldset>
-            <div class="form-group">
-                <button type="button" id="submit" class="btn">Submit</button>
-            </div>
+            <button type="submit" name="create_user">Sign Up</button>
         </from>
         <div class="border-top pt-3">
             <small class="text-muted">
