@@ -17,14 +17,16 @@
         <div class="page-header">
             {% block title %}{% endblock %}
         </div>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tag }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-        {% block content %}{% endblock %}
+          <div class="col-md-8">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
+          </div>
     </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
