@@ -1,0 +1,16 @@
+{% extends "portfolio/base.html" %}
+
+{% block title %}
+<h1>Blog</h1>
+{% endblock %}
+
+{% block content %}
+     {% for post in most_recent_post %}
+        <div class="container p-3 my-3 border" style="border: 2px;border-color: black;">
+            <div class="row">
+                    <h1>{{ post.get_topic }}</h1>
+            </div>
+            <p>{{ post.get_content }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

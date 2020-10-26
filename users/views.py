@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.views import View
 
 def register(request):
-    print(request)
     if request.method == 'POST':  # user click SignUp button
         form = UserCreationForm(request.POST)
         if form.is_valid():  # all information is valid
