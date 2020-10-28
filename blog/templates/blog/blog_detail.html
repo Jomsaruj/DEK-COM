@@ -1,0 +1,9 @@
+{% extends "portfolio/base.html" %}
+
+{% block title %}
+    <h1>{{ post.get_topic }}</h1>
+{% endblock %}
+
+{% block content %}
+    <p>{{ post.get_content }}</p>
+{% endblock %}

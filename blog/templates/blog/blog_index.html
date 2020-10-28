@@ -1,16 +1,41 @@
 {% extends "portfolio/base.html" %}
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 {% block title %}
-<h1>Blog</h1>
+<h1>All blog</h1>
 {% endblock %}
 
 {% block content %}
+    </div>
      {% for post in most_recent_post %}
-        <div class="container p-3 my-3 border" style="border: 2px;border-color: black;">
-            <div class="row">
-                    <h1>{{ post.get_topic }}</h1>
+        <div class="container p-3 my-3 border" style="margin-bottom: 20px;border-radius: 10px;background: rgb(224, 224, 224);max-width: 70%;max-height: 20%;">
+            <div class="container">
+                <h1><a href="{% url 'blog:blog-detail' post.id %}">{{ post.get_topic }}</a></h1>
             </div>
-            <p>{{ post.get_content }}</p>
+            {% if post.has_content %}
+                <div class="container-fluid" id="content section" style="border-radius: 5px;background-color: rgb(234, 234, 234);max-width: 70%;margin-left: 15px;">
+                    <p style="margin-top: 5px; width: 95%;">{{ post.get_content|truncatechars:255  }}</p>
+                </div>
+            {% endif %}
+            <div class="border-top pt-3">
+                <small class="text-muted" style="margin-bottom: 5px;">
+                    <a href="{% url 'blog:blog-detail' post.id %}">write comment..</a>
+                </small>
+            </div>
         </div>
     {% endfor %}
 {% endblock %}
+
+<script>
+function writeComment() {
+    var section = getElementById("comment section");
+    if (section.style.display === "none") {
+    section.style.display = "block";
+    } else {
+        section.style.display = "none";
+    }
+}
+</script>
+
+</html>
