@@ -34,7 +34,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" style="margin:3px -230px;">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" style=" margin: -13px 5px; width: 35px" class="profile-image img-circle">
+                <img src="{{ request.user.profile.image.url }}" width="30" height="30" style=" margin: -13px 5px;" class="profile-image img-circle">
                 <b class="glyphicon glyphicon-triangle-bottom"></b></a>
                 <ul class="dropdown-menu">
                   <li><a class="text-center dropdown-item" >Signed in as {{ request.user.username }}</a></li>
