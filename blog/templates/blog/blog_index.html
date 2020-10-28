@@ -1,15 +1,20 @@
 {% extends "portfolio/base.html" %}
 <html>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 {% block title %}
 <h1>All blog</h1>
 {% endblock %}
 
 {% block content %}
+    <div class="container p-3 my-3 border" 
+        style="margin-bottom:20px;border-radius: 10px;background: rgb(200, 200, 200);width: 70%;height: 60px;"
+        onclick="location.href='create-blog'">
+        <div class="container" style="margin-left: 40%;margin-top: 20px;">
+            <a>Create post</a>
+        </div>    
     </div>
-     {% for post in most_recent_post %}
-        <div class="container p-3 my-3 border" style="margin-bottom: 20px;border-radius: 10px;background: rgb(224, 224, 224);max-width: 70%;max-height: 20%;">
+    {% for post in most_recent_post %}
+        <div class="container p-3 my-3 border" style="margin-bottom: 15px;border-radius: 10px;background: rgb(224, 224, 224);max-width: 70%;max-height: 20%;">
             <div class="container">
                 <h1><a href="{% url 'blog:blog-detail' post.id %}">{{ post.get_topic }}</a></h1>
             </div>
@@ -24,7 +29,7 @@
                 </small>
             </div>
         </div>
-    {% endfor %}
+        {% endfor %}
 {% endblock %}
 
 <script>
