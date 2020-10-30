@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Post(models.Model):
@@ -7,8 +8,9 @@ class Post(models.Model):
     post_topic = models.CharField(max_length=100)
     post_content = models.CharField(max_length=200)
     pub_date = models.DateTimeField(default=timezone.now())
+    user = models.CharField(max_length=20)
+    auther_image = models.ImageField()
     post_like = 0
-    comment = []
 
     def get_topic(self):
         return self.post_topic
@@ -19,17 +21,14 @@ class Post(models.Model):
     def has_content(self):
         return not len(self.post_content) == 0
 
+    def get_auther(self):
+        return self.user
+
     def get_pubdate(self):
         return self.pub_date
 
     def get_like(self):
         return self.post_like
-        
-    def get_all_comment(self):
-        return self.comment
-
-    def add_comment(self, comment):
-        pass
 
     def __str__(self):
         return self.post_topic

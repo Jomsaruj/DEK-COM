@@ -12,8 +12,8 @@ def create_blog(request):
     if request.method == 'POST':
         topic = request.POST['post topic']
         content = request.POST['post content']
-        Post.objects.create(post_topic=topic, post_content=content)
-        return redirect("index")
+        Post.objects.create(post_topic=topic, post_content=content, user=request.user.username, auther_image=request.user.profile.image.url)
+        return redirect('index')
     return render(request, 'blog/create_blog.html')
 
 def blog_detail(request, post_id):

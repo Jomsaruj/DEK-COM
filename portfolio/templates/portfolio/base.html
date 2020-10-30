@@ -13,35 +13,60 @@
   </head>
 
   <body>
-
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">DEK-COM</a>
+          <a class="navbar-brand" href="/">
+            <img src="..\..\..\static\image\new_logo.png" width="135" height="135" style="vertical-align:middle;margin:-57px 125px">
+          </a>
         </div>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="/">Home</a></li>
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Blog <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Blog 1</a></li>
-              <li><a href="#">Blog 2</a></li>
-              <li><a href="#">Blog 3</a></li>
-            </ul>
-          </li>
-        </ul>
+        <form class="navbar-form navbar-left" style="vertical-align:middle;margin:10px 150px" action="#">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search"   style="width: 230px; text-align: center">
+              <div class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                  <i class="glyphicon glyphicon-search"></i>
+                </button>
+              </div>
+          </div>
+        </form>
+
         {% if user.is_authenticated %}
           <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ request.user.username }}<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">My Blog</a></li>
-                <li><a href="/logout">Logout</a></li>
-              </ul>
+            <li class="dropdown" style="margin:3px -230px;">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="{{ request.user.profile.image.url }}" width="30" height="30" style=" margin: -13px 5px;" class="profile-image img-circle">
+                <b class="glyphicon glyphicon-triangle-bottom"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a class="text-center dropdown-item" >Signed in as {{ request.user.username }}</a></li>
+                  <li class="divider"></li>
+                  <li><a href="{% url 'profile' request.user.username %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                  <li><a href="/login"><span class="glyphicon glyphicon-globe"></span> Job Opportunities</a></li>
+                  <li><a href="/login"><span class="glyphicon glyphicon-comment"></span> Find Friends</a></li>
+                  <li><a href="/login"><span class="glyphicon glyphicon-piggy-bank"></span> DekCom Coin</a></li>
+                  <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Leaderboard</a></li>
+                  <li><a href="/login"><span class="glyphicon glyphicon-lock"></span> Your Personal Data Consent</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/logout"><button style="width: 300px; font-weight: 500;" type="button" class="btn btn-danger btn-block">Log Out</button></a></li>
+                </ul>
           </ul>
         {% else %}
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href="/login"><button style="width: 70px; height: 35px; margin:-5px 150px;" type="button" class="btn btn-primary">Sign In</button></a></li>
+               <li><div class="btn-group">
+                <li class="dropdown" style="margin:3px -165px;">
+                  <a class="glyphicon glyphicon-triangle-bottom dropdown-toggle" data-toggle="dropdown" href="#"></a>
+                    <ul class="dropdown-menu pull-right" style="right: 15px;">
+                      <li><a href="/register"><button style="width: 300px; font-weight: 500;" type="button" class="btn btn-warning btn-block">Registration</button></a></li>
+                      <li class="divider"></li>
+                      <li><a href="/login"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                      <li><a href="/login"><span class="glyphicon glyphicon-globe"></span> Job Opportunities</a></li>
+                      <li><a href="/login"><span class="glyphicon glyphicon-comment"></span> Find Friends</a></li>
+                      <li><a href="/login"><span class="glyphicon glyphicon-piggy-bank"></span> DekCom Coin</a></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Leaderboard</a></li>
+                      <li><a href="/login"><span class="glyphicon glyphicon-lock"></span> Your Personal Data Consent</a></li>
+                    </ul>
+                </li>
           </ul>
         {% endif %}
       </div>
