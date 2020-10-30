@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils import timezone
-# from django.contrib.auth import get_user
 
 
 class Post(models.Model):
@@ -20,6 +19,9 @@ class Post(models.Model):
     def has_content(self):
         return not len(self.post_content) == 0
 
+    def get_pubdate(self):
+        return self.pub_date
+
     def get_like(self):
         return self.post_like
         
@@ -27,7 +29,7 @@ class Post(models.Model):
         return self.comment
 
     def add_comment(self, comment):
-        self.comment.append(comment)
+        pass
 
     def __str__(self):
         return self.post_topic
