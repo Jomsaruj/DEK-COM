@@ -1,5 +1,7 @@
 {% extends "portfolio/base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
     <h1>Registration</h1>
 {% endblock %}
@@ -8,9 +10,9 @@
         <form method="POST" action="">
             {% csrf_token %}
             <fieldset class="form-group">
-                {{ form.as_p }}
+                {{form|crispy}}
             </fieldset>
-            <button type="submit" name="create_user">Sign Up</button>
+            <button type="submit" name="create_user" class="btn btn-success">Sign Up</button>
         </form>
         <div class="border-top pt-3">
             <small class="text-muted">
