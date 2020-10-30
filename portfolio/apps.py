@@ -6,3 +6,4 @@ class PortfolioConfig(AppConfig):
 
     def ready(self):
         import portfolio.signals
+
