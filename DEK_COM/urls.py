@@ -18,13 +18,15 @@ from django.urls import include, path
 from django.contrib.auth import views as auth_views
 from users import views as users_views
 from blog import views as blog_views
+from portfolio import views as portfolio_views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('portfolio.urls')),
+    path('', blog_views.go_to_blog, name='home'),
     path('blog/', include('blog.urls')),
+    path('<username>/profile', portfolio_views.profile, name='profile'),
     path('register/', users_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),

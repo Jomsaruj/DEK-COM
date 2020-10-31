@@ -8,6 +8,9 @@ def blog(request):
     print(most_recent_post)
     return render(request, 'blog/blog_index.html', most_recent_post)
 
+def go_to_blog(request):
+    return redirect('blog/')
+
 def create_blog(request):
     if request.method == 'POST':
         topic = request.POST['post topic']
