@@ -3,9 +3,9 @@
 <html>
     <body>
     {% block title %}
-        <img src="{{ request.user.profile.image.url }}" width="150" height="150" style="margin-left: 160px" class="profile-image img-circle">
+        <img src="{{ user.profile.image.url }}" width="150" height="150" style="margin-left: 160px" class="profile-image img-circle">
         <div class  = "header" style="display: inline-block; vertical-align: text-top; position: absolute;">
-            <p class="h3" style="display: inline-block;margin-left: 100px; margin-right: 20px; ">{{request.user.username}}</p>
+            <p class="h3" style="display: inline-block;margin-left: 100px; margin-right: 20px; ">{{user.username}}</p>
             <a href="#"><button style="width: 150px; font-weight: 500; " type="button" class="btn btn-info">Edit Profile</button></a>
             <a class="glyphicon glyphicon-cog" style=" margin-left: 20px; font-size: 23px; color: gray"  href="#"></a>
         </div>

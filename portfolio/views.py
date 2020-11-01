@@ -10,6 +10,7 @@ def index(request):
     return render(request, 'portfolio/home.html')
 
 def profile(request, username):
-    return render(request, 'portfolio/profile.html')
+    user_profile = User.objects.filter(username=username).first()
+    return render(request, 'portfolio/profile.html', {'user': user_profile})
 
 
