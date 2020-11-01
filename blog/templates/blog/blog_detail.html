@@ -2,6 +2,10 @@
 
 {% block title %}
     <h1>{{ post.get_topic }}</h1>
+    <div class="row" style="margin-left: 20px;">
+        <img src="{{ post.auther_image }}" width="20px" height="20px" class="img-circle">
+        <a href="{% url 'profile' post.user %}">{{ post.user }}</a>
+    </div>
 {% endblock %}
 
 {% block content %}
