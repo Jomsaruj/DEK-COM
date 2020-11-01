@@ -40,7 +40,7 @@
                 <ul class="dropdown-menu">
                   <li><a class="text-center dropdown-item" >Signed in as {{ request.user.username }}</a></li>
                   <li class="divider"></li>
-                  <li><a href="{% url 'profile' request.user.username %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                  <li><a href="{% url 'profile' user.username %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
                   <li><a href="/login"><span class="glyphicon glyphicon-globe"></span> Job Opportunities</a></li>
                   <li><a href="/login"><span class="glyphicon glyphicon-comment"></span> Find Friends</a></li>
                   <li><a href="/login"><span class="glyphicon glyphicon-piggy-bank"></span> DekCom Coin</a></li>
