@@ -35,7 +35,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    # post = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment_text = models.CharField(max_length=200)
     comment_like = models.IntegerField(default=0)
     comment_date = models.DateTimeField(default = timezone.now())
