@@ -2,3 +2,5 @@ coverage
 Django
 django-environ
 python-decouple
+crispy
+Pillow
