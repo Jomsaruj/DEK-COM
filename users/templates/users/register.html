@@ -1,0 +1,22 @@
+{% extends "portfolio/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <h1>Registration</h1>
+{% endblock %}
+
+{% block content %}
+        <form method="POST" action="">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{form|crispy}}
+            </fieldset>
+            <button type="submit" name="create_user" class="btn btn-success">Sign Up</button>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already Have An Account? <a class="ml-2" href="/login">Sign In</a>
+            </small>
+        </div>
+{% endblock content %}
