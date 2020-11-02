@@ -11,7 +11,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Welcome to DEK-COM {username} !!')
-            return redirect('index')  # redirect to portfolio index (home.html)
+            return redirect('login')  # redirect to portfolio index (home.html)
     else:
         form = CustomRegistrationForm()
     return render(request, 'users/register.html', {'form': form})
