@@ -14,6 +14,7 @@ This application is a part of [Individual Software Process 01219245](https://cps
 Iterations
 * [Iteration 1 Plan](../../wiki/Iteration%201%20Plan) and [Task Board](../../projects/1)
 * [Iteration 2 Plan](../../wiki/Iteration-2-Plan) and [Task Board](../../projects/2)
+* [Iteration 3 Plan](../../wiki/Iteration%203%20Plan) and [Task Board](../../projects/3)
 
 ## Team
 * [Auttakrit Wongsarawit](https://github.com/markna551) 
