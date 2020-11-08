@@ -26,6 +26,17 @@ class BaseTest(TestCase):
         self.user_invalid_email = {
             'username': 'username',
             'password': 'teslatt',
+           
+        }
+        self.user_no_username = {
+            'username': '',
+            'password': 'teslatt',
+           
+        }
+        self.user_no_password = {
+            'username': 'username',
+            'password': '',
+           
         }
         return super().setUp()
 
@@ -42,10 +53,23 @@ class LoginTest(BaseTest):
         self.assertEqual(response.status_code, 200)
 
     def test_cantlogin_with_no_username(self):
-        response = self.client.post(self.login_url, {'password': 'passwped', 'username': ''}, format='text/html')
+        response = self.client.post(self.login_url, self.user_no_username, format='text/html')
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Login")
 
     def test_cantlogin_with_no_password(self):
-        response = self.client.post(self.login_url, {'username': 'passwped', 'password': ''}, format='text/html')
+        response = self.client.post(self.login_url, self.user_no_password, format='text/html')
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Login")
 
+    def test_loging_and_logout(self):
+        # Log in
+        self.client.login(username='XXX', password="XXX")
+        url = reverse('login')
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.client.logout()
+        url = reverse('blog:blog-index')
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+ 
