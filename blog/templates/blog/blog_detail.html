@@ -3,20 +3,20 @@
 {% block title %}
     <h1>{{ post.get_topic }}</h1>
     <div class="row" style="margin-left: 20px;">
-        <img src="{{ post.auther_image }}" width="20px" height="20px" class="img-circle">
-        <a href="{% url 'profile' post.user %}">{{ post.user }}</a>
+        <img src="{{ post.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
+        <a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a>
     </div>
 {% endblock %}
 
 {% block content %}
-    <p>{{ post.get_content }}</p>
+    <p style="font-size: x-large;">{{ post.get_content }}</p>
     <div class="border-top pt-3" style="margin-bottom: 30px;">
         <small class="text-muted">Last edited {{ post.get_pubdate }}</small>
     </div>
 
     <form method="post">
         {% csrf_token %}
-        <div class="container" style="width: 60%;margin-left: 15px;">
+        <div class="container" style="width: 100%;margin-left: 0px;">
             <div class="col-md-6">
                 <textarea class="form-control" rows="1" name="comment text" placeholder="reply something.."></textarea>
             </div>
@@ -26,10 +26,16 @@
         </div>
     </form>
 
-    {% for comment in post.get_all_comment %}
+    {% for comment in comments %}
         <div class="container p-3 my-3 border" style="margin-top: 15px;margin-left: 10px;border-radius: 10px;background: rgb(224, 224, 224);max-width: 70%;max-height: 20%;">
-            <p>{{ comment.get_text }}</p>
+            <div class="row" style="margin-left: 0;margin-top: 5px;margin-bottom: 5px;">
+                <img src="{{ comment.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
+                <a href="{% url 'profile' comment.author.username %}">{{ comment.author.username }}</a>
+            </div>
+            <hr style="margin-top: 10px;">
+            <p style="margin-top: -10px;">{{ comment.content }}</p>
         </div>
+        <hr style="margin-top: 10px;">
     {% endfor %}
 
 {% endblock %}
