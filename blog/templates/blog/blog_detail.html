@@ -3,8 +3,8 @@
 {% block title %}
     <h1>{{ post.get_topic }}</h1>
     <div class="row" style="margin-left: 20px;">
-        <img src="{{ post.auther_image }}" width="20px" height="20px" class="img-circle">
-        <a href="{% url 'profile' post.user %}">{{ post.user }}</a>
+        <img src="{{ post.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
+        <a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a>
     </div>
 {% endblock %}
 

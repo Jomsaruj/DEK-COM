@@ -5,8 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
 def blog(request):
-    most_recent_post = {"most_recent_post": Post.objects.filter(pub_date__lte=timezone.now())}
-    print(most_recent_post)
+    most_recent_post = {'most_recent_post': Post.objects.all()}
     return render(request, 'blog/blog_index.html', most_recent_post)
 
 def go_to_blog(request):

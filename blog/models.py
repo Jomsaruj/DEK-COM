@@ -2,15 +2,11 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-
 class Post(models.Model):
-    # post_owner = get_user()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     post_topic = models.CharField(max_length=100)
     post_content = models.CharField(max_length=200)
     pub_date = models.DateTimeField(default=timezone.now())
-    user = models.CharField(max_length=20)
-    auther_image = models.ImageField()
-    post_like = 0
 
     def get_topic(self):
         return self.post_topic
@@ -20,9 +16,6 @@ class Post(models.Model):
 
     def has_content(self):
         return not len(self.post_content) == 0
-
-    def get_auther(self):
-        return self.user
 
     def get_pubdate(self):
         return self.pub_date

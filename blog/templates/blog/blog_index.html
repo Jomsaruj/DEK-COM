@@ -39,8 +39,8 @@
                     </div>
                     <div class="col-xs-4"></div>
                     <div class="col-xs-4-right" style="margin-right: 0px;">
-                        <img src="{{ post.auther_image }}" width="20px" height="20px" class="img-circle">
-                        <a href="{% url 'profile' post.user %}">{{ post.user }}</a>
+                        <img src="{{ post.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
+                        <a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a>
                     </div>
                 </div>
                 <small class="text-right" style="margin-left: 67%;">{{ post.pub_date }}</small>
