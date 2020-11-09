@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Jomsaruj/DEK-COM.svg?branch=unittest_and_travis)](https://travis-ci.com/github/Jomsaruj/DEK-COM)
+[![codecov](https://codecov.io/gh/Jomsaruj/DEK-COM/branch/unittest_and_travis/graph/badge.svg?token=KQQE46PTX7)](https://codecov.io/gh/Jomsaruj/DEK-COM)
 # DEK-COM
 [![Build Status](https://travis-ci.com/Jomsaruj/DEK-COM.svg?branch=unittest_and_travis)](https://travis-ci.com/github/Jomsaruj/DEK-COM)
 [![codecov](https://codecov.io/gh/Jomsaruj/DEK-COM/branch/unittest_and_travis/graph/badge.svg?token=KQQE46PTX7)](https://codecov.io/gh/Jomsaruj/DEK-COM)
