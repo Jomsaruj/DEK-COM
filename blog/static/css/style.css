@@ -11,7 +11,7 @@
 }
 .create-post-box:hover {
     font-size: xx-large;
-    background: rgb(200, 200, 200);
+    background: rgb(0, 200, 157);
 }
 .post-box {
     word-break: break-all;
