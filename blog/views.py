@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect,reverse
 from django.views import generic
+from django.contrib import messages
 from .models import Post, Comment, SubComment
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -31,6 +32,12 @@ def edit_blog(request, post_id):
         post.save()
         return redirect(reverse('blog:blog-detail', args=[post.id]))
     return render(request, 'blog/edit_blog.html', {'post': post})
+
+def delete_blog(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.delete()
+    messages.warning(request, f'Post deleted!!')
+    return redirect(reverse('blog:blog-index'))
 
 def blog_detail(request, post_id):
     post = Post.objects.get(pk=post_id)

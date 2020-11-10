@@ -17,7 +17,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
               <div><a class="dropdown-item" href="{% url 'blog:edit-blog' post.id %}">edit post</a></div>
-              <div><a class="dropdown-item" href="#" style="color: red;">delete post</a></div>
+              <div><a class="dropdown-item" href="{% url 'blog:delete-blog' post.id %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
             </div>
           </div>
         {% endif %}
@@ -25,7 +25,7 @@
 {% endblock %}
 
 {% block content %}
-    <p style="font-size: x-large;">{{ post.get_content }}</p>
+    <p style="font-size: x-large;word-break: break-all;">{{ post.get_content }}</p>
     <div class="border-top pt-3" style="margin-bottom: 30px;">
         <small class="text-muted">Last edited {{ post.get_pubdate }}</small>
     </div>
