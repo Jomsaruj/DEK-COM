@@ -8,17 +8,23 @@
 {% block content %}
 
     <div class="create-post-box" onclick="location.href='create-blog'">
-       Create post
+       <div class="color-box">
+            Create post
+       </div>
     </div>
 
     {% for post in most_recent_post %}
-        <div class="post-box">
+    <div class="post-box">
+        <div class="post-stat">
+
+        </div>
+        <div class="post-right">
             <div class="post-topic">
                 <div>
                     <h1 style="font-size: x-large;"><a href="{% url 'blog:blog-detail' post.id %}">{{ post.get_topic|truncatechars:30 }}</a></h1>
                 </div>
             </div>
-
+    
             {% if post.has_content %}
                 <div class="post-content">
                     <p>{{ post.get_content|truncatechars:120 }}</p>
@@ -40,7 +46,8 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
+    </div>
+    {% endfor %}
 {% endblock %}
 
 <script>

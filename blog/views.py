@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect,reverse
 from django.views import generic
-from .models import Post, Comment
+from .models import Post, Comment, SubComment
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from .models.tag import Tag
 
 def blog(request):
     most_recent_post = {'most_recent_post': Post.objects.all()}
@@ -25,6 +26,13 @@ def blog_detail(request, post_id):
     comments = Comment.objects.filter(post=post).order_by('-like')
     if request.method == 'POST':
         content = request.POST['comment text']
-        Comment.objects.create(content=content, post=post, author = request.user)
-        return render(request, 'blog/blog_detail.html', {'post': post, 'comments': comments})
+        Comment.objects.create(content=content, post=post, author = request.user, tag=Tag.get_new_tag())
     return render(request, 'blog/blog_detail.html', {'post': post, 'comments': comments})
+
+def create_subcomment(request, comment_tag):
+    comment = Comment.objects.get(tag=comment_tag)
+    post = comment.post
+    if request.method == 'POST':
+        content = request.POST['subcomment text']
+        SubComment.objects.create(content=content, comment_tag=comment_tag, author=request.user)
+    return redirect(reverse('blog:blog-detail', args=[post.id]))

@@ -27,13 +27,29 @@
     </form>
 
     {% for comment in comments %}
-        <div class="container p-3 my-3 border" style="margin-top: 15px;margin-left: 10px;border-radius: 10px;background: rgb(224, 224, 224);max-width: 70%;max-height: 20%;">
+        <div class="comment-box">
             <div class="row" style="margin-left: 0;margin-top: 5px;margin-bottom: 5px;">
                 <img src="{{ comment.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
                 <a href="{% url 'profile' comment.author.username %}">{{ comment.author.username }}</a>
             </div>
-            <hr style="margin-top: 10px;">
-            <p style="margin-top: -10px;">{{ comment.content }}</p>
+            <p style="margin-top: 5px;">{{ comment.content }}</p>
+
+            <form method="post" action="{% url 'blog:create-subcomment' comment.tag %}">
+                {% csrf_token %}
+                <div class="container" style="width: 100%;margin-left: 0px;">
+                    <div class="col-md-6">
+                        <textarea class="form-control" rows="1" name="subcomment text" placeholder="reply something.."></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit">Reply</button>
+                    </div>
+                </div>
+            </form>
+            <div class="subcomment-box">
+                {% for sub in comment.sub_comment %}
+                    <small style="margin-top: 2px; width: 100%;">{{ sub.content }}</small>
+                {% endfor %}
+            </div>
         </div>
         <hr style="margin-top: 10px;">
     {% endfor %}

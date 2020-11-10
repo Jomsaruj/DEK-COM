@@ -1,0 +1,107 @@
+.page-header {
+    width: 90%;
+}
+
+.page-content {
+    margin-left: 5%;
+    width: 80%;
+}
+
+/* Post part */
+.create-post-box {
+    margin-bottom:20px;
+    border-radius: 10px;
+    background: rgb(224, 224, 224);
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-content: space-between;
+    font-size: large;
+    transition: 0.3s;
+}
+.create-post-box > .color-box {
+    margin: auto;
+}
+.create-post-box:hover > .color-box{
+    font-size: xx-large;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: rgb(0, 200, 157);
+}
+.color-box {
+    width: 100px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgb(224, 224, 224);
+    text-align: center;
+    transition: 0.2s;
+}
+
+.post-box {
+    margin-bottom: 15px;
+    border-radius: 10px;
+    background: rgb(224, 224, 224);
+    width: 100%;
+    min-height: 20%;
+    max-height: 30%;
+    display: flex;
+    flex-direction: row;
+    transition: 0.3s;
+}
+
+.post-stat {
+    width: 10%;
+    background-color: rgb(224, 224, 224);
+}
+
+.post-right {
+    width: 90%;
+}
+
+.post-topic {
+    background: rgb(197, 197, 197);
+    width: 100%;
+    height: 65px;
+    padding-left: 10px;
+    padding-top: 5px;
+    align-items: flex-start;
+    transition: 0.3s;
+}
+.post-topic:hover {
+    background: rgb(180, 180, 180);
+}
+
+.post-content {
+    word-break: break-all;
+    max-width: 90%;
+    max-height: 25%;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.post-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-author {
+    padding: 2px;
+    margin-right: 5px;
+    justify-content: space-between;
+}
+
+.comment-box {
+    padding: 2px;
+    padding-left: 10px;
+    margin-top: 15px;
+    margin-left: 10px;
+    background: rgb(240, 240, 240);
+    max-width: 70%;
+}
+
+.subcomment-box {
+    background: rgb(235, 235, 235);
+    display: flex;
+    flex-direction: column;
+}
