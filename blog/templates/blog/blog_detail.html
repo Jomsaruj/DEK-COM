@@ -10,17 +10,17 @@
             </div>
         </div>
 
-        {% if post.author == request.user %}
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              . . .
+                . . .
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
-              <div><a class="dropdown-item" href="{% url 'blog:edit-blog' post.id %}">edit post</a></div>
-              <div><a class="dropdown-item" href="{% url 'blog:delete-blog' post.id %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
+                {% if post.author == request.user %}
+                <div><a class="dropdown-item" href="{% url 'blog:edit-blog' post.id %}">edit post</a></div>
+                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' post.id %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
+                {% endif %}
             </div>
           </div>
-        {% endif %}
     </div>
 {% endblock %}
 
@@ -54,8 +54,10 @@
                       . . .
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
-                      <div><a class="dropdown-item" href="{% url 'blog:delete-comment' comment.tag %}" style="color: red;" onclick="return confirm('Delete this comment?');">delete comment</a></div>
-                    </div>
+                        {% if post.author == request.user %}
+                            <div><a class="dropdown-item" href="{% url 'blog:delete-comment' comment.tag %}" style="color: red;" onclick="return confirm('Delete this comment?');">delete comment</a></div>
+                        {% endif %}
+                        </div>
                   </div>
             </div>
 

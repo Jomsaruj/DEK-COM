@@ -25,6 +25,8 @@ def create_blog(request):
 def edit_blog(request, post_id):
     post = Post.objects.get(id=post_id)
     comments = Comment.objects.filter(post=post).order_by('-like')
+    if request.user != post.author:
+        return redirect(reverse('blog:blog-detail', args=[post.id]))
     if request.method == 'POST':
         post.post_topic = request.POST['post topic']
         post.post_content = request.POST['post content']
@@ -35,14 +37,18 @@ def edit_blog(request, post_id):
 
 def delete_blog(request, post_id):
     post = Post.objects.get(id=post_id)
-    post.delete()
-    messages.warning(request, f'Post deleted!!')
+    if request.user == post.author:
+        post.delete()
+        messages.warning(request, f'Post deleted!!')
     return redirect(reverse('blog:blog-index'))
 
 def blog_detail(request, post_id):
     post = Post.objects.get(pk=post_id)
     comments = Comment.objects.filter(post=post).order_by('-like')
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            path = request.path
+            return redirect('/login/?next='+path)
         content = request.POST['comment text']
         Comment.objects.create(content=content, post=post, author = request.user, tag=Tag.get_new_tag())
     return render(request, 'blog/blog_detail.html', {'post': post, 'comments': comments})
@@ -50,17 +56,21 @@ def blog_detail(request, post_id):
 def delete_comment(request, comment_tag):
     comment = Comment.objects.get(tag=comment_tag)
     post = comment.post
-    comment.delete()
-    sub_comments = SubComment.objects.filter(comment_tag=comment_tag)
-    for sub in sub_comments:
-        sub.delete()
-    Tag.delete_tag(comment_tag)
+    if request.user == comment.author:
+        comment.delete()
+        sub_comments = SubComment.objects.filter(comment_tag=comment_tag)
+        for sub in sub_comments:
+            sub.delete()
+        Tag.delete_tag(comment_tag)
     return redirect(reverse('blog:blog-detail', args=[post.id]))
 
 def create_subcomment(request, comment_tag):
     comment = Comment.objects.get(tag=comment_tag)
     post = comment.post
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            path = request.path
+            return redirect('/login/?next='+path)
         content = request.POST['subcomment text']
         SubComment.objects.create(content=content, comment_tag=comment_tag, author=request.user)
     return redirect(reverse('blog:blog-detail', args=[post.id]))
