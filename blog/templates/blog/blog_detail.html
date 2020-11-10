@@ -16,8 +16,8 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
                 {% if post.author == request.user %}
-                <div><a class="dropdown-item" href="{% url 'blog:edit-blog' post.id %}">edit post</a></div>
-                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' post.id %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
+                <div><a class="dropdown-item" href="{% url 'blog:edit-blog' post.tag %}">edit post</a></div>
+                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' post.tag %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
                 {% endif %}
             </div>
           </div>
@@ -30,7 +30,7 @@
         <small class="text-muted">Last edited {{ post.get_pubdate }}</small>
     </div>
 
-    <form method="post">
+    <form method="post" action="{% url 'blog:create-comment' post.tag %}">
         {% csrf_token %}
         <div class="container" style="width: 100%;margin-left: 0px;">
             <div class="col-md-6">

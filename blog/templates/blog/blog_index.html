@@ -21,7 +21,7 @@
         <div class="post-right">
             <div class="post-topic">
                 <div>
-                    <h1 style="font-size: x-large;"><a href="{% url 'blog:blog-detail' post.id %}">{{ post.get_topic|truncatechars:30 }}</a></h1>
+                    <h1 style="font-size: x-large;"><a href="{% url 'blog:blog-detail' post.tag %}">{{ post.get_topic|truncatechars:30 }}</a></h1>
                 </div>
             </div>
     
@@ -34,7 +34,7 @@
                 <div class="post-info">
                     <div style="margin-left: 15px;">
                         <small class="text-muted">
-                            <a href="{% url 'blog:blog-detail' post.id %}" style="margin-top: 5px;">write comment..</a>
+                            <a href="{% url 'blog:blog-detail' post.tag %}" style="margin-top: 5px;">write comment..</a>
                         </small>
                     </div>
                     <div class="post-author">

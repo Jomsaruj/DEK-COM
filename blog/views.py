@@ -18,39 +18,47 @@ def create_blog(request):
     if request.method == 'POST':
         topic = request.POST['post topic']
         content = request.POST['post content']
-        Post.objects.create(post_topic=topic, post_content=content, author=request.user)
-        return redirect(reverse('blog:blog-index'))
+        post = Post(post_topic=topic, post_content=content, author=request.user, tag=Tag.get_new_tag())
+        post.save()
+        comments = Comment.objects.filter(post=post).order_by('-like')
+        return redirect(reverse('blog:blog-detail', args=[post.tag]))
     return render(request, 'blog/create_blog.html')
 
-def edit_blog(request, post_id):
-    post = Post.objects.get(id=post_id)
+def edit_blog(request, post_tag):
+    post = Post.objects.get(tag=post_tag)
     comments = Comment.objects.filter(post=post).order_by('-like')
     if request.user != post.author:
-        return redirect(reverse('blog:blog-detail', args=[post.id]))
+        return redirect(reverse('blog:blog-detail', args=[post.tag]))
     if request.method == 'POST':
         post.post_topic = request.POST['post topic']
         post.post_content = request.POST['post content']
         post.pub_date = timezone.now()
         post.save()
-        return redirect(reverse('blog:blog-detail', args=[post.id]))
+        return redirect(reverse('blog:blog-detail', args=[post.tag]))
     return render(request, 'blog/edit_blog.html', {'post': post})
 
-def delete_blog(request, post_id):
-    post = Post.objects.get(id=post_id)
+def delete_blog(request, post_tag):
+    post = Post.objects.get(tag=post_tag)
     if request.user == post.author:
         post.delete()
+        Tag.delete_tag(post_tag)
         messages.warning(request, f'Post deleted!!')
     return redirect(reverse('blog:blog-index'))
 
-def blog_detail(request, post_id):
-    post = Post.objects.get(pk=post_id)
+def blog_detail(request, post_tag):
+    post = Post.objects.get(tag=post_tag)
     comments = Comment.objects.filter(post=post).order_by('-like')
+    return render(request, 'blog/blog_detail.html', {'post': post, 'comments': comments})
+
+def create_comment(request, post_tag):
+    post = Post.objects.get(tag=post_tag)
     if request.method == 'POST':
         if not request.user.is_authenticated:
             path = request.path
             return redirect('/login/?next='+path)
         content = request.POST['comment text']
         Comment.objects.create(content=content, post=post, author = request.user, tag=Tag.get_new_tag())
+    comments = Comment.objects.filter(post=post).order_by('-like')
     return render(request, 'blog/blog_detail.html', {'post': post, 'comments': comments})
 
 def delete_comment(request, comment_tag):
@@ -62,7 +70,7 @@ def delete_comment(request, comment_tag):
         for sub in sub_comments:
             sub.delete()
         Tag.delete_tag(comment_tag)
-    return redirect(reverse('blog:blog-detail', args=[post.id]))
+    return redirect(reverse('blog:blog-detail', args=[post.tag]))
 
 def create_subcomment(request, comment_tag):
     comment = Comment.objects.get(tag=comment_tag)
@@ -73,4 +81,4 @@ def create_subcomment(request, comment_tag):
             return redirect('/login/?next='+path)
         content = request.POST['subcomment text']
         SubComment.objects.create(content=content, comment_tag=comment_tag, author=request.user)
-    return redirect(reverse('blog:blog-detail', args=[post.id]))
+    return redirect(reverse('blog:blog-detail', args=[post.tag]))
