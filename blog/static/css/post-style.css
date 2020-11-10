@@ -99,16 +99,26 @@
     margin-left: 10px;
     background: rgb(240, 240, 240);
     max-width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.comment-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .subcomment-box {
+    width: 100%;
     background: rgb(235, 235, 235);
     display: flex;
     flex-direction: column;
 }
 
 .dropdown-toggle {
-    background-color: white;
+    background-color: transparent;
 }
 
 .dropdown-toggle:hover {

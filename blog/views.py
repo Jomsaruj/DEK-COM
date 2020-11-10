@@ -47,6 +47,16 @@ def blog_detail(request, post_id):
         Comment.objects.create(content=content, post=post, author = request.user, tag=Tag.get_new_tag())
     return render(request, 'blog/blog_detail.html', {'post': post, 'comments': comments})
 
+def delete_comment(request, comment_tag):
+    comment = Comment.objects.get(tag=comment_tag)
+    post = comment.post
+    comment.delete()
+    sub_comments = SubComment.objects.filter(comment_tag=comment_tag)
+    for sub in sub_comments:
+        sub.delete()
+    Tag.delete_tag(comment_tag)
+    return redirect(reverse('blog:blog-detail', args=[post.id]))
+
 def create_subcomment(request, comment_tag):
     comment = Comment.objects.get(tag=comment_tag)
     post = comment.post

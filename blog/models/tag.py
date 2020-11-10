@@ -13,6 +13,10 @@ class Tag:
         cls.__all_tag.append(tag)
         return tag
 
+    @classmethod
+    def delete_tag(cls, tag):
+        if tag in cls.__all_tag:
+            cls.__all_tag.remove(tag)
 
 if __name__ == '__main__':
     Tag.get_new_tag('Post')
