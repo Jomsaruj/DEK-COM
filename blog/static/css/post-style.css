@@ -1,13 +1,4 @@
-.page-header {
-    width: 90%;
-}
-
-.page-content {
-    margin-left: 5%;
-    width: 80%;
-}
-
-/* Post part */
+/* Post index part */
 .create-post-box {
     margin-bottom:20px;
     border-radius: 10px;
@@ -91,6 +82,16 @@
     justify-content: space-between;
 }
 
+/* Post detail part */
+.post-detail-topic {
+    width: 100%;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
 .comment-box {
     padding: 2px;
     padding-left: 10px;
@@ -104,4 +105,12 @@
     background: rgb(235, 235, 235);
     display: flex;
     flex-direction: column;
+}
+
+.dropdown-toggle {
+    background-color: white;
+}
+
+.dropdown-toggle:hover {
+    background-color: rgb(235, 235, 235);
 }

@@ -21,6 +21,17 @@ def create_blog(request):
         return redirect(reverse('blog:blog-index'))
     return render(request, 'blog/create_blog.html')
 
+def edit_blog(request, post_id):
+    post = Post.objects.get(id=post_id)
+    comments = Comment.objects.filter(post=post).order_by('-like')
+    if request.method == 'POST':
+        post.post_topic = request.POST['post topic']
+        post.post_content = request.POST['post content']
+        post.pub_date = timezone.now()
+        post.save()
+        return redirect(reverse('blog:blog-detail', args=[post.id]))
+    return render(request, 'blog/edit_blog.html', {'post': post})
+
 def blog_detail(request, post_id):
     post = Post.objects.get(pk=post_id)
     comments = Comment.objects.filter(post=post).order_by('-like')

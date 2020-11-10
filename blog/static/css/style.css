@@ -24,3 +24,11 @@
     background-color: blueviolet;
 }
 
+.page-header {
+    width: 90%;
+}
+
+.page-content {
+    margin-left: 5%;
+    width: 80%;
+}
