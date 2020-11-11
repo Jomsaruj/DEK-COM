@@ -12,4 +12,5 @@ urlpatterns = [
     path('<post_id_code>/crete-comment', views.create_comment, name='create-comment'),
     path('<comment_id_code>/delete-comment', views.delete_comment, name='delete-comment'),
     path('<comment_id_code>/create-subcomment', views.create_subcomment, name='create-subcomment'),
+    path('tag/<tag_name>', views.tag, name='tag'),
 ]

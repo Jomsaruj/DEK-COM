@@ -3,6 +3,10 @@ textarea {
     resize: none;
 }
 
+label {
+    overflow: hidden;
+}
+
 .create-post-box {
     margin-bottom:20px;
     border-radius: 10px;
@@ -139,4 +143,47 @@ textarea {
 
 .dropdown-toggle:hover {
     background-color: rgb(235, 235, 235);
+}
+
+.tags-creater {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tags-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.tag-display {
+    background-color: rgb(224, 224, 224);
+    min-width: 10%;
+    max-width: 20%;
+    border-radius: 5px;
+    padding: 2px;
+    margin-right: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tag-show {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.tag {
+    background-color: rgb(224, 224, 224);
+    border-radius: 5px;
+    min-width: 5%;
+    max-width: 10%;
+    padding: 2px;
+    text-align: center;
+    margin-right: 0.5rem;
 }

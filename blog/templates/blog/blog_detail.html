@@ -32,6 +32,11 @@
 {% block content %}
     <p style="font-size: x-large;word-break: break-all;">{{ post.get_content }}</p>
     <div class="border-top pt-3" style="margin-bottom: 30px;">
+        <div class="tag-show">
+        {% for tag in post.get_tags %}
+            <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`">{{ tag.name }}</div>
+        {% endfor %}
+        </div>
         <small class="text-muted">Last edited {{ post.get_pubdate }}</small>
     </div>
 

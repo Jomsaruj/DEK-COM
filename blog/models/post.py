@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from .tag import Tag
 
 
 class Post(models.Model):
@@ -9,6 +10,7 @@ class Post(models.Model):
     post_content = models.CharField(max_length=200)
     pub_date = models.DateTimeField(default=timezone.now())
     id_code = models.CharField(max_length=6, default='')
+    tags = models.ManyToManyField(Tag)
 
     def get_topic(self):
         return self.post_topic
@@ -24,6 +26,10 @@ class Post(models.Model):
 
     def get_like(self):
         return self.post_like
+
+    @property
+    def get_tags(self):
+        return self.tags.all()
 
     def __str__(self):
         return self.post_topic

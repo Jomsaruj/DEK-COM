@@ -8,11 +8,20 @@
     <form method="post">
         {% csrf_token %}
         <div class="container-fluid" style="padding-bottom: 15px;">
-            <input type="text" name="post topic" placeholder="Post topic"/><br>
+            <textarea class="form-control" rows="1" name="post topic" placeholder="Post topic" style="width: 60%;"></textarea>
         </div>
         <div class="container" style="width: 60%;margin-left: 15px;">
-            <textarea class="form-control" rows="3" name="post content" placeholder="write something!!"></textarea><br>
+            <textarea class="form-control" rows="5" name="post content" placeholder="write something!!"></textarea><br>
         </div>
+
+        <div class="tags-creater" id="tags-creater">
+            <label>tag:</label>
+            <textarea class="form-control" rows="1" id="tag-input" placeholder="tag" style="width: 60%;"></textarea>
+            <button type="button" onclick="add_tag()" style="height: 80%;">add</button>
+        </div>
+        <div class="tags-container" id="tags-container">
+        </div>
+
         <div class="container-fluid" style="padding-top: 5px;padding-bottom: 5px;"></div>
             <button type="submit">Post now!!</button>
         </div>

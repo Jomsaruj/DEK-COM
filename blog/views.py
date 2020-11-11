@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect,reverse
 from django.views import generic
 from django.contrib import messages
-from .models import Post, Comment, SubComment
+from .models import Post, Comment, SubComment, Tag
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .models.id_code import IdCode
+from .models.tag_manager import TagManager
 
 def blog(request):
     most_recent_post = {'most_recent_post': Post.objects.all()}
@@ -19,8 +20,14 @@ def create_blog(request):
         topic = request.POST['post topic']
         content = request.POST['post content']
         post = Post(post_topic=topic, post_content=content, author=request.user, id_code=IdCode.get_new_tag())
-        post.save()
         comments = Comment.objects.filter(post=post).order_by('-like')
+        post.save()
+        for key in request.POST:
+            if "tag" in key:
+                tag = request.POST[key]
+                new_tag = TagManager.get_tag(tag)
+                post.tags.add(new_tag)
+                post.save()
         return redirect(reverse('blog:blog-detail', args=[post.id_code]))
     return render(request, 'blog/create_blog.html')
 
@@ -82,3 +89,8 @@ def create_subcomment(request, comment_id_code):
         content = request.POST['subcomment text']
         SubComment.objects.create(content=content, comment_id_code=comment_id_code, author=request.user)
     return redirect(reverse('blog:blog-detail', args=[post.id_code]))
+
+def tag(request, tag_name):
+    tag = Tag.objects.get(name=tag_name)
+    all_posts = Post.objects.filter(tags__in=[tag])
+    return render(request, 'blog/blog_catagory.html', {'title': tag_name + " blog", 'most_recent_post': all_posts})
