@@ -1,5 +1,10 @@
 {% extends "portfolio/base.html" %}
-
+<!doctype html>
+<html>
+    <head>
+        
+    </head>
+<body>
 {% block title %}
     <div class="post-detail-topic">
         <div>
@@ -16,8 +21,8 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
                 {% if post.author == request.user %}
-                <div><a class="dropdown-item" href="{% url 'blog:edit-blog' post.tag %}">edit post</a></div>
-                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' post.tag %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
+                <div><a class="dropdown-item" href="{% url 'blog:edit-blog' post.id_code %}">edit post</a></div>
+                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' post.id_code %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
                 {% endif %}
             </div>
           </div>
@@ -30,17 +35,21 @@
         <small class="text-muted">Last edited {{ post.get_pubdate }}</small>
     </div>
 
-    <form method="post" action="{% url 'blog:create-comment' post.tag %}">
-        {% csrf_token %}
-        <div class="container" style="width: 100%;margin-left: 0px;">
-            <div class="col-md-6">
-                <textarea class="form-control" rows="1" name="comment text" placeholder="reply something.."></textarea>
+    <div><a id="show-comment-reply" onclick="show_comment_reply()">write comment..</a></div>
+
+    <div class="comment-reply" id="comment-reply" style="display: none;">
+        <form method="post" action="{% url 'blog:create-comment' post.id_code %}">
+            {% csrf_token %}
+            <div class="container" style="width: 100%;margin-left: 0px;">
+                <div class="col-md-6">
+                    <textarea class="form-control" rows="1" name="comment text" placeholder="reply something.."></textarea>
+                </div>
+                <div class="col-md-6">
+                    <button type="submit">Reply</button>
+                </div>
             </div>
-            <div class="col-md-6">
-                <button type="submit">Reply</button>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 
     {% for comment in comments %}
         <div class="comment-box">
@@ -55,7 +64,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
                         {% if post.author == request.user %}
-                            <div><a class="dropdown-item" href="{% url 'blog:delete-comment' comment.tag %}" style="color: red;" onclick="return confirm('Delete this comment?');">delete comment</a></div>
+                            <div><a class="dropdown-item" href="{% url 'blog:delete-comment' comment.id_code %}" style="color: red;" onclick="return confirm('Delete this comment?');">delete comment</a></div>
                         {% endif %}
                         </div>
                   </div>
@@ -68,19 +77,25 @@
                     <small style="margin-top: 2px;margin-left: 5%; width: 100%;">{{ sub.content }}</small>
                 {% endfor %}
             </div>
-            <form method="post" action="{% url 'blog:create-subcomment' comment.tag %}">
+
+            <div style="margin-left: 5%;"><a id="show-subcomment-reply" onclick="show_subcomment_reply()">write comment..</a></div>
+            <form method="post" action="{% url 'blog:create-subcomment' comment.id_code %}">
                 {% csrf_token %}
-                <div class="container" style="width: 100%;margin-left: 0px;">
-                    <div class="col-md-6">
-                        <textarea class="form-control" rows="1" name="subcomment text" placeholder="reply something.."></textarea>
-                    </div>
-                    <div class="col-md-6">
-                        <button type="submit">Reply</button>
+                <div class="subcomment-reply" id="subcomment-reply" style="display: none;">
+                    <div>
+                        <div class="column">
+                            <textarea class="form-control" rows="1" name="subcomment text" placeholder="reply something.." style="width: 50%;"></textarea>
+                        </div>
+                        <div class="column">
+                            <button type="submit">Reply</button>
+                        </div>
                     </div>
                 </div>
             </form>
+
         </div>
         <hr style="margin-top: 10px;">
     {% endfor %}
 
 {% endblock %}
+</body>

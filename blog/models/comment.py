@@ -10,7 +10,7 @@ class Comment(models.Model):
     content = models.CharField(max_length=200)
     date = models.DateTimeField(default = timezone.now())
     like = models.IntegerField(default=0)
-    tag = models.CharField(max_length=6, default='')
+    id_code = models.CharField(max_length=6, default='')
 
     def set_text(self, new_text: str):
         self.content = new_text
@@ -20,7 +20,7 @@ class Comment(models.Model):
 
     @property
     def sub_comment(self):
-        return SubComment.objects.filter(comment_tag=self.tag)
+        return SubComment.objects.filter(comment_id_code=self.id_code)
 
     def __str__(self):
         return self.content

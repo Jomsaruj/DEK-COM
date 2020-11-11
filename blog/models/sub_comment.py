@@ -7,7 +7,7 @@ class SubComment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=200)
     date = models.DateTimeField(default = timezone.now())
-    comment_tag = models.CharField(max_length=6, default='')
+    comment_id_code = models.CharField(max_length=6, default='')
 
     def set_text(self, new_text: str):
         self.content = new_text

@@ -8,7 +8,7 @@ class Post(models.Model):
     post_topic = models.CharField(max_length=100)
     post_content = models.CharField(max_length=200)
     pub_date = models.DateTimeField(default=timezone.now())
-    tag = models.CharField(max_length=6, default='')
+    id_code = models.CharField(max_length=6, default='')
 
     def get_topic(self):
         return self.post_topic

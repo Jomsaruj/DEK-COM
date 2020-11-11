@@ -1,4 +1,8 @@
 /* Post index part */
+textarea {
+    resize: none;
+}
+
 .create-post-box {
     margin-bottom:20px;
     border-radius: 10px;
@@ -108,6 +112,18 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.comment-reply {
+    width: 100%;
+    margin-left: 0px;
+}
+
+.subcomment-reply {
+    background-color: red;
+    width: 100%;
+    display: inline;
+    justify-content: end;
 }
 
 .subcomment-box {
