@@ -20,4 +20,4 @@ class IdCodeManager:
     @classmethod
     def delete_id(cls, code):
         id_code = IdCode.objects.filter(code=code)
-        id.delete()
+        id_code.delete()
