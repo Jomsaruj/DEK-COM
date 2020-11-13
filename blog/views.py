@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect,reverse
 from django.views import generic
 from django.contrib import messages
-from .models import Post, Comment, SubComment, Tag
+from .models import Post, Comment, SubComment, Tag, IdCode
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .models.id_code import IdCode
 from .models.tag_manager import TagManager
+from .models.id_code_manager import IdCodeManager
 
 def blog(request):
     most_recent_post = {'most_recent_post': Post.objects.all()}
@@ -19,7 +20,7 @@ def create_blog(request):
     if request.method == 'POST':
         topic = request.POST['post topic']
         content = request.POST['post content']
-        post = Post(post_topic=topic, post_content=content, author=request.user, id_code=IdCode.get_new_tag())
+        post = Post(post_topic=topic, post_content=content, author=request.user, id_code=IdCodeManager.get_new_id())
         comments = Comment.objects.filter(post=post).order_by('-like')
         post.save()
         for key in request.POST:
@@ -48,7 +49,7 @@ def delete_blog(request, post_id_code):
     post = Post.objects.get(id_code=post_id_code)
     if request.user == post.author:
         post.delete()
-        IdCode.delete_tag(post_id_code)
+        IdCodeManager.delete_id(post_id_code)
         messages.warning(request, f'Post deleted!!')
     return redirect(reverse('blog:blog-index'))
 
@@ -64,8 +65,8 @@ def create_comment(request, post_id_code):
             path = request.path
             return redirect('/login/?next='+path)
         content = request.POST['comment text']
-        Comment.objects.create(content=content, post=post, author = request.user, id_code=IdCode.get_new_tag())
-    comments = Comment.objects.filter(post=post).order_by('-like')
+        Comment.objects.create(content=content, post=post, author = request.user, id_code=IdCode.get_new_id())
+    comments = Comment.objects.filter(post=post).order_by('-like')[:10]
     return render(request, 'blog/blog_detail.html', {'post': post, 'comments': comments})
 
 def delete_comment(request, comment_id_code):
@@ -76,7 +77,7 @@ def delete_comment(request, comment_id_code):
         sub_comments = SubComment.objects.filter(comment_id_post=comment_id_code)
         for sub in sub_comments:
             sub.delete()
-        IdCode.delete_tag(comment_id_code)
+        IdCodeManager.delete_id(comment_id_code)
     return redirect(reverse('blog:blog-detail', args=[post.id_code]))
 
 def create_subcomment(request, comment_id_code):
