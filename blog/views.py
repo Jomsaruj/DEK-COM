@@ -51,11 +51,12 @@ def edit_blog(request, post_id_code):
     return render(request, 'blog/edit_blog.html', {'post': post})
 
 def delete_blog(request, post_id_code):
-    post = Post.objects.get(id_code=post_id_code)
+    post = Post.objects.filter(id_code=post_id_code).first()
     if request.user == post.author:
-        tags = post.tags.all()
+        comments = Comment.objects.filter(post=post)
+        for comment in comments:
+            comment.delete()
         post.delete()
-        IdCodeManager.delete_id(post_id_code)
         messages.warning(request, f'Post deleted!!')
     return redirect(reverse('blog:blog-index'))
 
@@ -71,7 +72,7 @@ def create_comment(request, post_id_code):
             path = request.path
             return redirect('/login/?next='+path)
         content = request.POST['comment text']
-        Comment.objects.create(content=content, post=post, author = request.user, id_code=IdCode.get_new_id())
+        Comment.objects.create(content=content, post=post, author = request.user, id_code=IdCodeManager.get_new_id())
     comments = Comment.objects.filter(post=post).order_by('-like')[:10]
     return render(request, 'blog/blog_detail.html', {'post': post, 'comments': comments})
 
@@ -80,10 +81,9 @@ def delete_comment(request, comment_id_code):
     post = comment.post
     if request.user == comment.author:
         comment.delete()
-        sub_comments = SubComment.objects.filter(comment_id_post=comment_id_code)
+        sub_comments = SubComment.objects.filter(comment_id_code=comment_id_code)
         for sub in sub_comments:
             sub.delete()
-        IdCodeManager.delete_id(comment_id_code)
     return redirect(reverse('blog:blog-detail', args=[post.id_code]))
 
 def create_subcomment(request, comment_id_code):

@@ -17,7 +17,3 @@ class IdCodeManager:
         IdCode.objects.create(code=code)
         return code
 
-    @classmethod
-    def delete_id(cls, code):
-        id_code = IdCode.objects.filter(code=code)
-        id_code.delete()
