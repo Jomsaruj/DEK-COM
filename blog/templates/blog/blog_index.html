@@ -50,15 +50,16 @@
     {% endfor %}
 {% endblock %}
 
-<script>
-function writeComment() {
-    var section = getElementById("comment section");
-    if (section.style.display === "none") {
-    section.style.display = "block";
-    } else {
-        section.style.display = "none";
-    }
-}
-</script>
+{% block extra %}
+    <h3>Popular tags</h3>
+    <div class="row" style="margin-left: 5px;">
+        {% for tag in popular_tag %}
+        <div style="margin-bottom: 4px;width: 90%;display: flex;flex-direction: row;">
+            <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`" style="width: 50%;">{{ tag.name }}</div>
+            <div>{{ tag.post_num }} post</div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
 
 </html>

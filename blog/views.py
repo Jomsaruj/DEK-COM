@@ -9,8 +9,10 @@ from .models.tag_manager import TagManager
 from .models.id_code_manager import IdCodeManager
 
 def blog(request):
-    most_recent_post = {'most_recent_post': Post.objects.all()}
-    return render(request, 'blog/blog_index.html', most_recent_post)
+    most_recent_post = Post.objects.all()
+    all_tag = Tag.objects.all()[:8]
+    popular_tag = []
+    return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag})
 
 def go_to_blog(request):
     return redirect('blog/')
@@ -47,8 +49,11 @@ def edit_blog(request, post_id_code):
 
 def delete_blog(request, post_id_code):
     post = Post.objects.get(id_code=post_id_code)
+    tags = post.tags.through.objects.all()
     if request.user == post.author:
         post.delete()
+        for tag in tags:
+            tag.post_delete_tag()
         IdCodeManager.delete_id(post_id_code)
         messages.warning(request, f'Post deleted!!')
     return redirect(reverse('blog:blog-index'))

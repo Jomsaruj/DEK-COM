@@ -21,6 +21,8 @@
 .nav-right {
     width: 25rem;
     height: 50vh;
+    margin-top: 10%;
+    padding-left: 2rem;
     background-color: rgb(240, 240, 240);
 }
 

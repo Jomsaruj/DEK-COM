@@ -182,8 +182,12 @@ label {
     background-color: rgb(224, 224, 224);
     border-radius: 5px;
     min-width: 5%;
-    max-width: 10%;
+    max-width: 100%;
     padding: 2px;
     text-align: center;
     margin-right: 0.5rem;
 }
+
+.tag:hover {
+    background-color: rgb(210, 210, 210);
+} 
