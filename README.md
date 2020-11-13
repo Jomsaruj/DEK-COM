@@ -11,6 +11,10 @@ This application is a part of [Individual Software Process 01219245](https://cps
 * [Vision Statement](../../wiki/Vision%20of%20DEK%20COM%20application)
 * [Requirements](../../wiki/Requirements)
 
+Code review
+* [Checklist](../../wiki/Code%20Review%20Checklist)
+* [Script](../../wiki/Code%20Review%20Script)
+
 Iterations
 * [Iteration 1 Plan](../../wiki/Iteration%201%20Plan) and [Task Board](../../projects/1)
 * [Iteration 2 Plan](../../wiki/Iteration-2-Plan) and [Task Board](../../projects/2)
