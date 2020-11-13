@@ -10,8 +10,9 @@ from .models.id_code_manager import IdCodeManager
 
 def blog(request):
     most_recent_post = Post.objects.all()
-    all_tag = Tag.objects.all()[:8]
-    popular_tag = []
+    all_tag = Tag.objects.all().order_by('-post_num')
+    for tag in all_tag:
+        TagManager.update_tag_num(tag.name)
     return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag})
 
 def go_to_blog(request):
@@ -28,9 +29,11 @@ def create_blog(request):
         for key in request.POST:
             if "tag" in key:
                 tag = request.POST[key]
-                new_tag = TagManager.get_tag(tag)
-                post.tags.add(new_tag)
-                post.save()
+                if tag.strip():  # If tag are empty string just ignore it.
+                    new_tag = TagManager.get_tag(tag)
+                    post.tags.add(new_tag)
+                    post.save()
+                    TagManager.update_tag_num(new_tag.name)
         return redirect(reverse('blog:blog-detail', args=[post.id_code]))
     return render(request, 'blog/create_blog.html')
 
@@ -49,11 +52,9 @@ def edit_blog(request, post_id_code):
 
 def delete_blog(request, post_id_code):
     post = Post.objects.get(id_code=post_id_code)
-    tags = post.tags.through.objects.all()
     if request.user == post.author:
+        tags = post.tags.all()
         post.delete()
-        for tag in tags:
-            tag.post_delete_tag()
         IdCodeManager.delete_id(post_id_code)
         messages.warning(request, f'Post deleted!!')
     return redirect(reverse('blog:blog-index'))
