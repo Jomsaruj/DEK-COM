@@ -9,11 +9,15 @@ from .models.tag_manager import TagManager
 from .models.id_code_manager import IdCodeManager
 
 def blog(request):
-    most_recent_post = Post.objects.all()
     all_tag = Tag.objects.all().order_by('-post_num')
     for tag in all_tag:
         TagManager.update_tag_num(tag.name)
-    return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag})
+    selected_tags = Tag.objects.filter(active_status=True)
+    if Tag.objects.filter(active_status=True).count() > 0:
+        most_recent_post = Post.objects.filter(tags__in=selected_tags)
+    else:
+        most_recent_post = Post.objects.all()
+    return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag, 'selected_tags': selected_tags})
 
 def go_to_blog(request):
     return redirect('blog/')
@@ -99,5 +103,7 @@ def create_subcomment(request, comment_id_code):
 
 def tag(request, tag_name):
     tag = Tag.objects.get(name=tag_name)
-    all_posts = Post.objects.filter(tags__in=[tag])
-    return render(request, 'blog/blog_catagory.html', {'title': tag_name + " blog", 'most_recent_post': all_posts})
+    tag.active_status = not tag.active_status
+    tag.save()
+    return redirect(reverse('blog:blog-index'))
+    

@@ -40,21 +40,19 @@
         <small class="text-muted">Last edited {{ post.get_pubdate }}</small>
     </div>
 
-    <div>
-        <div><a id="show-comment-reply" onclick="show_comment_reply()">write comment..</a></div>
-        <div class="comment-reply" id="comment-reply" style="display: none;">
-            <form method="post" action="{% url 'blog:create-comment' post.id_code %}">
-                {% csrf_token %}
-                <div class="container" style="width: 100%;margin-left: 0px;">
-                    <div class="col-md-6">
-                        <textarea class="form-control" rows="1" name="comment text" placeholder="reply something.."></textarea>
-                    </div>
-                    <div class="col-md-6">
-                        <button type="submit">Reply</button>
-                    </div>
+    <div><a class="show-comment-reply" id="show-comment-reply" onclick="show_comment_reply()">write comment..</a></div>
+    <div class="comment-reply" id="comment-reply" style="display: none;">
+        <form method="post" action="{% url 'blog:create-comment' post.id_code %}">
+            {% csrf_token %}
+            <div class="container" style="width: 100%;margin-left: 0px;">
+                <div class="col-md-6">
+                    <textarea class="form-control" rows="1" name="comment text" placeholder="reply something.."></textarea>
                 </div>
-            </form>
-        </div>
+                <div class="col-md-6">
+                    <button type="submit">Reply</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     {% for comment in comments %}
@@ -83,21 +81,26 @@
                     <small style="margin-top: 2px;margin-left: 5%; width: 100%;">{{ sub.content }}</small>
                 {% endfor %}
             </div>
-
-            <div style="margin-left: 5%;"><a id="show-subcomment-reply" onclick="show_subcomment_reply()">write comment..</a></div>
-            <form method="post" action="{% url 'blog:create-subcomment' comment.id_code %}">
-                {% csrf_token %}
-                <div class="subcomment-reply" id="subcomment-reply" style="display: none;">
-                    <div>
-                        <div class="column">
-                            <textarea class="form-control" rows="1" name="subcomment text" placeholder="reply something.." style="width: 50%;"></textarea>
-                        </div>
-                        <div class="column">
-                            <button type="submit">Reply</button>
-                        </div>
-                    </div>
+            
+            <div>
+                <div style="margin-left: 5%;">
+                    <a id="show-subcomment-reply" onclick="show_subcomment_reply(this)">reply comment..</a>
                 </div>
-            </form>
+                <div class="subcomment-reply" id="subcomment-reply" style="display: none;">
+                    <form method="post" action="{% url 'blog:create-subcomment' comment.id_code %}">
+                        {% csrf_token %}
+                        <div>
+                            <div class="column">
+                                <textarea class="form-control" rows="1" name="subcomment text" placeholder="reply something.." style="width: 50%;"></textarea>
+                            </div>
+                            <div class="column">
+                                <button type="submit">Reply</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div></div>
+            </div>
 
         </div>
         <hr style="margin-top: 10px;">
