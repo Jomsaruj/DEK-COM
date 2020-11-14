@@ -41,6 +41,7 @@
                     <div style="margin-left: 15px;">
                         <small class="text-muted">
                             <a href="{% url 'blog:blog-detail' post.id_code %}" style="margin-top: 5px;">write comment..</a>
+                            <a onclick="location.href=`{% url 'blog:like' %}`">like</a>
                         </small>
                     </div>
                     <div class="post-author">

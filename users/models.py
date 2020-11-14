@@ -7,6 +7,9 @@ class Coin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     total_coin = models.IntegerField(default=0)
 
+    def plus_coin(self):
+        self.total_coin += 1
+
     def get_total_coin(self):
         return self.total_coin
 
