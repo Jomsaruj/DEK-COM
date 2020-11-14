@@ -108,8 +108,9 @@ def tag(request, tag_name):
     tag.save()
     return redirect(reverse('blog:blog-index'))
 
-def like(request):
-    user = User.objects.filter(username=request.user).first()
+def like(request, id):
+    post = Post.objects.get(id_code=id)
+    user = post.author
     user.coin.plus_coin()
     user.coin.save()
     return redirect(reverse('blog:blog-index'))

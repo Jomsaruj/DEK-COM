@@ -13,5 +13,5 @@ urlpatterns = [
     path('<comment_id_code>/delete-comment', views.delete_comment, name='delete-comment'),
     path('<comment_id_code>/create-subcomment', views.create_subcomment, name='create-subcomment'),
     path('tag/<tag_name>', views.tag, name='tag'),
-    path('like',views.like, name='like')
+    path('like/<id>',views.like, name='like')
 ]
