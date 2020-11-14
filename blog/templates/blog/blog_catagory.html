@@ -2,16 +2,10 @@
 <html>
 
 {% block title %}
-<h1>All blog</h1>
-<div class="tag-show">
-    {% for tag in selected_tags %}
-        <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`">{{ tag.name }}</div>
-    {% endfor %}
-</div>
+<h1>{{ title }}</h1>
 {% endblock %}
 
 {% block content %}
-
 
     <div class="create-post-box" onclick="location.href='create-blog'">
        <div class="color-box">
@@ -56,20 +50,15 @@
     {% endfor %}
 {% endblock %}
 
-{% block extra %}
-    <h3>Popular tags</h3>
-    <div class="row" style="margin-left: 5px;">
-        {% for tag in popular_tag %}
-        <div style="margin-bottom: 4px;width: 90%;display: flex;flex-direction: row;">
-            {% if tag.active_status %}
-                <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`" style="width: 50%;background-color: rgb(200,200,200);">{{ tag.name }}</div>
-            {% else %}
-                <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`" style="width: 50%;">{{ tag.name }}</div>
-            {% endif %}
-            <div>{{ tag.post_num }} post</div>
-        </div>
-        {% endfor %}
-    </div>
-{% endblock %}
+<script>
+function writeComment() {
+    var section = getElementById("comment section");
+    if (section.style.display === "none") {
+    section.style.display = "block";
+    } else {
+        section.style.display = "none";
+    }
+}
+</script>
 
 </html>
