@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect,reverse
 from django.views import generic
 from django.contrib import messages
@@ -106,4 +107,10 @@ def tag(request, tag_name):
     tag.active_status = not tag.active_status
     tag.save()
     return redirect(reverse('blog:blog-index'))
-    
+
+def like(request, id):
+    post = Post.objects.get(id_code=id)
+    user = post.author
+    user.coin.plus_coin()
+    user.coin.save()
+    return redirect(reverse('blog:blog-index'))
