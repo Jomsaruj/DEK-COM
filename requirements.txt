@@ -4,4 +4,4 @@ django-environ
 python-decouple
 django-crispy-forms
 pillow
-better_profanit
+better_profanity
