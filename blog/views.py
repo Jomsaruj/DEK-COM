@@ -16,7 +16,11 @@ def blog(request):
         TagManager.update_tag_num(tag.name)
     selected_tags = Tag.objects.filter(active_status=True)
     if Tag.objects.filter(active_status=True).count() > 0:
-        most_recent_post = Blog.objects.filter(Q(Post___tags__in=selected_tags) | Q(Question___tags__in=selected_tags) | Q(Job___tags__in=selected_tags))
+        most_recent_post = Blog.objects.filter(
+            Q(Post___tags__in=selected_tags) | 
+            Q(Question___tags__in=selected_tags) | 
+            Q(Job___tags__in=selected_tags) | 
+            Q(Poll___tags__in=selected_tags))
     else:
         most_recent_post = Blog.objects.all()
     return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag, 'selected_tags': selected_tags})
@@ -31,6 +35,8 @@ def filter_blog(request, blog_type):
         most_recent_post = Blog.objects.instance_of(Post)
     elif blog_type == "question":
         most_recent_post = Blog.objects.instance_of(Question)
+    elif blog_type == "poll":
+        most_recent_post = Blog.objects.instance_of(Poll)
     elif blog_type == "job":
         most_recent_post = Blog.objects.instance_of(Job)
 
@@ -104,7 +110,12 @@ def create_job(request):
     topic = request.POST['job topic']
     requirement = request.POST['job requirement']
     detail = request.POST['job detail']
-    job = Job(topic=topic, requirement=requirement, content=detail, author=request.user, id_code=IdCodeManager.get_new_id())
+    link = request.POST['job link']
+    if link.strip():
+        link = link.strip()
+    else:
+        link = ""
+    job = Job(topic=topic, requirement=requirement, content=detail, link=link, author=request.user, id_code=IdCodeManager.get_new_id())
     job.save()
     return job
 
