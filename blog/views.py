@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect,reverse
 from django.views import generic
 from django.contrib import messages
 from django.db.models import Q
-from .models import Blog, Post, Question, Job, Comment, SubComment, Tag, IdCode
+from .models import Blog, Post, Question, Poll, Choice, Vote, Job, Comment, SubComment, Tag, IdCode
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .models.id_code import IdCode
@@ -50,6 +50,8 @@ def create_blog(request, blog_type):
             blog = create_post(request)
         elif blog_type == "question":
             blog = create_question(request)
+        elif blog_type == "poll":
+            blog = create_poll(request)
         elif blog_type == "job":
             blog = create_job(request)
             
@@ -81,6 +83,23 @@ def create_question(request):
     question.save()
     return question
 
+def create_poll(request):
+    topic = request.POST['poll topic']
+    content = request.POST['poll content']
+    poll = Poll(topic=topic, content=content, author=request.user, id_code=IdCodeManager.get_new_id())
+    poll.save()
+    print(poll.__class__.__name__)
+    for key in request.POST:
+            if "choice" in key:
+                choice_name = request.POST[key]
+                if choice_name.strip():  # If tag are empty string just ignore it.
+                    choice = Choice(content=choice_name)
+                    choice.save()
+                    poll.choices.add(choice)
+                    poll.save()
+    return poll
+
+
 def create_job(request):
     topic = request.POST['job topic']
     requirement = request.POST['job requirement']
@@ -99,6 +118,8 @@ def edit_blog(request, post_id_code):
     if request.method == 'POST':
         if blog_type in ['post', 'question']:
             edit_post(request, blog)
+        elif blog_type == 'poll':
+            edit_poll(request, blog)
         elif blog_type == 'job':
             edit_job(request, blog)
         return redirect(reverse('blog:blog-detail', args=[blog.id_code]))
@@ -109,6 +130,9 @@ def edit_post(request, blog):
     blog.content = request.POST['post content']
     blog.pub_date = timezone.now()
     blog.save()
+
+def edit_poll(request, poll):
+    pass
 
 def edit_job(request, job):
     job.topic = request.POST['job topic']
@@ -133,7 +157,7 @@ def blog_detail(request, id_code):
     return render(request, template, {'blog': blog, 'comments': comments})
 
 def get_blog_from_id_code(id_code):
-    return Blog.objects.filter(Q(Post___id_code=id_code) | Q(Question___id_code=id_code) | Q(Job___id_code=id_code)).first()
+    return Blog.objects.filter(Q(Post___id_code=id_code) | Q(Question___id_code=id_code) | Q(Job___id_code=id_code) | Q(Poll___id_code=id_code)).first()
 
 
 def create_comment(request, post_id_code):

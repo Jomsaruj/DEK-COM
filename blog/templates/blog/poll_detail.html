@@ -1,0 +1,116 @@
+{% extends "blog/blog_detail.html" %}
+<!doctype html>
+<html>
+    <head>
+        
+    </head>
+<body>
+{% block title %}
+    <div class="post-detail-topic">
+        <div>
+            <h1>{{ blog.topic }}</h1>
+            <div class="row" style="margin-left: 20px;">
+                <img src="{{ blog.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
+                <a href="{% url 'profile' blog.author.username %}">{{ blog.author.username }}</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                . . .
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
+                {% if blog.author == request.user %}
+                <div><a class="dropdown-item" href="{% url 'blog:edit-blog' blog.id_code %}">edit blog</a></div>
+                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' blog.id_code %}" style="color: red;" onclick="return confirm('Delete this blog?');">delete blog</a></div>
+                {% endif %}
+            </div>
+          </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <p style="font-size: x-large;word-break: break-all;">{{ blog.content }}</p>
+    <div>
+        {% for choice in blog.get_choices %}
+            <p>{{ choice.content }}: {{ choice.votes }} votes</p>
+        {% endfor %}
+    </div>
+    <hr>
+    <div class="border-top pt-3" style="margin-bottom: 30px;">
+        <div class="tag-show">
+        {% for tag in blog.get_tags %}
+            <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`">{{ tag.name }}</div>
+        {% endfor %}
+        </div>
+        <small class="text-muted">Last edited {{ blog.pubdate }}</small>
+    </div>
+
+    <div><a class="show-comment-reply" id="show-comment-reply" onclick="show_comment_reply()">write comment..</a></div>
+    <div class="comment-reply" id="comment-reply" style="display: none;">
+        <form method="post" action="{% url 'blog:create-comment' blog.id_code %}">
+            {% csrf_token %}
+            <div class="container" style="width: 100%;margin-left: 0px;">
+                <div class="col-md-6">
+                    <textarea class="form-control" rows="1" name="comment text" placeholder="reply something.."></textarea>
+                </div>
+                <div class="col-md-6">
+                    <button type="submit">Reply</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {% for comment in comments %}
+        <div class="comment-box">
+            <div class="comment-head">
+                <div>
+                    <img src="{{ comment.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
+                    <a href="{% url 'profile' comment.author.username %}">{{ comment.author.username }}</a>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      . . .
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
+                        {% if blog.author == request.user %}
+                            <div><a class="dropdown-item" href="{% url 'blog:delete-comment' comment.id_code %}" style="color: red;" onclick="return confirm('Delete this comment?');">delete comment</a></div>
+                        {% endif %}
+                        </div>
+                  </div>
+            </div>
+
+            <div><p style="margin-top: 5px;">{{ comment.content }}</p></div>
+
+            <div class="subcomment-box">
+                {% for sub in comment.sub_comment %}
+                    <small style="margin-top: 2px;margin-left: 5%; width: 100%;">{{ sub.content }}</small>
+                {% endfor %}
+            </div>
+            
+            <div>
+                <div style="margin-left: 5%;">
+                    <a id="show-subcomment-reply" onclick="show_subcomment_reply(this)">reply comment..</a>
+                </div>
+                <div class="subcomment-reply" id="subcomment-reply" style="display: none;">
+                    <form method="post" action="{% url 'blog:create-subcomment' comment.id_code %}">
+                        {% csrf_token %}
+                        <div>
+                            <div class="column">
+                                <textarea class="form-control" rows="1" name="subcomment text" placeholder="reply something.." style="width: 50%;"></textarea>
+                            </div>
+                            <div class="column">
+                                <button type="submit">Reply</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div></div>
+            </div>
+
+        </div>
+        <hr style="margin-top: 10px;">
+    {% endfor %}
+
+{% endblock %}
+</body>
