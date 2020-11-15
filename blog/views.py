@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect,reverse
 from django.views import generic
 from django.contrib import messages
 from django.db.models import Q
-from .models import Blog, Post, Question, Comment, SubComment, Tag, IdCode
+from .models import Blog, Post, Question, Job, Comment, SubComment, Tag, IdCode
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .models.id_code import IdCode
@@ -15,9 +15,27 @@ def blog(request):
         TagManager.update_tag_num(tag.name)
     selected_tags = Tag.objects.filter(active_status=True)
     if Tag.objects.filter(active_status=True).count() > 0:
-        most_recent_post = Blog.objects.filter(Q(Post___tags__in=selected_tags) | Q(Question___tags__in=selected_tags))
+        most_recent_post = Blog.objects.filter(Q(Post___tags__in=selected_tags) | Q(Question___tags__in=selected_tags) | Q(Job___tags__in=selected_tags))
     else:
         most_recent_post = Blog.objects.all()
+    return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag, 'selected_tags': selected_tags})
+
+def filter_blog(request, blog_type):
+    all_tag = Tag.objects.all().order_by('-post_num')[:8]
+    for tag in all_tag:
+        TagManager.update_tag_num(tag.name)
+    selected_tags = Tag.objects.filter(active_status=True)
+
+    if blog_type == "post":
+        most_recent_post = Blog.objects.instance_of(Post)
+    elif blog_type == "question":
+        most_recent_post = Blog.objects.instance_of(Question)
+    elif blog_type == "job":
+        most_recent_post = Blog.objects.instance_of(Job)
+
+    if Tag.objects.filter(active_status=True).count() > 0:
+        most_recent_post = most_recent_post.filter(tags__in=selected_tags)
+
     return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag, 'selected_tags': selected_tags})
 
 def go_to_blog(request):
@@ -31,6 +49,8 @@ def create_blog(request, blog_type):
             blog = create_post(request)
         elif blog_type == "question":
             blog = create_question(request)
+        elif blog_type == "job":
+            blog = create_job(request)
             
         for key in request.POST:
             if "tag" in key:
@@ -41,10 +61,7 @@ def create_blog(request, blog_type):
                     blog.save()
                     TagManager.update_tag_num(new_tag.name)
         return redirect(reverse('blog:blog-detail', args=[blog.id_code]))
-    template = {
-        "post": 'blog/create_post.html',
-        "question": 'blog/create_question.html',
-    }[blog_type]
+    template = "blog/create_" + blog_type + ".html"
     return render(request, template)
 
 def create_post(request):
@@ -63,19 +80,40 @@ def create_question(request):
     question.save()
     return question
 
+def create_job(request):
+    topic = request.POST['job topic']
+    requirement = request.POST['job requirement']
+    detail = request.POST['job detail']
+    job = Job(topic=topic, requirement=requirement, content=detail, author=request.user, id_code=IdCodeManager.get_new_id())
+    job.save()
+    return job
+
 
 def edit_blog(request, post_id_code):
-    post = get_blog_from_id_code(post_id_code)
-    comments = Comment.objects.filter(post=post).order_by('-like')
-    if request.user != post.author:
-        return redirect(reverse('blog:blog-detail', args=[post.id_code]))
+    blog = get_blog_from_id_code(post_id_code)
+    blog_type = blog.__class__.__name__.lower()
+    comments = Comment.objects.filter(post=blog).order_by('-like')
+    if request.user != blog.author:
+        return redirect(reverse('blog:blog-detail', args=[blog.id_code]))
     if request.method == 'POST':
-        post.topic = request.POST['post topic']
-        post.content = request.POST['post content']
-        post.pub_date = timezone.now()
-        post.save()
-        return redirect(reverse('blog:blog-detail', args=[post.id_code]))
-    return render(request, 'blog/edit_blog.html', {'post': post})
+        if blog_type in ['post', 'question']:
+            edit_post(request, blog)
+        elif blog_type == 'job':
+            edit_job(request, blog)
+        return redirect(reverse('blog:blog-detail', args=[blog.id_code]))
+    return render(request, 'blog/edit_' + blog_type + '.html', {'post': blog})
+
+def edit_post(request, blog):
+    blog.topic = request.POST['post topic']
+    blog.content = request.POST['post content']
+    blog.pub_date = timezone.now()
+    blog.save()
+
+def edit_job(request, job):
+    job.topic = request.POST['job topic']
+    job.requirement = request.POST['job requirement']
+    job.content = request.POST['job detail']
+    job.save()
 
 def delete_blog(request, post_id_code):
     blog = get_blog_from_id_code(post_id_code)
@@ -94,7 +132,7 @@ def blog_detail(request, id_code):
     return render(request, template, {'post': blog, 'comments': comments})
 
 def get_blog_from_id_code(id_code):
-    return Blog.objects.filter(Q(Post___id_code=id_code) | Q(Question___id_code=id_code)).first()
+    return Blog.objects.filter(Q(Post___id_code=id_code) | Q(Question___id_code=id_code) | Q(Job___id_code=id_code)).first()
 
 
 def create_comment(request, post_id_code):

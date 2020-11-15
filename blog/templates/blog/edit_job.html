@@ -1,0 +1,24 @@
+{% extends "portfolio/base.html" %}
+
+{% block title %}
+<h1>Edit job</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="container-fluid" style="padding-bottom: 15px;">
+            <label>Topic:</label>
+            <textarea class="form-control" rows="1" name="job topic">{{ post.topic }}</textarea><br>
+        </div>
+        <div class="container" style="width: 60%;margin-left: 10px;">
+            <label>requirement:</label>
+            <textarea class="form-control" rows="3" name="job requirement">{{ post.content }}</textarea><br>
+            <label>detail:</label>
+            <textarea class="form-control" rows="3" name="job detail">{{ post.content }}</textarea><br>
+        </div>
+        <div class="container-fluid" style="padding-top: 5px;padding-bottom: 5px;"></div>
+            <button type="submit">Save change</button>
+        </div>
+    </form>
+{% endblock %}

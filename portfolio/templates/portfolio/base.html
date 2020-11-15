@@ -6,7 +6,10 @@
     <div class="page-container">
       <div class="nav-left">
         <div style="width: 100%; height: 15%;"></div>
-        <div class="nav-left-bar"><h2 style="vertical-align: middle;line-height: 200%;">Home</h2></div>
+        <div class="nav-left-bar" onclick="location.href=`{% url 'blog:blog-index' %}`">Home</div>
+        <div class="nav-left-bar" onclick="location.href=`{% url 'blog:filter-blog' 'post' %}`">Post</div>
+        <div class="nav-left-bar" onclick="location.href=`{% url 'blog:filter-blog' 'question' %}`">Question</div>
+        <div class="nav-left-bar" onclick="location.href=`{% url 'blog:filter-blog' 'job' %}`">Job Opportunities</div>
       </div>
 
       <div class="main-container">

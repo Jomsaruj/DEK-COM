@@ -1,24 +1,27 @@
 {% extends "portfolio/base.html" %}
 
 {% block title %}
-<h1>Create new post</h1>
+<h1>Create new job</h1>
 {% endblock %}
 
 {% block content %}
     <div class="blog-type-container">
-        <div class="blog-type" style="background-color: rgb(200,200,200);filter: drop-shadow(0 0 2px);">Post</div>
+        <div class="blog-type" onclick="location.href=`{% url 'blog:create-blog' 'post' %}`">Post</div>
         <div class="blog-type" onclick="location.href=`{% url 'blog:create-blog' 'question' %}`">Question</div>
         <div class="blog-type" onclick="location.href=`{% url 'blog:create-blog' 'poll' %}`">Poll</div>
-        <div class="blog-type" onclick="location.href=`{% url 'blog:create-blog' 'job' %}`">Job</div>
+        <div class="blog-type" style="background-color: rgb(200,200,200);filter: drop-shadow(0 0 2px);">Job</div>
     </div>
     <form method="post">
         {% csrf_token %}
         <div class="container-fluid" style="padding-bottom: 15px;">
-            <label>Topic: </label>
-            <textarea class="form-control" rows="1" name="post topic" placeholder="Post topic" style="width: 60%;"></textarea>
+            <label>Job: </label>
+            <textarea class="form-control" rows="1" name="job topic" placeholder="Job topic" style="width: 60%;"></textarea>
         </div>
         <div class="container" style="width: 60%;margin-left: 15px;">
-            <textarea class="form-control" rows="3" name="post content" placeholder="write something!!"></textarea><br>
+            <label>Requirement: </label>
+            <textarea class="form-control" rows="1" name="job requirement" placeholder="requirement.."></textarea><br>
+            <label>Detail: </label>
+            <textarea class="form-control" rows="3" name="job detail" placeholder="detail.."></textarea><br>
         </div>
 
         <div class="tags-creater" id="tags-creater">

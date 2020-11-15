@@ -15,12 +15,17 @@
     height: 8%;
     text-align: center;
     background-color: transparent;
+    vertical-align: middle;
+    line-height: 320%;
+    font-size: large;
     -webkit-transition: background-color 0.5s ease-out;
     -moz-transition: background-color 0.5s ease-out;
     -o-transition: background-color 0.5s ease-out;
     transition: background-color 0.5s ease-out;
 }
 .nav-left-bar:hover {
+    line-height: 220%;
+    font-size: x-large;
     background-color: rgb(224,224,224);
 }
 
