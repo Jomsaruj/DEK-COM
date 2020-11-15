@@ -129,7 +129,7 @@ def blog_detail(request, id_code):
     blog = get_blog_from_id_code(id_code)
     comments = Comment.objects.filter(post=blog).order_by('-like')
     template = "blog/" + (blog.__class__.__name__).lower() + "_detail.html"
-    return render(request, template, {'post': blog, 'comments': comments})
+    return render(request, template, {'blog': blog, 'comments': comments})
 
 def get_blog_from_id_code(id_code):
     return Blog.objects.filter(Q(Post___id_code=id_code) | Q(Question___id_code=id_code) | Q(Job___id_code=id_code)).first()

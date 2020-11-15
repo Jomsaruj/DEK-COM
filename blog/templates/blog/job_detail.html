@@ -8,10 +8,10 @@
 {% block title %}
     <div class="post-detail-topic">
         <div>
-            <h1>{{ post.topic }}</h1>
+            <h1>{{ blog.topic }}</h1>
             <div class="row" style="margin-left: 20px;">
-                <img src="{{ post.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
-                <a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a>
+                <img src="{{ blog.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
+                <a href="{% url 'profile' blog.author.username %}">{{ blog.author.username }}</a>
             </div>
         </div>
 
@@ -20,9 +20,9 @@
                 . . .
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
-                {% if post.author == request.user %}
-                <div><a class="dropdown-item" href="{% url 'blog:edit-blog' post.id_code %}">edit post</a></div>
-                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' post.id_code %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
+                {% if blog.author == request.user %}
+                <div><a class="dropdown-item" href="{% url 'blog:edit-blog' blog.id_code %}">edit blog</a></div>
+                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' blog.id_code %}" style="color: red;" onclick="return confirm('Delete this blog?');">delete blog</a></div>
                 {% endif %}
             </div>
           </div>
@@ -30,22 +30,22 @@
 {% endblock %}
 
 {% block content %}
-    <p style="font-size: x-large;word-break: break-all;">{{ post.content }}</p>
+    <p style="font-size: x-large;word-break: break-all;">{{ blog.content }}</p>
     <hr>
     <label>requirement: </label>
-    <p style="font-size: large;word-break: break-all;">{{ post.requirement }}</p>
+    <p style="font-size: large;word-break: break-all;">{{ blog.requirement }}</p>
     <div class="border-top pt-3" style="margin-bottom: 30px;">
         <div class="tag-show">
-        {% for tag in post.get_tags %}
+        {% for tag in blog.get_tags %}
             <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`">{{ tag.name }}</div>
         {% endfor %}
         </div>
-        <small class="text-muted">Last edited {{ post.pubdate }}</small>
+        <small class="text-muted">Last edited {{ blog.pubdate }}</small>
     </div>
 
     <div><a class="show-comment-reply" id="show-comment-reply" onclick="show_comment_reply()">write comment..</a></div>
     <div class="comment-reply" id="comment-reply" style="display: none;">
-        <form method="post" action="{% url 'blog:create-comment' post.id_code %}">
+        <form method="post" action="{% url 'blog:create-comment' blog.id_code %}">
             {% csrf_token %}
             <div class="container" style="width: 100%;margin-left: 0px;">
                 <div class="col-md-6">
@@ -70,7 +70,7 @@
                       . . .
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
-                        {% if post.author == request.user %}
+                        {% if blog.author == request.user %}
                             <div><a class="dropdown-item" href="{% url 'blog:delete-comment' comment.id_code %}" style="color: red;" onclick="return confirm('Delete this comment?');">delete comment</a></div>
                         {% endif %}
                         </div>
