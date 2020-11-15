@@ -3,3 +3,5 @@ Django
 django-environ
 python-decouple
 better_profanity
+django-polymorphic
+bs4

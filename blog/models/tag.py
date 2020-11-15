@@ -6,5 +6,9 @@ class Tag(models.Model):
     post_num = models.BigIntegerField(default=1)
     active_status = models.BooleanField(default=False)
 
+    @property
+    def get_tags(self):
+        return self.tags.all()
+
     def __str__(self):
         return self.name

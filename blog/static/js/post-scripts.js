@@ -50,3 +50,31 @@ function delete_tag(tag_id) {
     var tag = document.getElementById(tag_id);
     document.getElementById("tags-container").removeChild(tag);
 }
+
+function add_choice() {
+    var num = document.getElementById("choices-container").childElementCount;
+    var choice = document.createElement("input");
+    choice.setAttribute("name", "choice[" + String(num) + "]");
+    
+    var choice_display = document.createElement("div");
+    choice_display.classList.add("choice-display");
+    choice_display.id = 'choice' + String(num)
+    choice_display.append(choice);
+    choice_display.innerHTML += `<div onclick="delete_choice('choice` + String(num) + `')">  &#10006;</div>`;
+
+    document.getElementById("choices-container").append(choice_display);
+} 
+
+function delete_choice(choice_id) {
+    var choice = document.getElementById(choice_id);
+    document.getElementById("choices-container").removeChild(choice);
+}
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }

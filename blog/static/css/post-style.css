@@ -32,9 +32,9 @@ label {
     width: 100px;
     height: 30px;
     border-radius: 50%;
-    background-color: rgb(224, 224, 224);
+    background-color: transparent;
     text-align: center;
-    transition: 0.3s;
+    transition: 0.3s ease-out;
 }
 
 .post-box {
@@ -111,6 +111,22 @@ label {
     flex-direction: column;
     justify-content: space-between;
 }
+.answer-box {
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+.answer-status {
+    width: 10%;
+    background: rgb(224, 224, 224);
+    justify-content: center;
+}
+.solution-button {
+    width: 5rem;
+    height: 5rem;
+    background-color: rgb(230, 230, 230);
+}
 
 .comment-head {
     display: flex;
@@ -144,6 +160,23 @@ label {
     background-color: rgb(235, 235, 235);
 }
 
+
+.blog-type-container {
+    width: 65%;
+    height: 3rem;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.blog-type {
+    width: 20%;
+    height: 100%;
+    border-radius: 4px;
+    text-align: center;
+    background-color: rgb(224,224,224);
+}
+
 .tags-creater {
     width: 50%;
     display: flex;
@@ -172,6 +205,7 @@ label {
 
 .tag-show {
     margin-top: 10px;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -190,3 +224,14 @@ label {
 .tag:hover {
     background-color: rgb(210, 210, 210);
 } 
+
+
+.choice-display {
+    width: 80%;
+    border-radius: 5px;
+    padding: 2px;
+    margin-right: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

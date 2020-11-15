@@ -9,11 +9,11 @@
         {% csrf_token %}
         <div class="container-fluid" style="padding-bottom: 15px;">
             <label>Topic:</label>
-            <textarea class="form-control" rows="1" name="post topic">{{ post.post_topic }}</textarea><br>
+            <textarea class="form-control" rows="1" name="post topic">{{ post.topic }}</textarea><br>
         </div>
         <div class="container" style="width: 60%;margin-left: 10px;">
             <label>Content:</label>
-            <textarea class="form-control" rows="3" name="post content">{{ post.post_content }}</textarea><br>
+            <textarea class="form-control" rows="3" name="post content">{{ post.content }}</textarea><br>
         </div>
         <div class="container-fluid" style="padding-top: 5px;padding-bottom: 5px;"></div>
             <button type="submit">Save change</button>

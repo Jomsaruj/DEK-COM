@@ -21,13 +21,13 @@
         <div class="post-right">
             <div class="post-topic">
                 <div>
-                    <h1 style="font-size: x-large;"><a href="{% url 'blog:blog-detail' post.id_code %}">{{ post.get_topic|truncatechars:30 }}</a></h1>
+                    <h1 style="font-size: x-large;"><a href="{% url 'blog:blog-detail' post.id_code %}">{{ post.topic|truncatechars:30 }}</a></h1>
                 </div>
             </div>
     
             {% if post.has_content %}
                 <div class="post-content">
-                    <p>{{ post.get_content|truncatechars:120 }}</p>
+                    <p>{{ post.content|truncatechars:120 }}</p>
                 </div>
             {% endif %}
             <div class="border-top pt-3" style="margin-top: 0px;">

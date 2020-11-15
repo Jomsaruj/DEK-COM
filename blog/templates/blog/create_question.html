@@ -1,0 +1,36 @@
+{% extends "portfolio/base.html" %}
+
+{% block title %}
+<h1>Create new question</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="blog-type-container">
+        <div class="blog-type" onclick="location.href=`{% url 'blog:create-blog' 'post' %}`">Post</div>
+        <div class="blog-type" style="background-color: rgb(200,200,200);filter: drop-shadow(0 0 2px);">Question</div>
+        <div class="blog-type" onclick="location.href=`{% url 'blog:create-blog' 'poll' %}`">Poll</div>
+        <div class="blog-type" onclick="location.href=`{% url 'blog:create-blog' 'job' %}`">Job</div>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="container-fluid" style="padding-bottom: 15px;">
+            <label>Topic: </label>
+            <textarea class="form-control" rows="1" name="post topic" placeholder="Question topic" style="width: 60%;"></textarea>
+        </div>
+        <div class="container" style="width: 60%;margin-left: 15px;">
+            <textarea class="form-control" rows="5" name="post content" placeholder="question.."></textarea><br>
+        </div>
+
+        <div class="tags-creater" id="tags-creater">
+            <label>tag:</label>
+            <textarea class="form-control" rows="1" id="tag-input" placeholder="tag" style="width: 60%;"></textarea>
+            <button type="button" onclick="add_tag()" style="height: 80%;">add</button>
+        </div>
+        <div class="tags-container" id="tags-container">
+        </div>
+
+        <div class="container-fluid" style="padding-top: 5px;padding-bottom: 5px;"></div>
+            <button type="submit">Post now!!</button>
+        </div>
+    </form>
+{% endblock %}
