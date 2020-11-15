@@ -10,6 +10,20 @@
     background-color: rgb(240, 240, 240);
 }
 
+.nav-left-bar {
+    width: 100%; 
+    height: 8%;
+    text-align: center;
+    background-color: transparent;
+    -webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+}
+.nav-left-bar:hover {
+    background-color: rgb(224,224,224);
+}
+
 .main-container {
     width: 55vw;
     height: 200rem;

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'polymorphic',
     'blog.apps.BlogConfig',
     'portfolio.apps.PortfolioConfig',
     'users.apps.UsersConfig',

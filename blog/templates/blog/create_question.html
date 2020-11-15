@@ -1,10 +1,16 @@
 {% extends "portfolio/base.html" %}
 
 {% block title %}
-<h1>Create new Post</h1>
+<h1>Create new Blog</h1>
 {% endblock %}
 
 {% block content %}
+    <div class="blog-type-container">
+        <div class="blog-type" onclick="location.href=`{% url 'blog:create-blog' 'post' %}`">Post</div>
+        <div class="blog-type" style="background-color: rgb(200,200,200);filter: drop-shadow(0 0 2px);">Question</div>
+        <div class="blog-type" onclick="location.href=`{% url 'blog:create-blog' 'poll' %}`">Poll</div>
+        <div class="blog-type" onclick="location.href=`{% url 'blog:create-blog' 'job' %}`">Job</div>
+    </div>
     <form method="post">
         {% csrf_token %}
         <div class="container-fluid" style="padding-bottom: 15px;">

@@ -2,11 +2,11 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-from .post import Post
+from .blog import Blog
 from .sub_comment import SubComment
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Blog, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=200)
     date = models.DateTimeField(default = timezone.now())
