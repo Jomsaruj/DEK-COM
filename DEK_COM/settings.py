@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'polymorphic',
     'blog.apps.BlogConfig',
     'portfolio.apps.PortfolioConfig',
     'users.apps.UsersConfig',
@@ -110,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'asia/bangkok'
+TIME_ZONE = 'Asia/Bangkok'
 
 USE_I18N = True
 

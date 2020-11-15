@@ -1,35 +1,13 @@
 {% extends "portfolio/base.html" %}
-
+<!doctype html>
+<html>
+    <head>
+        
+    </head>
+<body>
 {% block title %}
-    <h1>{{ post.get_topic }}</h1>
-    <div class="row" style="margin-left: 20px;">
-        <img src="{{ post.auther_image }}" width="20px" height="20px" class="img-circle">
-        <a href="{% url 'profile' post.user %}">{{ post.user }}</a>
-    </div>
 {% endblock %}
 
 {% block content %}
-    <p>{{ post.get_content }}</p>
-    <div class="border-top pt-3" style="margin-bottom: 30px;">
-        <small class="text-muted">Last edited {{ post.get_pubdate }}</small>
-    </div>
-
-    <form method="post">
-        {% csrf_token %}
-        <div class="container" style="width: 60%;margin-left: 15px;">
-            <div class="col-md-6">
-                <textarea class="form-control" rows="1" name="comment text" placeholder="reply something.."></textarea>
-            </div>
-            <div class="col-md-6">
-                <button type="submit">Reply</button>
-            </div>
-        </div>
-    </form>
-
-    {% for comment in post.get_all_comment %}
-        <div class="container p-3 my-3 border" style="margin-top: 15px;margin-left: 10px;border-radius: 10px;background: rgb(224, 224, 224);max-width: 70%;max-height: 20%;">
-            <p>{{ comment.get_text }}</p>
-        </div>
-    {% endfor %}
-
 {% endblock %}
+</body>

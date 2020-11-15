@@ -3,61 +3,74 @@
 
 {% block title %}
 <h1>All blog</h1>
+<div class="tag-show">
+    {% for tag in selected_tags %}
+        <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`">{{ tag.name }}</div>
+    {% endfor %}
+</div>
 {% endblock %}
 
 {% block content %}
 
-    <div class="container p-3 my-3 border" 
-        style="margin-bottom:20px;border-radius: 10px;background: rgb(200, 200, 200);width: 70%;height: 60px;"
-        onclick="location.href='create-blog'">
-        <div class="container" style="margin-left: 40%;margin-top: 20px;">
-            <a>Create post</a>
-        </div>    
+
+    <div class="create-post-box" onclick="location.href=`{% url 'blog:create-blog' 'post' %}`">
+       <div class="color-box">
+            Create post
+       </div>
     </div>
 
     {% for post in most_recent_post %}
-        <div class="container p-3 my-3 border" style="margin-bottom: 15px;border-radius: 10px;background: rgb(224, 224, 224);max-width: 70%;max-height: 20%;">
+    <div class="post-box">
+        <div class="post-stat">
 
-            <div class="container" style="background: rgb(197, 197, 197);width: 106%;margin-left: -3%; border-radius: 5px;height: 65px;">
+        </div>
+        <div class="post-right">
+            <div class="post-topic">
                 <div>
-                    <h1 style="font-size: x-large;"><a href="{% url 'blog:blog-detail' post.id %}">{{ post.get_topic|truncatechars:30 }}</a></h1>
+                    <h1 style="font-size: x-large;"><a href="{% url 'blog:blog-detail' post.id_code %}">{{ post.topic|truncatechars:30 }}</a></h1>
                 </div>
             </div>
-
+    
             {% if post.has_content %}
-                <div class="container" style="max-width: 90%;margin-left: 0px;">
-                    <p style="margin-top: 5px; width: 95%;">{{ post.get_content|truncatechars:60 }}</p>
+                <div class="post-content">
+                    <p>{{ post.content|truncatechars:120 }}</p>
                 </div>
             {% endif %}
             <div class="border-top pt-3" style="margin-top: 0px;">
-                <hr style="margin-top: 0px;">
-                <div class="row">
-                    <div class="col-xs-4">
+                <div class="post-info">
+                    <div style="margin-left: 15px;">
                         <small class="text-muted">
-                            <a href="{% url 'blog:blog-detail' post.id %}" style="margin-top: 5px;">write comment..</a>
+                            <a href="{% url 'blog:blog-detail' post.id_code %}" style="margin-top: 5px;">write comment..</a>
+                            <a onclick="location.href=`{% url 'blog:like' post.id_code  %}`">like</a>
                         </small>
                     </div>
-                    <div class="col-xs-4"></div>
-                    <div class="col-xs-4-right" style="margin-right: 0px;">
-                        <img src="{{ post.auther_image }}" width="20px" height="20px" class="img-circle">
-                        <a href="{% url 'profile' post.user %}">{{ post.user }}</a>
+                    <div class="post-author">
+                        <img src="{{ post.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
+                        <a href="{% url 'profile' post.author.username %}">{{ post.author.username|truncatechars:12 }}</a>
+                        <br>
+                        <small class="text-right">{{ post.pub_date }}</small>
                     </div>
                 </div>
-                <small class="text-right" style="margin-left: 67%;">{{ post.pub_date }}</small>
             </div>
         </div>
-        {% endfor %}
+    </div>
+    {% endfor %}
 {% endblock %}
 
-<script>
-function writeComment() {
-    var section = getElementById("comment section");
-    if (section.style.display === "none") {
-    section.style.display = "block";
-    } else {
-        section.style.display = "none";
-    }
-}
-</script>
+{% block extra %}
+    <h3>Popular tags</h3>
+    <div class="row" style="margin-left: 5px;">
+        {% for tag in popular_tag %}
+        <div style="margin-bottom: 4px;width: 90%;display: flex;flex-direction: row;">
+            {% if tag.active_status %}
+                <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`" style="width: 50%;background-color: rgb(200,200,200);">{{ tag.name }}</div>
+            {% else %}
+                <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`" style="width: 50%;">{{ tag.name }}</div>
+            {% endif %}
+            <div>{{ tag.post_num }} post</div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
 
 </html>

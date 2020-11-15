@@ -1,0 +1,64 @@
+{% extends "portfolio/base.html" %}
+<html>
+
+{% block title %}
+<h1>{{ title }}</h1>
+{% endblock %}
+
+{% block content %}
+
+    <div class="create-post-box" onclick="location.href='create-blog'">
+       <div class="color-box">
+            Create post
+       </div>
+    </div>
+
+    {% for post in most_recent_post %}
+    <div class="post-box">
+        <div class="post-stat">
+
+        </div>
+        <div class="post-right">
+            <div class="post-topic">
+                <div>
+                    <h1 style="font-size: x-large;"><a href="{% url 'blog:blog-detail' post.id_code %}">{{ post.topic|truncatechars:30 }}</a></h1>
+                </div>
+            </div>
+    
+            {% if post.has_content %}
+                <div class="post-content">
+                    <p>{{ post.content|truncatechars:120 }}</p>
+                </div>
+            {% endif %}
+            <div class="border-top pt-3" style="margin-top: 0px;">
+                <div class="post-info">
+                    <div style="margin-left: 15px;">
+                        <small class="text-muted">
+                            <a href="{% url 'blog:blog-detail' post.id_code %}" style="margin-top: 5px;">write comment..</a>
+                        </small>
+                    </div>
+                    <div class="post-author">
+                        <img src="{{ post.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
+                        <a href="{% url 'profile' post.author.username %}">{{ post.author.username|truncatechars:12 }}</a>
+                        <br>
+                        <small class="text-right">{{ post.pub_date }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+<script>
+function writeComment() {
+    var section = getElementById("comment section");
+    if (section.style.display === "none") {
+    section.style.display = "block";
+    } else {
+        section.style.display = "none";
+    }
+}
+</script>
+
+</html>
