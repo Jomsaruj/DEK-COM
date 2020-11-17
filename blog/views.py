@@ -98,8 +98,9 @@ def create_poll(request):
     for key in request.POST:
             if "choice" in key:
                 choice_name = request.POST[key]
+                color = request.POST['color'+key.replace('choice', '')]
                 if choice_name.strip():  # If tag are empty string just ignore it.
-                    choice = Choice(content=choice_name)
+                    choice = Choice(content=choice_name, id_code=IdCodeManager.get_new_id(), poll_id_code=poll.id_code, color=color)
                     choice.save()
                     poll.choices.add(choice)
                     poll.save()
@@ -154,9 +155,6 @@ def edit_job(request, job):
 def delete_blog(request, post_id_code):
     blog = get_blog_from_id_code(post_id_code)
     if request.user == blog.author:
-        comments = Comment.objects.filter(post=blog)
-        for comment in comments:
-            comment.delete()
         blog.delete()
         messages.warning(request, f'Post deleted!!')
     return redirect(reverse('blog:blog-index'))
@@ -225,6 +223,30 @@ def tag(request, tag_name):
     tag.active_status = not tag.active_status
     tag.save()
     return redirect(reverse('blog:blog-index'))
+
+def vote(request, choice_id_code):
+    choice = Choice.objects.get(id_code=choice_id_code)
+    poll = Poll.objects.filter(id_code=choice.poll_id_code).first()
+    vote = Vote.objects.filter(question=poll, voter=request.user).first()
+    if vote:
+        old_choice = vote.choice
+        old_choice.votes -= 1
+        old_choice.save()
+
+        vote.choice = choice
+        vote.save()
+
+        choice.votes += 1
+        choice.save()
+    else:
+        vote = Vote(choice=choice, question=poll, voter=request.user)
+        vote.save()
+        choice.votes += 1
+        choice.save()
+        for _choice in poll.get_choices():
+            _choice.all_votes += 1
+            _choice.save()
+    return redirect(reverse('blog:blog-detail', args=[poll.id_code]))
 
 def like(request, id):
     post = Post.objects.get(id_code=id)

@@ -15,5 +15,6 @@ urlpatterns = [
     path('<comment_id_code>/create-subcomment', views.create_subcomment, name='create-subcomment'),
     path('<comment_id_code>/choose-solution', views.choose_solution, name='choose-solution'),
     path('tag/<tag_name>', views.tag, name='tag'),
-    path('like/<id>',views.like, name='like')
+    path('poll/vote/<choice_id_code>',views.vote, name='vote'),
+    path('like/<id>',views.like, name='like'),
 ]

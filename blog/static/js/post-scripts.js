@@ -55,11 +55,15 @@ function add_choice() {
     var num = document.getElementById("choices-container").childElementCount;
     var choice = document.createElement("input");
     choice.setAttribute("name", "choice[" + String(num) + "]");
+
+    var color = document.createElement("input");
+    color.setAttribute("type", "color")
+    color.setAttribute("name", "color[" + String(num) + "]");
     
     var choice_display = document.createElement("div");
     choice_display.classList.add("choice-display");
     choice_display.id = 'choice' + String(num)
-    choice_display.append(choice);
+    choice_display.append(choice, color);
     choice_display.innerHTML += `<div onclick="delete_choice('choice` + String(num) + `')">  &#10006;</div>`;
 
     document.getElementById("choices-container").append(choice_display);

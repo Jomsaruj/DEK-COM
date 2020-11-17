@@ -16,6 +16,9 @@ class Blog(PolymorphicModel):
     def get_tags(self):
         return self.tags.all()
 
+    def is_poll(self):
+        return False
+
     def __str__(self):
         return self.topic
 

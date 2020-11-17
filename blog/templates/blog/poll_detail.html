@@ -31,9 +31,15 @@
 
 {% block content %}
     <p style="font-size: x-large;word-break: break-all;">{{ blog.content }}</p>
-    <div>
+    <div style="display: flex;flex-direction:column">
         {% for choice in blog.get_choices %}
-            <p>{{ choice.content }}: {{ choice.votes }} votes</p>
+            <div style="display: flex;flex-direction:row">
+                {{ choice.get_html_bar | safe}}
+                <p>|</p>
+                {{ choice.content }}
+                <div style="width: 1rem;"></div>
+                <a href="{% url 'blog:vote' choice.id_code %}"">vote</a>
+            </div>
         {% endfor %}
     </div>
     <hr>
