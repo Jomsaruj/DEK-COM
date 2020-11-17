@@ -23,7 +23,7 @@ class Choice(models.Model):
 
     def get_html_bar(self):
         if self.votes > 0:
-            return ('<div style="margin-bottom: 5px;height: 20px;width: ' + str(self.get_vote_percent()-10) + '%;background-color: ' + self.color + ';' + '">' + str(self.votes) + ' vote</div>')
+            return ('<div style="margin-bottom: 5px;height: 20px;width: ' + str(self.get_vote_percent()-10) + '%;background-color: ' + self.color + ';' + '"><p class="vote-score">' + str(self.votes) + ' vote</p></div>')
         else:
             return ('<div style="margin-bottom: 5px;height: 20px;width: 2%;background-color: ' + self.color + ';' + '"></div>')
 

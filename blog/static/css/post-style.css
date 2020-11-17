@@ -235,3 +235,9 @@ label {
     flex-direction: row;
     justify-content: space-between;
 }
+
+.vote-score {
+    color: #f00;
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+}
