@@ -3,25 +3,25 @@
       "model": "auth.user",
       "pk": 1,
       "fields": {
-        "password": "123556789!@test1",
-        "last_login": null,
-        "is_superuser": false,
-        "username": "demonstrate1",
-        "first_name": "Demonstrate-1",
-        "last_name": "",
-        "email": "demo@test1.com",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2020-11-20T06:10:46.653Z",
-        "groups": [],
-        "user_permissions": []
+      "password": "Abcdefg1",
+      "last_login": "2020-11-15T06:17:58.823Z",
+      "is_superuser": false,
+      "username": "demo1",
+      "first_name": "Demo-1",
+      "last_name": "",
+      "email": "demo1@localhost",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-11-15T06:13:46.653Z",
+      "groups": [],
+      "user_permissions": []
       }
     },
     {
       "model": "auth.user",
       "pk": 2,
       "fields": {
-        "password": "123556789!@test2",
+        "password": "Abcdefg1",
         "last_login": null,
         "is_superuser": false,
         "username": "demonstrate2",
