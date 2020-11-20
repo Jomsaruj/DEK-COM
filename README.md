@@ -10,7 +10,7 @@ This application is a part of [Individual Software Process 01219245](https://cps
 
 * [Vision Statement](../../wiki/Vision%20of%20DEK%20COM%20application)
 * [Requirements](../../wiki/Requirements)
-* [Instruction for Installation Application](https://github.com/Jomsaruj/DEK-COM/wiki/Instruction-for-Install-Application)
+* [Instruction for Installation Application](INSTALL.md)
 
 Code review
 * [Checklist](../../wiki/Code%20Review%20Checklist)
