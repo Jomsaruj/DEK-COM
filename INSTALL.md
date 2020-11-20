@@ -98,6 +98,7 @@ Before perform commands below, please navigate to the directory that you want to
 ```
 
 ### 7. Running migrations
+#### Please ignore a WARNING in this step.
 * #### Windows
 ```
     python manage.py migrate
@@ -107,7 +108,7 @@ Before perform commands below, please navigate to the directory that you want to
     python3 manage.py migrate
 ```
 ### 8. Import data from file `users.json` to initiate initial user accounts.
-
+#### Please ignore a WARNING in this step.
 * #### Windows
 ```
     python manage.py loaddata users.json
