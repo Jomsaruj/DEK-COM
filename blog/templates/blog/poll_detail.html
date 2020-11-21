@@ -21,8 +21,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
                 {% if blog.author == request.user %}
-                <div><a class="dropdown-item" href="{% url 'blog:edit-blog' blog.id_code %}">edit blog</a></div>
-                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' blog.id_code %}" style="color: red;" onclick="return confirm('Delete this blog?');">delete blog</a></div>
+                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' blog.id_code %}" style="color: red;" onclick="return confirm('Delete this blog?');">delete poll</a></div>
                 {% endif %}
             </div>
           </div>
@@ -67,56 +66,59 @@
         </form>
     </div>
 
-    {% for comment in comments %}
-        <div class="comment-box">
-            <div class="comment-head">
+    <div class="comment-list" id="comment-list">
+        {% for comment in comments %}
+            <div class="comment-box">
+                <div class="comment-head">
+                    <div>
+                        <img src="{{ comment.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
+                        <a href="{% url 'profile' comment.author.username %}">{{ comment.author.username }}</a>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          . . .
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
+                            {% if blog.author == request.user %}
+                                <div><a class="dropdown-item" href="{% url 'blog:delete-comment' comment.id_code %}" style="color: red;" onclick="return confirm('Delete this comment?');">delete comment</a></div>
+                            {% endif %}
+                            </div>
+                      </div>
+                </div>
+    
+                <div><p style="margin-top: 5px;">{{ comment.content }}</p></div>
+    
+                <div class="subcomment-box">
+                    {% for sub in comment.sub_comment %}
+                        <small style="margin-top: 2px;margin-left: 5%; width: 100%;">{{ sub.content }}</small>
+                    {% endfor %}
+                </div>
+                
                 <div>
-                    <img src="{{ comment.author.profile.image.url }}" width="20px" height="20px" class="img-circle">
-                    <a href="{% url 'profile' comment.author.username %}">{{ comment.author.username }}</a>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      . . .
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
-                        {% if blog.author == request.user %}
-                            <div><a class="dropdown-item" href="{% url 'blog:delete-comment' comment.id_code %}" style="color: red;" onclick="return confirm('Delete this comment?');">delete comment</a></div>
-                        {% endif %}
-                        </div>
-                  </div>
-            </div>
-
-            <div><p style="margin-top: 5px;">{{ comment.content }}</p></div>
-
-            <div class="subcomment-box">
-                {% for sub in comment.sub_comment %}
-                    <small style="margin-top: 2px;margin-left: 5%; width: 100%;">{{ sub.content }}</small>
-                {% endfor %}
-            </div>
-            
-            <div>
-                <div style="margin-left: 5%;">
-                    <a id="show-subcomment-reply" onclick="show_subcomment_reply(this)">reply comment..</a>
-                </div>
-                <div class="subcomment-reply" id="subcomment-reply" style="display: none;">
-                    <form method="post" action="{% url 'blog:create-subcomment' comment.id_code %}">
-                        {% csrf_token %}
-                        <div>
-                            <div class="column">
-                                <textarea class="form-control" rows="1" name="subcomment text" placeholder="reply something.." style="width: 50%;"></textarea>
+                    <div style="margin-left: 5%;">
+                        <a id="show-subcomment-reply" onclick="show_subcomment_reply(this)">reply comment..</a>
+                    </div>
+                    <div class="subcomment-reply" id="subcomment-reply" style="display: none;">
+                        <form method="post" action="{% url 'blog:create-subcomment' comment.id_code %}">
+                            {% csrf_token %}
+                            <div>
+                                <div class="column">
+                                    <textarea class="form-control" rows="1" name="subcomment text" placeholder="reply something.." style="width: 50%;"></textarea>
+                                </div>
+                                <div class="column">
+                                    <button type="submit">Reply</button>
+                                </div>
                             </div>
-                            <div class="column">
-                                <button type="submit">Reply</button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                    <div></div>
                 </div>
-                <div></div>
+    
             </div>
-
-        </div>
-        <hr style="margin-top: 10px;">
-    {% endfor %}
+            <hr style="margin-top: 10px;">
+        {% endfor %}
+    </div> 
+    <a id="show_comment" onclick="show_more_comment()">show comment..</a>
 
 {% endblock %}
 </body>

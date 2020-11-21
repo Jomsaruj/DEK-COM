@@ -40,7 +40,7 @@ class Poll(Blog):
         return True
 
     def get_choices(self):
-        return self.choices.all()
+        return self.choices.all().order_by('-votes')
 
     def top_choice(self):
         return self.get_choices()[:2]

@@ -127,11 +127,13 @@ def edit_blog(request, post_id_code):
     comments = Comment.objects.filter(post=blog).order_by('-like')
     if request.user != blog.author:
         return redirect(reverse('blog:blog-detail', args=[blog.id_code]))
+
+    if blog_type == 'poll':
+            return redirect(reverse('blog:blog-detail', args=[blog.id_code]))
+
     if request.method == 'POST':
         if blog_type in ['post', 'question']:
             edit_post(request, blog)
-        elif blog_type == 'poll':
-            edit_poll(request, blog)
         elif blog_type == 'job':
             edit_job(request, blog)
         return redirect(reverse('blog:blog-detail', args=[blog.id_code]))
@@ -142,9 +144,6 @@ def edit_post(request, blog):
     blog.content = request.POST['post content']
     blog.pub_date = timezone.now()
     blog.save()
-
-def edit_poll(request, poll):
-    pass
 
 def edit_job(request, job):
     job.topic = request.POST['job topic']
@@ -157,6 +156,8 @@ def delete_blog(request, post_id_code):
     if request.user == blog.author:
         blog.delete()
         messages.warning(request, f'Post deleted!!')
+    else:
+        return redirect('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
     return redirect(reverse('blog:blog-index'))
 
 def blog_detail(request, id_code):
@@ -222,6 +223,18 @@ def tag(request, tag_name):
     tag = Tag.objects.get(name=tag_name)
     tag.active_status = not tag.active_status
     tag.save()
+    try:  # get previous url and redirect to that url
+        type = request.META.get('HTTP_REFERER').split('/')[-1]
+        # print(request.META.get('HTTP_REFERER'))
+        # print(type)
+
+        if type in ['post', 'question', 'poll', 'job']:
+            return redirect(reverse('blog:filter-blog', args=[type]))
+        else:  # not from index
+            return redirect(reverse('blog:blog-index'))
+    except:
+        # print("from other site")
+        pass
     return redirect(reverse('blog:blog-index'))
 
 def vote(request, choice_id_code):

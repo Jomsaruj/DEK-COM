@@ -25,6 +25,20 @@ function show_subcomment_reply(_show) {
     }
 }
 
+function show_more_coomet() {
+    var comment_list = document.querySelectorAll(".comment-list");
+    var show_count = 0;
+    for (i=0; i<comment_list.length; i++) {
+        if (comment_list[i].style.display == "none") {
+            comment_list[i].style.display = "";
+            show_count++;
+        }
+        if (show_count >= 5) {
+            break;
+        }
+    }
+}
+
 function add_tag() {
     var tag_name = document.getElementById("tag-input").value.trim();
     document.getElementById("tag-input").value = "";
@@ -69,16 +83,10 @@ function add_choice() {
     document.getElementById("choices-container").append(choice_display);
 } 
 
+
 function delete_choice(choice_id) {
     var choice = document.getElementById(choice_id);
     document.getElementById("choices-container").removeChild(choice);
 }
 
-function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
+
