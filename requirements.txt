@@ -5,3 +5,6 @@ python-decouple
 better_profanity
 django-polymorphic
 bs4
+django-crispy-forms
+pillow
+
