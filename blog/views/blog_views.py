@@ -1,14 +1,10 @@
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect,reverse
 from django.contrib import messages
 from django.db.models import Q
-from ..models import Blog, Post, Question, Poll, Choice, Vote, Job, Comment, SubComment, Tag, IdCode
-from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from ..models.id_code import IdCode
-from ..models.id_code_manager import IdCodeManager
-from ..models.tag_manager import TagManager
 
+from ..models import Blog, Post, Question, Poll, Comment, Tag
+from ..models.tag_manager import TagManager
 from .post_views import *
 from .question_views import *
 from .poll_views import *
