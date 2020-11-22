@@ -121,10 +121,13 @@ label {
     width: 10%;
     background: rgb(224, 224, 224);
     justify-content: center;
+    display: flex;
+    justify-content: space-around;
 }
 .solution-button {
     width: 5rem;
     height: 5rem;
+    border-radius: 50%;
     background-color: rgb(230, 230, 230);
 }
 

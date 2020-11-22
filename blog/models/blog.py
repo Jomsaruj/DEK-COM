@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 from .tag import Tag
-
+from .like import Like
 
 class Blog(PolymorphicModel):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -12,9 +12,16 @@ class Blog(PolymorphicModel):
     pub_date = models.DateTimeField(default=timezone.now())
     id_code = models.CharField(max_length=6, default='')
     tags = models.ManyToManyField(Tag)
+    likes = models.ManyToManyField(Like)
 
     def get_tags(self):
         return self.tags.all()
+
+    def get_likes(self):
+        return self.likes.all()
+
+    def get_like_amount(self):
+        return self.likes.all().count()
 
     def is_poll(self):
         return False
