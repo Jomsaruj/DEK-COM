@@ -247,6 +247,7 @@ label {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    row-gap: 15px;
 }
 
 .candidate-box {
