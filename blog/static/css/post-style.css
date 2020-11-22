@@ -74,7 +74,7 @@ label {
 .post-content {
     word-break: break-all;
     max-width: 90%;
-    max-height: 25%;
+    max-height: 30%;
     margin-top: 10px;
     margin-left: 15px;
 }
@@ -121,10 +121,13 @@ label {
     width: 10%;
     background: rgb(224, 224, 224);
     justify-content: center;
+    display: flex;
+    justify-content: space-around;
 }
 .solution-button {
     width: 5rem;
     height: 5rem;
+    border-radius: 50%;
     background-color: rgb(230, 230, 230);
 }
 
@@ -192,7 +195,7 @@ label {
 }
 
 .tag-display {
-    background-color: rgb(224, 224, 224);
+    background: rgb(0, 160, 125);
     min-width: 10%;
     max-width: 20%;
     border-radius: 5px;
@@ -234,4 +237,29 @@ label {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.vote-score {
+    /* color: #f00; */
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+}
+
+.candidates-section {
+    /* background-color: red; */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    row-gap: 15px;
+}
+
+.candidate-box {
+    width: 15rem;
+    height: 8rem;
+    border-radius: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    background-color: rgb(224,224,224);
 }

@@ -40,23 +40,40 @@
             <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`">{{ tag.name }}</div>
         {% endfor %}
         </div>
-        {% if blog.has_link %}
-            <div style="width: 20%;height: 40px;background-color: rgb(81, 81, 230);border-radius: 10px;text-align: center;"
-            onclick="location.href=`{{ blog.link }}`">
-                <p style="vertical-align: middle;line-height: 260%;color: white;">View original link</p>
-            </div>
-        {% else %}
-            {% if blog.author == request.user %}
-                <div style="width: 20%;height: 40px;background-color: aquamarine;border-radius: 10px;text-align: center;">
-                    <p style="vertical-align: middle;line-height: 260%;">Show candidate</p>
+        <small class="text-muted">Last edited {{ blog.pub_date }}</small>
+        <div style="margin-top: 25px;"></div>
+        <div>
+            {% if blog.has_link %}
+                <div style="width: 20%;height: 40px;background-color: rgb(81, 81, 230);border-radius: 10px;text-align: center;"
+                onclick="location.href=`{{ blog.link }}`">
+                    <p style="vertical-align: middle;line-height: 260%;color: white;">View original link</p>
                 </div>
             {% else %}
-            <div style="width: 20%;height: 40px;background-color: darkkhaki;border-radius: 10px;text-align: center;">
-                <p style="vertical-align: middle;line-height: 260%;">Apply for job</p>
-            </div>
+                {% if blog.author == request.user %}
+                    <div onclick="show_candidate(this)" style="width: 20%;height: 40px;background-color: aquamarine;border-radius: 10px;text-align: center;">
+                        <p style="vertical-align: middle;line-height: 260%;">Show candidates</p>
+                    </div>
+                {% else %}
+                    {% if request.user in blog.get_candidates %}
+                    {% else %}
+                        <div onclick="location.href=`{% url 'blog:apply-job' blog.id_code %}`" style="width: 20%;height: 40px;background-color: darkkhaki;border-radius: 10px;text-align: center;">
+                            <p style="vertical-align: middle;line-height: 260%;">Apply for job</p>
+                        </div>
+                    {% endif %}
+                {% endif %}
             {% endif %}
-        {% endif %}
-        <small class="text-muted">Last edited {{ blog.pubdate }}</small>
+            <div style="margin-top: 15px;"></div>
+            <section class="candidates-section" style="display: none;">
+                {% for candidate in blog.get_candidates %}
+                    <div class="candidate-box">
+                        <div class="row" style="margin-left: 8%;margin-top: 5%;">
+                            <img src="{{ candidate.profile.image.url }}" width="20px" height="20px" class="img-circle">
+                            <a href="{% url 'profile' candidate.username %}">{{ candidate.username }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
     </div>
 
     <div><a class="show-comment-reply" id="show-comment-reply" onclick="show_comment_reply()">write comment..</a></div>
