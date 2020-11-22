@@ -221,7 +221,14 @@ def create_subcomment(request, comment_id_code):
 
 def tag(request, tag_name):
     tag = Tag.objects.get(name=tag_name)
-    tag.active_status = not tag.active_status
+    try:
+        latest_url = request.META.get('HTTP_REFERER').split('/')
+        if latest_url[-2] != 'blog':
+            tag.active_status = True
+        else:
+            tag.active_status = not tag.active_status
+    except:
+        tag.active_status = not tag.active_status
     tag.save()
     try:  # get previous url and redirect to that url
         type = request.META.get('HTTP_REFERER').split('/')[-1]
