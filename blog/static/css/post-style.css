@@ -192,7 +192,7 @@ label {
 }
 
 .tag-display {
-    background-color: rgb(224, 224, 224);
+    background: rgb(0, 160, 125);
     min-width: 10%;
     max-width: 20%;
     border-radius: 5px;

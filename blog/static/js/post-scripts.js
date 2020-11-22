@@ -51,13 +51,18 @@ function add_tag() {
     
     var tag_display = document.createElement("div");
     tag_display.classList.add("tag-display");
-    tag_display.id = tag_name
-    tag_display.innerHTML = `<label>` + tag_name + `</label><div onclick="delete_tag('` + tag_name +`')">&#10006;</div>`
+    tag_display.id = tag_name;
+    tag_display.innerHTML = `<label>` + tag_name + `</label><div onclick="delete_tag('` + tag_name +`')">&#10006;</div>`;
 
-    tag_display.append(tag);
+    if (document.getElementById("tags-container").childElementCount < 7) {
+        var exist_tag = document.getElementById(tag_name);
+        if (!document.getElementById("tags-container").contains(document.getElementById(tag_name))) {
+            tag_display.append(tag);
+            document.getElementById("tags-container").append(tag_display);
+        }
+    }
 
 
-    document.getElementById("tags-container").append(tag_display);
 }
 
 function delete_tag(tag_id) {
