@@ -153,12 +153,13 @@ def edit_job(request, job):
 
 def delete_blog(request, post_id_code):
     blog = get_blog_from_id_code(post_id_code)
-    if request.user == blog.author:
+    if request.user == blog.author or request.user.is_superuser:
         blog.delete()
         messages.warning(request, f'Post deleted!!')
     else:
         return redirect('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
     return redirect(reverse('blog:blog-index'))
+
 
 def blog_detail(request, id_code):
     blog = get_blog_from_id_code(id_code)
