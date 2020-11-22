@@ -267,3 +267,11 @@ def like(request, id):
     user.coin.plus_coin()
     user.coin.save()
     return redirect(reverse('blog:blog-index'))
+
+@login_required
+def apply_job(request, job_id_code):
+    job = Job.objects.filter(id_code=job_id_code).first()
+    job.candidates.add(request.user)
+    job.save()
+    messages.success(request, f'Job applied!!')
+    return redirect(reverse('blog:blog-detail', args=[job.id_code]))

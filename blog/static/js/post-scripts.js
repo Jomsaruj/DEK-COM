@@ -89,4 +89,15 @@ function delete_choice(choice_id) {
     document.getElementById("choices-container").removeChild(choice);
 }
 
-
+function show_candidate(_this) {
+    var candidates = _this.nextElementSibling.nextElementSibling;
+    var text = _this.children[0]
+    if (candidates.style.display == "none") {
+        candidates.style.display = "";
+        text.innerHTML = "Hide candidates"
+    }
+    else {
+        candidates.style.display = "none";
+        text.innerHTML = "Show candidates"
+    }
+}

@@ -237,7 +237,25 @@ label {
 }
 
 .vote-score {
-    color: #f00;
+    /* color: #f00; */
     -webkit-filter: invert(100%);
     filter: invert(100%);
+}
+
+.candidates-section {
+    /* background-color: red; */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.candidate-box {
+    width: 15rem;
+    height: 8rem;
+    border-radius: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    background-color: rgb(224,224,224);
 }
