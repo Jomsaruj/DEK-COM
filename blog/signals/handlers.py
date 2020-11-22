@@ -1,7 +1,8 @@
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, post_delete
 from django.dispatch import receiver
 
 from ..models import Blog, Post, Question, Poll, Choice, Vote, Comment, SubComment, IdCode
+from ..models.tag_manager import TagManager
 
 
 @receiver(pre_delete, sender=Blog)
@@ -10,8 +11,14 @@ def delete_blog(sender, instance, **kwargs):
     for comment in comments:
         comment.delete()
     clear_choice(instance.id_code)
+    for tag in instance.get_tags():
+        TagManager.update_tag_num(tag.name)
     id_code = IdCode.objects.filter(code=instance.id_code).first()
     id_code.delete()
+
+@receiver(post_delete, sender=Blog)
+def post_delete_blog(sender, instance, **kwargs):
+    pass
 
 @receiver(pre_delete, sender=Comment)
 def delete_comment(sender, instance, **kwargs):

@@ -221,7 +221,10 @@ def create_subcomment(request, comment_id_code):
     return redirect(reverse('blog:blog-detail', args=[post.id_code]))
 
 def tag(request, tag_name):
-    tag = Tag.objects.get(name=tag_name)
+    try:
+        tag = Tag.objects.get(name=tag_name)
+    except:
+        return redirect(reverse('blog:blog-index'))
     try:
         latest_url = request.META.get('HTTP_REFERER').split('/')
         if latest_url[-2] != 'blog':
