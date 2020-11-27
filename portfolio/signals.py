@@ -8,10 +8,10 @@ from users.models import Coin
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
-        Coin.objects.create(user=instance)
-
-
+        p = Profile.objects.create(user=instance)
+        c = Coin.objects.create(type_coin="total")
+        p.coin.add(c)
+        p.save()
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
     instance.profile.save()

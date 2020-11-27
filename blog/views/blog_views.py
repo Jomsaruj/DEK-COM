@@ -113,6 +113,7 @@ def get_blog_from_id_code(id_code):
 def like(request, id):
     post = Post.objects.get(id_code=id)
     user = post.author
-    user.coin.plus_coin()
-    user.coin.save()
+    coin = user.profile.get_total_coin()
+    coin.total_coin += 1
+    coin.save()
     return redirect(reverse('blog:blog-index'))
