@@ -47,7 +47,7 @@
             <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`">{{ tag.name }}</div>
         {% endfor %}
         </div>
-        <small class="text-muted">Last edited {{ blog.pubdate }}</small>
+        <small class="text-muted">Last edited {{ blog.pub_date }}</small>
     </div>
 
     <div><a class="show-comment-reply" id="show-comment-reply" onclick="show_comment_reply()">write comment..</a></div>
@@ -69,7 +69,9 @@
         <div class="answer-box">
             <div class="answer-status">
                 {% if comment.id_code == blog.solution_id_code %}
-                    <div class="solution-button" style="background-color: darkgreen;" onclick="location.href=`{% url 'blog:choose-solution' comment.id_code %}`"></div>
+                    <div class="solution-button" style="background-color: darkgreen;" onclick="location.href=`{% url 'blog:choose-solution' comment.id_code %}`">
+                        <p style="font-size: xx-large;margin-left: 25%;">&#10003;</p>
+                    </div>
                 {% else %}
                     <div class="solution-button" onclick="location.href=`{% url 'blog:choose-solution' comment.id_code %}`"></div>
                 {% endif %}

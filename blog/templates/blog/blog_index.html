@@ -34,6 +34,14 @@
             {% if post.has_content %}
                 <div class="post-content">
                     <p>{{ post.content|truncatechars:120 }}</p>
+                    {% if post.is_poll %}
+                        {% for choice in post.top_choice %}
+                        <div style="display: flex;flex-direction:row">
+                            {{ choice.get_html_bar | safe }}
+                            <p>{{ choice.content }}</p>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             {% endif %}
             <div class="border-top pt-3" style="margin-top: 0px;">
