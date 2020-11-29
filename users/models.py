@@ -5,14 +5,9 @@ from django.dispatch import receiver
 
 
 class Coin(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    type_coin = models.CharField(max_length=200,default="total")
     total_coin = models.IntegerField(default=0)
 
-    def plus_coin(self):
-        self.total_coin += 1
-
-    def get_total_coin(self):
-        return self.total_coin
 
     def __str__(self):
         return f"{self.total_coin}"

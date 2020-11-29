@@ -1,8 +1,10 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect,reverse
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
+from users.models import Coin
 from ..models import Blog, Post, Question, Poll, Comment, Tag
 from ..models.tag_manager import TagManager
 from .post_views import *
@@ -13,6 +15,10 @@ from .job_views import *
 
 def blog(request):
     all_tag = Tag.objects.all().order_by('-post_num')[:8]
+    search_post = request.GET.get('search')
+    if search_post:
+        most_recent_post = Post.objects.filter(Q(topic__icontains=search_post) | Q(content__icontains=search_post))
+        return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag})
     for tag in all_tag:
         TagManager.update_tag_num(tag.name)
     selected_tags = Tag.objects.filter(active_status=True)
@@ -111,8 +117,24 @@ def get_blog_from_id_code(id_code):
 
 @login_required
 def like(request, id):
+    coin_this_type = False
+    user = request.user
     post = Post.objects.get(id_code=id)
-    user = post.author
-    user.coin.plus_coin()
-    user.coin.save()
+    post_user = post.author
+    if user.username == post_user.username:
+        return redirect(reverse('blog:blog-index'))
+    coins = post_user.profile.get_coins()
+    for tag in post.get_tags():
+        for coin in coins:
+            if tag.name == coin.type_coin:
+                coin.total_coin += 1
+                coin.save()
+                coin_this_type = True
+        if not coin_this_type:
+            new_coin = Coin.objects.create(type_coin=tag.name, total_coin=1)
+            new_coin.save()
+            post_user.profile.coins.add(new_coin)
+        else:
+            coin_this_type = False
+
     return redirect(reverse('blog:blog-index'))
