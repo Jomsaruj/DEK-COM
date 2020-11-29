@@ -7,7 +7,7 @@ from django.db.models import Q
 def index(request):
     search_post = request.GET.get('search')
     if search_post:
-        posts = Post.objects.filter(Q(title__icontains=search_post) or Q(content__icontains=search_post))
+        posts = Post.objects.filter(Q(title__icontains=search_post) | Q(content__icontains=search_post))
     return render(request, 'portfolio/profile.html', {'posts': posts})
 
 def profile(request, username):
