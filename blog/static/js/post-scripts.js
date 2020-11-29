@@ -42,6 +42,9 @@ function show_more_coomet() {
 function add_tag() {
     var tag_name = document.getElementById("tag-input").value.trim();
     document.getElementById("tag-input").value = "";
+    if (String(tag_name).length === 0) {
+        return;
+    }
     var num = document.getElementById("tags-container").childElementCount;
     var tag = document.createElement("input");
     tag.setAttribute("type", "text");
