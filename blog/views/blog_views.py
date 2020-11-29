@@ -57,6 +57,7 @@ def go_to_blog(request):
 
 @login_required
 def create_blog(request, blog_type):
+    template = "blog/create_" + blog_type + ".html"
     if request.method == 'POST':
         if blog_type == "post":  # if i use dict lambda it will cause multiple generate id_code
             blog = create_post(request)
@@ -66,7 +67,12 @@ def create_blog(request, blog_type):
             blog = create_poll(request)
         elif blog_type == "job":
             blog = create_job(request)
-            
+
+        if blog.topic.strip() == "":
+            print("empty topic")
+            messages.warning(request, f'Topic cannot be empty!!')
+            return render(request, template)
+ 
         for key in request.POST:
             if "tag" in key:
                 tag = request.POST[key]
@@ -76,7 +82,6 @@ def create_blog(request, blog_type):
                     blog.save()
                     TagManager.update_tag_num(new_tag.name)
         return redirect(reverse('blog:blog-detail', args=[blog.id_code]))
-    template = "blog/create_" + blog_type + ".html"
     return render(request, template)
 
 def edit_blog(request, post_id_code):
