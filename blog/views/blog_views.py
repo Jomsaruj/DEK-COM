@@ -14,7 +14,6 @@ from .job_views import *
 def blog(request):
     all_tag = Tag.objects.all().order_by('-post_num')[:8]
     search_post = request.GET.get('search')
-    print(search_post)
     if search_post:
         most_recent_post = Post.objects.filter(Q(topic__icontains=search_post) | Q(content__icontains=search_post))
         return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag})
