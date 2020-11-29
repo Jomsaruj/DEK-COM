@@ -34,6 +34,14 @@
             {% if post.has_content %}
                 <div class="post-content">
                     <p>{{ post.content|truncatechars:120 }}</p>
+                    {% if post.is_poll %}
+                        {% for choice in post.top_choice %}
+                        <div style="display: flex;flex-direction:row">
+                            {{ choice.get_html_bar | safe }}
+                            <p>{{ choice.content }}</p>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             {% endif %}
             <div class="border-top pt-3" style="margin-top: 0px;">
@@ -41,7 +49,9 @@
                     <div style="margin-left: 15px;">
                         <small class="text-muted">
                             <a href="{% url 'blog:blog-detail' post.id_code %}" style="margin-top: 5px;">write comment..</a>
-                            <a onclick="location.href=`{% url 'blog:like' post.id_code  %}`">like</a>
+                            {% if post.author != request.user %}
+                                <a onclick="location.href=`{% url 'blog:like' post.id_code  %}`">like</a>
+                            {% endif %}
                         </small>
                     </div>
                     <div class="post-author">

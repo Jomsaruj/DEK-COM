@@ -15,17 +15,26 @@
             </div>
         </div>
 
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                . . .
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
-                {% if blog.author == request.user %}
-                <div><a class="dropdown-item" href="{% url 'blog:edit-blog' blog.id_code %}">edit post</a></div>
-                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' blog.id_code %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
-                {% endif %}
+        <div class="post-like-section">
+            <div class="dropdown" style="margin-left: 20%;">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    . . .
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
+                    {% if blog.author == request.user %}
+                    <div><a class="dropdown-item" href="{% url 'blog:edit-blog' blog.id_code %}">edit post</a></div>
+                    <div><a class="dropdown-item" href="{% url 'blog:delete-blog' blog.id_code %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
+                    {% elif request.user.is_superuser %}
+                    <div><a class="dropdown-item" href="{% url 'blog:delete-blog' blog.id_code %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
+                    {% endif %}
+                </div>
             </div>
-          </div>
+    
+            <!-- <div class="like-symbol" style="background-color: blue;">
+            </div>
+            <div style="text-align: center;"><p>like num</p></div>
+            <div class="dislike-symbol" style="background-color: red;"></div> -->
+        </div>
     </div>
 {% endblock %}
 
@@ -37,7 +46,7 @@
             <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`">{{ tag.name }}</div>
         {% endfor %}
         </div>
-        <small class="text-muted">Last edited {{ blog.pubdate }}</small>
+        <small class="text-muted">Last edited {{ blog.pub_date }}</small>
     </div>
 
     <div><a class="show-comment-reply" id="show-comment-reply" onclick="show_comment_reply()">write comment..</a></div>
