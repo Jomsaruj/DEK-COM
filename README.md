@@ -10,7 +10,7 @@ This application is a part of [Individual Software Process 01219245](https://cps
 
 * [Vision Statement](../../wiki/Vision%20of%20DEK%20COM%20application)
 * [Requirements](../../wiki/Requirements)
-* [Instruction for Installation Application](https://github.com/Jomsaruj/DEK-COM/wiki/Instruction-for-Install-Application)
+* [Instruction for Installation Application](INSTALL.md)
 
 Code review
 * [Checklist](../../wiki/Code%20Review%20Checklist)
@@ -20,6 +20,7 @@ Iterations
 * [Iteration 1 Plan](../../wiki/Iteration%201%20Plan) and [Task Board](../../projects/1)
 * [Iteration 2 Plan](../../wiki/Iteration-2-Plan) and [Task Board](../../projects/2)
 * [Iteration 3 Plan](../../wiki/Iteration%203%20Plan) and [Task Board](../../projects/3)
+* [Iteration 4 Plan](../../wiki/Iteration%204%20Plan) and [Task Board](../../projects/5)
 
 ## Team
 * [Auttakrit Wongsarawit](https://github.com/markna551) 
