@@ -22,6 +22,8 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
                 {% if blog.author == request.user %}
                 <div><a class="dropdown-item" href="{% url 'blog:delete-blog' blog.id_code %}" style="color: red;" onclick="return confirm('Delete this blog?');">delete poll</a></div>
+                {% elif request.user.is_superuser %}
+                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' blog.id_code %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
                 {% endif %}
             </div>
           </div>
