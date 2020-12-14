@@ -35,3 +35,49 @@ class CustomRegistrationForm(UserCreationForm):
                   'is_Ruby', 'is_Dart')
 
 
+class FormUpdate(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email')
+
+
+class DateForm(forms.ModelForm):
+    date = forms.DateField(label="Birth date", widget=DateInput)
+
+    class Meta:
+        model = User
+        fields = ('date',)
+
+
+class AddressForm(forms.ModelForm):
+    address = forms.CharField(label="Address")
+
+    class Meta:
+        model = User
+        fields = ('address',)
+
+
+class ZipCodeForm(forms.ModelForm):
+    zipcode = forms.CharField(label="Zip Code")
+
+    class Meta:
+        model = User
+        fields = ('zipcode',)
+
+
+class PhoneForm(forms.ModelForm):
+    phone = forms.CharField(label="Phone number", required=False)
+
+    class Meta:
+        model = User
+        fields = ('phone',)
+
+
+class GitForm(forms.ModelForm):
+    git = forms.CharField(label="GitHub Link", required=False)
+
+    class Meta:
+        model = User
+        fields = ('git',)
+

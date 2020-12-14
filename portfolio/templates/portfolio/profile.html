@@ -27,7 +27,7 @@
             <img src="{{ user.profile.image.url }}" width="150" height="150" style="margin-top: 100px; margin-left: 190px" class="profile-image img-circle">
             <div class  = "header" style="margin-top: 100px; display: inline-block; vertical-align: text-top; position: absolute;">
                 <p class="h3" style="display: inline-block;margin-left: 100px; margin-right: 20px; ">{{user.username}}</p>
-                <a href="#"><button style="width: 150px; font-weight: 500; " type="button" class="btn btn-info">Edit Profile</button></a>
+                <a href="{% url 'profile_update' user.username %}"><button style="width: 150px; font-weight: 500; " type="button" class="btn btn-info">Edit Profile</button></a>
             </div>
             <div class = "status" style="margin-top: 50px;margin-left: 100px; display: inline-block; vertical-align: text-top;" >
                 <p class="h5" style="display: inline-block; margin-right: 30px; ">Total Coin  </p>
