@@ -4,7 +4,8 @@ from django.shortcuts import render, redirect
 from blog.models.post import Post
 from django.db.models import Q
 
-from users.form import FormUpdate, DateForm, AddressForm, ZipCodeForm, PhoneForm, GitForm, ProfileImageForm
+from users.form import FormUpdate, DateForm, AddressForm, ZipCodeForm, PhoneForm, GitForm, ProfileImageForm, \
+    ProfessionForm
 
 
 def index(request):
@@ -30,6 +31,7 @@ def profile_update(request, username):
         phone_form = PhoneForm(request.POST, instance=request.user.phone)
         git_form = GitForm(request.POST, instance=request.user.git)
         profile_image_form = ProfileImageForm(request.POST, request.FILES, instance=request.user.profile)
+        c_form = ProfessionForm(request.POST, instance=request.user.profession)
 
         if form.is_valid() and phone_form.is_valid():
             form.save()
@@ -39,6 +41,7 @@ def profile_update(request, username):
             phone_form.save()
             git_form.save()
             profile_image_form.save()
+            c_form.save()
             return redirect('/blog')
 
     else:
@@ -49,6 +52,7 @@ def profile_update(request, username):
         phone_form = PhoneForm(request.POST, instance=request.user.phone)
         git_form = GitForm(request.POST, instance=request.user.git)
         profile_image_form = ProfileImageForm(request.POST, request.FILES, instance=request.user.profile)
+        c_form = ProfessionForm(request.POST, instance=request.user.profession)
 
     return render(request, 'portfolio/profile_update.html', {
         'form': form,
@@ -58,7 +62,8 @@ def profile_update(request, username):
         'phone_form': phone_form,
         'git_form': git_form,
         'user': user_profile,
-        'profile_image_form': profile_image_form
+        'profile_image_form': profile_image_form,
+        'c_form': c_form
     })
 
 

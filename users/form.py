@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from portfolio.models import Profile
-from users.models import Address, Phone
+from users.models import Address, Phone, Profession
 
 
 class DateInput(forms.DateInput):
@@ -90,4 +90,13 @@ class ProfileImageForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('image', 'cover_image', 'formal_image')
+
+
+class ProfessionForm(forms.ModelForm):
+    class Meta:
+        model = Profession
+        fields = (
+        'is_java', 'is_python',
+        'is_JavaScript', 'is_Csharp', 'is_C', 'is_Cpp', 'is_Go', 'is_R', 'is_Swift', 'is_PHP', 'is_Kotlin',
+        'is_Ruby', 'is_Dart')
 
