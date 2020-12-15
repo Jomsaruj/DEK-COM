@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from portfolio.models import Profile
+from users.models import Address, Phone
+
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -51,10 +54,9 @@ class DateForm(forms.ModelForm):
 
 
 class AddressForm(forms.ModelForm):
-    address = forms.CharField(label="Address")
 
     class Meta:
-        model = User
+        model = Address
         fields = ('address',)
 
 
@@ -70,7 +72,7 @@ class PhoneForm(forms.ModelForm):
     phone = forms.CharField(label="Phone number", required=False)
 
     class Meta:
-        model = User
+        model = Phone
         fields = ('phone',)
 
 
@@ -80,4 +82,12 @@ class GitForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('git',)
+
+
+class ProfileImageForm(forms.ModelForm):
+    image = forms.ImageField(label="Profile image")
+
+    class Meta:
+        model = Profile
+        fields = ('image', 'cover_image', 'formal_image')
 

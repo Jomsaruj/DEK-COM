@@ -86,8 +86,8 @@ def update_user_profile(sender, instance, created, **kwargs):
     instance.address.save()
     instance.zipcode.save()
     instance.phone.save()
-    instance.git.save()
     instance.date.save()
+    instance.git.save()
 
 
 
