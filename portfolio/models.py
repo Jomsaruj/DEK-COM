@@ -30,3 +30,16 @@ class Profile(models.Model):
     def get_most_coins(self):
         list_most_coins = self.get_coins().order_by('-total_coin')[:5]
         return list_most_coins
+
+    def give_coin(self, post, total):
+        for tag in post.get_tags():
+            coin_this_type = False
+            for coin in self.get_coins():
+                if tag.name == coin.type_coin:
+                    coin.total_coin += total
+                    coin.save()
+                    coin_this_type = True
+            if not coin_this_type:
+                new_coin = Coin.objects.create(type_coin=tag.name, total_coin=total)
+                new_coin.save()
+                self.coins.add(new_coin)

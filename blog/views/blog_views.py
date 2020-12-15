@@ -122,24 +122,10 @@ def get_blog_from_id_code(id_code):
 
 @login_required
 def like(request, id):
-    coin_this_type = False
     user = request.user
-    post = Post.objects.get(id_code=id)
+    post = Blog.objects.get(id_code=id)
     post_user = post.author
     if user.username == post_user.username:
         return redirect(reverse('blog:blog-index'))
-    coins = post_user.profile.get_coins()
-    for tag in post.get_tags():
-        for coin in coins:
-            if tag.name == coin.type_coin:
-                coin.total_coin += 1
-                coin.save()
-                coin_this_type = True
-        if not coin_this_type:
-            new_coin = Coin.objects.create(type_coin=tag.name, total_coin=1)
-            new_coin.save()
-            post_user.profile.coins.add(new_coin)
-        else:
-            coin_this_type = False
-
+    post_user.profile.give_coin(post, 1)
     return redirect(reverse('blog:blog-index'))
