@@ -21,6 +21,10 @@
                 padding: 5px 20px;
             }
 
+            bg.normal{
+                background-color: #FCF2E1;
+            }
+
         </style>
 
         <div class="container bg-light" style="width: 913px; height: 300px;">
@@ -87,11 +91,247 @@
                     </div>
                 </div>
             </div>
-        <div class="container bg-primary" style="margin-top: 50px; width: 1440px; height: 500px">
-            <p class="h1" style="display: inline-block; margin-left: 300px;  margin-top: 60px;">My Skills </p>
-            <div class="container bg-info" style="width: 200px; height: 200px">
+
+        <div class="container bg-primary" style="margin-top: 50px; width: 1440px; height: 1800px">
+
+            <p class="h1" style="display: inline-block; margin-left: 600px;  margin-top: 40px;">MY SKILLS </p>
+
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_java %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\java.png" class="img-thumbnail" style="height: 230px;">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\java.png" class="img-thumbnail" style="height: 230px;">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_python  %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\pytho.png" class="img-thumbnail" style="height: 230px;">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\pytho.png" class="img-thumbnail" style="height: 230px;">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_JavaScript%}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\js.png" class="img-thumbnail" style="height: 230px;">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\js.png" class="img-thumbnail" style="height: 230px;">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Csharp%}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\cs.png" class="img-thumbnail" style="height: 230px; width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\cs.png" class="img-thumbnail" style="height: 230px; width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_C  %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\c.png" class="img-thumbnail" style="height: 230px;  width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\c.png" class="img-thumbnail" style="height: 230px;  width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Cpp%}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\cpp.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\cpp.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Go%}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\g.png" class="img-thumbnail" style="height: 230px; width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\g.png" class="img-thumbnail" style="height: 230px; width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_R  %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\rp.png" class="img-thumbnail" style="height: 230px;  width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\rp.png" class="img-thumbnail" style="height: 230px;  width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Swift %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\sw.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\sw.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_PHP%}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\ph.png" class="img-thumbnail" style="height: 230px; width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\ph.png" class="img-thumbnail" style="height: 230px; width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Kotlin  %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\kotlin.png" class="img-thumbnail" style="height: 230px;  width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\kotlin.png" class="img-thumbnail" style="height: 230px;  width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Ruby %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\rub.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\rub.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Dart %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:10px">
+                    <div class="card-header text-center"><h1>Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\dart.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:10px">
+                    <div class="card-header text-center"><h1>Not Approved</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\dart.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
+
         <div>
             <p class="h1" style="display: inline-block; margin-left: 300px;  margin-top: 60px;">Top 5 coins </p>
             {% for coin in user.profile.get_most_coins %}

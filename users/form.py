@@ -72,7 +72,7 @@ class PhoneForm(forms.ModelForm):
     phone = forms.CharField(label="Phone number", required=False)
 
     class Meta:
-        model = Phone
+        model = User
         fields = ('phone',)
 
 
