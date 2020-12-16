@@ -11,7 +11,6 @@ def create_poll(request):
     content = request.POST['poll content']
     poll = Poll(topic=topic, content=content, author=request.user, id_code=IdCodeManager.get_new_id())
     poll.save()
-    print(poll.__class__.__name__)
     for key in request.POST:
             if "choice" in key:
                 choice_name = request.POST[key]

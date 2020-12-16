@@ -236,8 +236,8 @@ label {
 .tag {
     background-color: rgb(224, 224, 224);
     border-radius: 5px;
-    min-width: 5%;
-    max-width: 100%;
+    min-width: 7rem;
+    max-width: 100rem;
     padding: 2px;
     text-align: center;
     margin-right: 0.5rem;

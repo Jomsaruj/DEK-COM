@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from portfolio.models import Profile
+from users.models import Address, Phone, Profession
+
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -51,10 +54,9 @@ class DateForm(forms.ModelForm):
 
 
 class AddressForm(forms.ModelForm):
-    address = forms.CharField(label="Address")
 
     class Meta:
-        model = User
+        model = Address
         fields = ('address',)
 
 
@@ -80,4 +82,21 @@ class GitForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('git',)
+
+
+class ProfileImageForm(forms.ModelForm):
+    image = forms.ImageField(label="Profile image")
+
+    class Meta:
+        model = Profile
+        fields = ('image', 'cover_image', 'formal_image')
+
+
+class ProfessionForm(forms.ModelForm):
+    class Meta:
+        model = Profession
+        fields = (
+        'is_java', 'is_python',
+        'is_JavaScript', 'is_Csharp', 'is_C', 'is_Cpp', 'is_Go', 'is_R', 'is_Swift', 'is_PHP', 'is_Kotlin',
+        'is_Ruby', 'is_Dart')
 

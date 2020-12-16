@@ -16,13 +16,20 @@ from .job_views import *
 def blog(request):
     all_tag = Tag.objects.all().order_by('-post_num')[:8]
     search_post = request.GET.get('search')
+
+    tag_filter = request.GET.getlist('tag')
+
     if search_post:
-        most_recent_post = Post.objects.filter(Q(topic__icontains=search_post) | Q(content__icontains=search_post))
-        return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag})
+        most_recent_post = Blog.objects.filter(Q(topic__icontains=search_post)
+                                        or Q(content__icontains=search_post)
+                                        or Q(body__icontains=search_post))
+        return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag},)
     for tag in all_tag:
         TagManager.update_tag_num(tag.name)
-    selected_tags = Tag.objects.filter(active_status=True)
-    if Tag.objects.filter(active_status=True).count() > 0:
+    
+    selected_tags = Tag.objects.filter(name__in=tag_filter)
+    
+    if selected_tags.count() > 0:
         most_recent_post = Blog.objects.filter(
             Q(Post___tags__in=selected_tags) | 
             Q(Question___tags__in=selected_tags) | 
@@ -34,9 +41,11 @@ def blog(request):
 
 def filter_blog(request, blog_type):
     all_tag = Tag.objects.all().order_by('-post_num')[:8]
+    tag_filter = request.GET.getlist('tag')
+
     for tag in all_tag:
         TagManager.update_tag_num(tag.name)
-    selected_tags = Tag.objects.filter(active_status=True)
+    selected_tags = Tag.objects.filter(name__in=tag_filter)
 
     if blog_type == "post":
         most_recent_post = Blog.objects.instance_of(Post)
@@ -47,7 +56,7 @@ def filter_blog(request, blog_type):
     elif blog_type == "job":
         most_recent_post = Blog.objects.instance_of(Job)
 
-    if Tag.objects.filter(active_status=True).count() > 0:
+    if selected_tags.count() > 0:
         most_recent_post = most_recent_post.filter(tags__in=selected_tags)
 
     return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag, 'selected_tags': selected_tags})
