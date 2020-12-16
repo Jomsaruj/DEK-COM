@@ -24,10 +24,10 @@
             <img src="..\..\..\static\image\new_logo.png" width="135" height="135" style="vertical-align:middle;margin:-57px 125px">
           </a>
         </div>
-        <form class="navbar-form navbar-left" style="vertical-align:middle;margin:10px 150px" action="{% url 'blog:blog-index' %}">
+        <form class="navbar-form navbar-left" style="vertical-align:middle;margin:10px 13px" action="{% url 'blog:blog-index' %}">
           <div class="input-group">
-                  <input class="form-control mr-sm-2" type="search"   placeholder="Search" aria-label="Search" style="width: 230px; text-align: center"  name="search">
-                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                  <input class="form-control mr-sm-2" type="search"   placeholder="Search Topics Post" aria-label="Search" style="width: 230px; text-align: center"  name="search" >
+                  <button style="background-color:rgb(155, 247, 216); border-color: black;"   class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 <div class="input-group-btn"> 
               </div>
           </div>
@@ -35,7 +35,7 @@
 
         {% if user.is_authenticated %}
           <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown" style="margin:3px -230px;">
+            <li class="dropdown" style="margin:3px -250px;">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="{{ request.user.profile.image.url }}" width="30" height="30" style=" margin: -13px 5px;" class="profile-image img-circle">
                 <b class="glyphicon glyphicon-triangle-bottom"></b></a>
@@ -43,30 +43,26 @@
                   <li><a class="text-center dropdown-item" >Signed in as {{ request.user.username }}</a></li>
                   <li class="divider"></li>
                   <li><a href="{% url 'profile' user.username %}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-                  <li><a href="/login"><span class="glyphicon glyphicon-globe"></span> Job Opportunities</a></li>
-                  <li><a href="/login"><span class="glyphicon glyphicon-comment"></span> Find Friends</a></li>
-                  <li><a href="/login"><span class="glyphicon glyphicon-piggy-bank"></span> DekCom Coin</a></li>
-                  <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Leaderboard</a></li>
-                  <li><a href="/login"><span class="glyphicon glyphicon-lock"></span> Your Personal Data Consent</a></li>
+                  <li><a href="/blog/job"><span class="glyphicon glyphicon-globe"></span> Job Opportunities</a></li>
+                  <li><a href="/blog/question"><span class="glyphicon glyphicon-question-sign"></span> Question </a></li>
+                  <li><a href="{% url 'profile_update' user.username %}"><span class="glyphicon glyphicon-lock"></span> Your Personal Data</a></li>
                   <li class="divider"></li>
                   <li><a href="/logout"><button style="width: 300px; font-weight: 500;" type="button" class="btn btn-danger btn-block">Log Out</button></a></li>
                 </ul>
           </ul>
         {% else %}
-          <ul class="nav navbar-nav navbar-left">
-            <li><a href="/login"><button style="width: 70px; height: 35px; margin:-5px 150px;" type="button" class="btn btn-primary">Sign In</button></a></li>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/login"><button style="width: 70px; height: 35px; margin:-5px -280px;" type="button" class="btn btn-primary">Sign In</button></a></li>
                <li><div class="btn-group">
-                <li class="dropdown" style="margin:3px -165px;">
+                <li class="dropdown" style="margin:3px -230px;">
                   <a class="glyphicon glyphicon-triangle-bottom dropdown-toggle" data-toggle="dropdown" href="#"></a>
                     <ul class="dropdown-menu pull-right" style="right: 15px;">
                       <li><a href="/register"><button style="width: 300px; font-weight: 500;" type="button" class="btn btn-warning btn-block">Registration</button></a></li>
                       <li class="divider"></li>
                       <li><a href="/login"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-                      <li><a href="/login"><span class="glyphicon glyphicon-globe"></span> Job Opportunities</a></li>
-                      <li><a href="/login"><span class="glyphicon glyphicon-comment"></span> Find Friends</a></li>
-                      <li><a href="/login"><span class="glyphicon glyphicon-piggy-bank"></span> DekCom Coin</a></li>
-                      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> Leaderboard</a></li>
-                      <li><a href="/login"><span class="glyphicon glyphicon-lock"></span> Your Personal Data Consent</a></li>
+                      <li><a href="/blog/job"><span class="glyphicon glyphicon-globe"></span> Job Opportunities</a></li>
+                      <li><a href="/blog/question"><span class="glyphicon glyphicon-question-sign"></span> Question </a></li>
+                      <li><a href="/login"><span class="glyphicon glyphicon-lock"></span> Your Personal Data</a></li>
                     </ul>
                 </li>
           </ul>

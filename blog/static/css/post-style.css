@@ -67,9 +67,6 @@ label {
     align-items: flex-start;
     transition: 0.3s;
 }
-.post-topic:hover {
-    background: rgb(180, 180, 180);
-}
 
 .post-content {
     word-break: break-all;
@@ -236,8 +233,8 @@ label {
 .tag {
     background-color: rgb(224, 224, 224);
     border-radius: 5px;
-    min-width: 5%;
-    max-width: 100%;
+    min-width: 7rem;
+    max-width: 100rem;
     padding: 2px;
     text-align: center;
     margin-right: 0.5rem;
@@ -282,3 +279,85 @@ label {
     justify-content: left;
     background-color: rgb(224,224,224);
 }
+
+.heart {
+    background-color: rgb(200,200,200);
+    display: inline-block;
+    height: 25px;
+    margin: 0 10px;
+    position: relative;
+    top: 0;
+    transform: rotate(-45deg);
+    width: 25px;
+    transition: 0.3s;
+  }
+  
+  .heart:before,
+  .heart:after {
+    content: "";
+    background-color: rgb(200,200,200);
+    border-radius: 50%;
+    height: 25px;
+    position: absolute;
+    width: 25px;
+    transition: 0.3s;
+  }
+  
+  .heart:before {
+    top: -15px;
+    left: 0;
+  }
+  
+  .heart:after {
+    left: 15px;
+    top: 0;
+  }
+
+.heart:hover {
+    background-color: rgb(200,0,0);
+    animation: pulse 1s ease infinite;
+}
+.heart:hover:before,
+.heart:hover:after {
+  background-color: rgb(200,0,0);
+  animation: pulse 1s ease infinite;
+}
+
+@keyframes pulse {
+    0% { background-color: rgb(200,0,0); }
+    50% { background-color: rgb(180,0,0); }
+    100% { background-color: rgb(200,0,0); }
+  }
+
+  .heart-red {
+    background-color: rgb(200,0,0);
+    display: inline-block;
+    height: 25px;
+    margin: 0 10px;
+    position: relative;
+    top: 0;
+    transform: rotate(-45deg);
+    width: 25px;
+    transition: 0.3s;
+  }
+  
+  .heart-red:before,
+  .heart-red:after {
+    content: "";
+    background-color: rgb(200,0,0);
+    border-radius: 50%;
+    height: 25px;
+    position: absolute;
+    width: 25px;
+    transition: 0.3s;
+  }
+  
+  .heart-red:before {
+    top: -15px;
+    left: 0;
+  }
+  
+  .heart-red:after {
+    left: 15px;
+    top: 0;
+  }

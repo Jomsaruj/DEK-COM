@@ -19,9 +19,19 @@
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 . . .
             </button>
+            <br>
+            {% if request.user in blog.user_like %}
+                <div class="heart-red" style="margin-top: 30%;" onclick="location.href=`{% url 'blog:like-detail' blog.id_code  %}`">
+                </div>
+            {% else %}
+                <div class="heart" style="margin-top: 30%;" onclick="location.href=`{% url 'blog:like-detail' blog.id_code  %}`">
+                </div>
+            {% endif %}
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;flex-direction: column;">
                 {% if blog.author == request.user %}
                 <div><a class="dropdown-item" href="{% url 'blog:delete-blog' blog.id_code %}" style="color: red;" onclick="return confirm('Delete this blog?');">delete poll</a></div>
+                {% elif request.user.is_superuser %}
+                <div><a class="dropdown-item" href="{% url 'blog:delete-blog' blog.id_code %}" style="color: red;" onclick="return confirm('Delete this post?');">delete post</a></div>
                 {% endif %}
             </div>
           </div>
@@ -45,7 +55,10 @@
     <div class="border-top pt-3" style="margin-bottom: 30px;">
         <div class="tag-show">
         {% for tag in blog.get_tags %}
-            <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`">{{ tag.name }}</div>
+            <form name="tag-filter{{tag.name}}" action="{% url 'blog:blog-index' %}">
+                <textarea class="form-control mr-sm-2" style="display: none;"  name="tag">{{ tag.name }}</textarea>
+                <div class="tag" onClick="document.forms['tag-filter{{tag.name}}'].submit();">{{ tag.name }}</div>
+            </form>
         {% endfor %}
         </div>
         <small class="text-muted">Last edited {{ blog.pub_date }}</small>
@@ -118,7 +131,6 @@
             <hr style="margin-top: 10px;">
         {% endfor %}
     </div> 
-    <a id="show_comment" onclick="show_more_comment()">show comment..</a>
 
 {% endblock %}
 </body>

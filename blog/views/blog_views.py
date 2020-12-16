@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
 from users.models import Coin
-from ..models import Blog, Post, Question, Poll, Comment, Tag
+from ..models import Blog, Post, Question, Poll, Comment, Tag, Like
 from ..models.tag_manager import TagManager
 from .post_views import *
 from .question_views import *
@@ -16,13 +16,20 @@ from .job_views import *
 def blog(request):
     all_tag = Tag.objects.all().order_by('-post_num')[:8]
     search_post = request.GET.get('search')
+
+    tag_filter = request.GET.getlist('tag')
+
     if search_post:
-        most_recent_post = Post.objects.filter(Q(topic__icontains=search_post) | Q(content__icontains=search_post))
-        return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag})
+        most_recent_post = Blog.objects.filter(Q(topic__icontains=search_post)
+                                        or Q(content__icontains=search_post)
+                                        or Q(body__icontains=search_post))
+        return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag},)
     for tag in all_tag:
         TagManager.update_tag_num(tag.name)
-    selected_tags = Tag.objects.filter(active_status=True)
-    if Tag.objects.filter(active_status=True).count() > 0:
+    
+    selected_tags = Tag.objects.filter(name__in=tag_filter)
+    
+    if selected_tags.count() > 0:
         most_recent_post = Blog.objects.filter(
             Q(Post___tags__in=selected_tags) | 
             Q(Question___tags__in=selected_tags) | 
@@ -34,9 +41,11 @@ def blog(request):
 
 def filter_blog(request, blog_type):
     all_tag = Tag.objects.all().order_by('-post_num')[:8]
+    tag_filter = request.GET.getlist('tag')
+
     for tag in all_tag:
         TagManager.update_tag_num(tag.name)
-    selected_tags = Tag.objects.filter(active_status=True)
+    selected_tags = Tag.objects.filter(name__in=tag_filter)
 
     if blog_type == "post":
         most_recent_post = Blog.objects.instance_of(Post)
@@ -47,7 +56,7 @@ def filter_blog(request, blog_type):
     elif blog_type == "job":
         most_recent_post = Blog.objects.instance_of(Job)
 
-    if Tag.objects.filter(active_status=True).count() > 0:
+    if selected_tags.count() > 0:
         most_recent_post = most_recent_post.filter(tags__in=selected_tags)
 
     return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag, 'selected_tags': selected_tags})
@@ -122,24 +131,38 @@ def get_blog_from_id_code(id_code):
 
 @login_required
 def like(request, id):
-    coin_this_type = False
     user = request.user
-    post = Post.objects.get(id_code=id)
+    post = Blog.objects.get(id_code=id)
     post_user = post.author
-    if user.username == post_user.username:
-        return redirect(reverse('blog:blog-index'))
-    coins = post_user.profile.get_coins()
-    for tag in post.get_tags():
-        for coin in coins:
-            if tag.name == coin.type_coin:
-                coin.total_coin += 1
-                coin.save()
-                coin_this_type = True
-        if not coin_this_type:
-            new_coin = Coin.objects.create(type_coin=tag.name, total_coin=1)
-            new_coin.save()
-            post_user.profile.coins.add(new_coin)
-        else:
-            coin_this_type = False
+    if user.username != post_user.username:
+        post_user.profile.give_coin(post, 1)
 
+    like = post.likes.filter(owner=user).first()
+    if not like:
+        like = Like(owner=user, post_id=post.id_code)
+        like.save()
+        post.likes.add(like)
+    else:
+        post.likes.remove(like)
+        like.delete()
+    post.save()
     return redirect(reverse('blog:blog-index'))
+
+@login_required
+def like_detail(request, id):
+    user = request.user
+    post = Blog.objects.get(id_code=id)
+    post_user = post.author
+    if user.username != post_user.username:
+        post_user.profile.give_coin(post, 1)
+
+    like = post.likes.filter(owner=user).first()
+    if not like:
+        like = Like(owner=user, post_id=post.id_code)
+        like.save()
+        post.likes.add(like)
+    else:
+        post.likes.remove(like)
+        like.delete()
+    post.save()
+    return redirect(reverse('blog:blog-detail', args=[post.id_code]))
