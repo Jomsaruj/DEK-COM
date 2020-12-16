@@ -32,6 +32,9 @@ class Blog(PolymorphicModel):
             users.append(like.owner)
         return users
 
+    def like_amount(self):
+        return self.likes.all().count()
+
     def __str__(self):
         return self.topic
 
