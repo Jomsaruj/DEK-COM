@@ -5,7 +5,14 @@
 <h1>All blog</h1>
 <div class="tag-show">
     {% for tag in selected_tags %}
-        <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`">{{ tag.name }}</div>
+        <form name="tag-filter{{tag.name}}" action="{% url 'blog:blog-index' %}">
+            {% for activetag in selected_tags %}
+                {% if activetag.name != tag.name %}
+                    <input type='text' value='{{ activetag.name }}' name='tag' style="display: none;">
+                {% endif %}
+            {% endfor %}
+            <div class="tag" onClick="document.forms['tag-filter{{tag.name}}'].submit();">{{ tag.name }}</div>
+        </form>
     {% endfor %}
 </div>
 {% endblock %}
@@ -72,11 +79,14 @@
     <div class="row" style="margin-left: 5px;">
         {% for tag in popular_tag %}
         <div style="margin-bottom: 4px;width: 90%;display: flex;flex-direction: row;">
-            {% if tag.active_status %}
-                <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`" style="width: 50%;background-color: rgb(200,200,200);">{{ tag.name }}</div>
-            {% else %}
-                <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`" style="width: 50%;">{{ tag.name }}</div>
-            {% endif %}
+            <form name="tag-filter{{tag.name}}" action="{% url 'blog:blog-index' %}">
+                <!-- <textarea class="form-control mr-sm-2" style="display: none;"  name="tag" placeholder="{{ tag.name }}">{{ tag.name }}</textarea> -->
+                <input type='text' value='{{ tag.name }}' name='tag' style="display: none;">
+                {% for activetag in selected_tags %}
+                    <input type='text' value='{{ activetag.name }}' name='tag' style="display: none;">
+                {% endfor %}
+                <div class="tag" onClick="document.forms['tag-filter{{tag.name}}'].submit();">{{ tag.name }}</div>
+            </form>
             <div>{{ tag.post_num }} post</div>
         </div>
         {% endfor %}
