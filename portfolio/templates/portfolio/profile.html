@@ -113,7 +113,7 @@
 
         <div class="containerp" style="margin-top: 50px; width: 1440px; height: 1800px">
 
-            <p class="h1" style="display: inline-block; margin-left: 545px;  margin-top: 40px; color: white; font-size: 60px;"><b>MY SKILLS</b></p>
+            <p class="h1" style="display: inline-block; margin-left: 540px;  margin-top: 40px; color: white; font-size: 60px;"><b>MY SKILLS</b></p>
 
 
             <div style="margin-top: 50px;">
@@ -351,13 +351,13 @@
             </div>
         </div>
 
-        <div class="containert" style="margin-top: 50px; width: 1440px; height: 300px">
+        <div class="containert" style="margin-top: 50px; width: 1440px; height: 500px">
             <div>
                 <p class="h1" style="display: inline-block; margin-left: 520px;  margin-top: 60px; font-size: 60px; color: black;"><b>TOP 5 COINS</b> </p>
                 {% for coin in user.profile.get_most_coins %}
-                    <div>
-                        <p class="h4" style="display: inline-block; margin-left: 30px">{{coin.type_coin}}</p>
-                        <p class="h4" style="display: inline-block; margin-left: 30px; ">{{coin}}</p>
+                    <div style="margin-left: 645px; margin-top: 10px">
+                        <p class="h4" style="display: inline-block; font-size: 30px;">{{coin.type_coin}} </p>
+                        <p class="h4" style="display: inline-block; font-size: 30px;">({{coin}})</p>
                     </div>
                 {% endfor %}
             </div>
