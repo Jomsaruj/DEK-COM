@@ -131,13 +131,12 @@ def get_blog_from_id_code(id_code):
 
 @login_required
 def like(request, id):
-    coin_this_type = False
     user = request.user
     post = get_blog_from_id_code(id)
     post_user = post.author
     if user.username == post_user.username:
         return redirect(reverse('blog:blog-index'))
-    coins = post_user.profile.get_coins()
+    post_user.profile.give_coin(post, 1)
     for tag in post.get_tags():
         for coin in coins:
             if tag.name == coin.type_coin:
