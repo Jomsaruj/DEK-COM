@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
 from users.models import Coin
-from ..models import Blog, Post, Question, Poll, Comment, Tag
+from ..models import Blog, Post, Question, Poll, Comment, Tag, Like
 from ..models.tag_manager import TagManager
 from .post_views import *
 from .question_views import *
@@ -134,7 +134,35 @@ def like(request, id):
     user = request.user
     post = Blog.objects.get(id_code=id)
     post_user = post.author
-    if user.username == post_user.username:
-        return redirect(reverse('blog:blog-index'))
-    post_user.profile.give_coin(post, 1)
+    if user.username != post_user.username:
+        post_user.profile.give_coin(post, 1)
+
+    like = post.likes.filter(owner=user).first()
+    if not like:
+        like = Like(owner=user, post_id=post.id_code)
+        like.save()
+        post.likes.add(like)
+    else:
+        post.likes.remove(like)
+        like.delete()
+    post.save()
     return redirect(reverse('blog:blog-index'))
+
+@login_required
+def like_detail(request, id):
+    user = request.user
+    post = Blog.objects.get(id_code=id)
+    post_user = post.author
+    if user.username != post_user.username:
+        post_user.profile.give_coin(post, 1)
+
+    like = post.likes.filter(owner=user).first()
+    if not like:
+        like = Like(owner=user, post_id=post.id_code)
+        like.save()
+        post.likes.add(like)
+    else:
+        post.likes.remove(like)
+        like.delete()
+    post.save()
+    return redirect(reverse('blog:blog-detail', args=[post.id_code]))

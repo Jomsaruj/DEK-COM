@@ -29,7 +29,15 @@
     {% for post in most_recent_post %}
     <div class="post-box">
         <div class="post-stat">
-
+            {% if request.user in post.user_like %}
+                <div class="heart-red" style="margin-top: 30%;margin-left: 30%;" onclick="location.href=`{% url 'blog:like' post.id_code  %}`">
+                </div>
+            {% else %}
+                <div class="heart" style="margin-top: 30%;margin-left: 30%;" onclick="location.href=`{% url 'blog:like' post.id_code  %}`">
+                </div>
+            {% endif %}
+            <br>
+            <p style="margin-left: 20%;">{{ post.like_amount }} likes</p>
         </div>
         <div class="post-right">
             <div class="post-topic">
@@ -56,9 +64,6 @@
                     <div style="margin-left: 15px;">
                         <small class="text-muted">
                             <a href="{% url 'blog:blog-detail' post.id_code %}" style="margin-top: 5px;">write comment..</a>
-                            {% if post.author != request.user %}
-                                <a onclick="location.href=`{% url 'blog:like' post.id_code  %}`">like</a>
-                            {% endif %}
                         </small>
                     </div>
                     <div class="post-author">
