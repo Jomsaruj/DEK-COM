@@ -37,6 +37,8 @@ class Profile(models.Model):
             for coin in self.get_coins():
                 if tag.name == coin.type_coin:
                     coin.total_coin += total
+                    if coin.total_coin == 0:
+                        coin.delete()
                     coin.save()
                     coin_this_type = True
             if not coin_this_type:
