@@ -4,6 +4,7 @@ from ..models.id_code_manager import IdCodeManager
 
 
 def create_question(request):
+    """Create the qustion for DEK_COM site."""
     topic = request.POST['post topic']
     content = request.POST['post content']
     question = Question(topic=topic, content=content, author=request.user, id_code=IdCodeManager.get_new_id())

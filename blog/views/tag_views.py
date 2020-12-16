@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect,reverse
-
 from ..models import Tag
 
 
 def tag(request, tag_name):
+    """Tag for all the blog in DEK_COM site."""
     try:
         tag = Tag.objects.get(name=tag_name)
     except:

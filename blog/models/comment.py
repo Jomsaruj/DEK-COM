@@ -5,20 +5,26 @@ from django.contrib.auth.models import User
 from .blog import Blog
 from .sub_comment import SubComment
 
+
 class Comment(models.Model):
+    """Comment for all blog in DEK-COM site."""
+
     post = models.ForeignKey(Blog, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=200)
-    date = models.DateTimeField(default = timezone.now())
+    date = models.DateTimeField(default=timezone.now())
     like = models.IntegerField(default=0)
     id_code = models.CharField(max_length=6, default='')
 
     def set_text(self, new_text: str):
+        """Set the text to the comment box."""
         self.content = new_text
 
     @property
     def sub_comment(self):
+        """Sub comment for each comment."""
         return SubComment.objects.filter(comment_id_code=self.id_code)
 
     def __str__(self):
+        """Return the string."""
         return self.content
