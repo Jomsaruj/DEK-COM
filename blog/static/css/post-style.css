@@ -67,9 +67,6 @@ label {
     align-items: flex-start;
     transition: 0.3s;
 }
-.post-topic:hover {
-    background: rgb(180, 180, 180);
-}
 
 .post-content {
     word-break: break-all;
