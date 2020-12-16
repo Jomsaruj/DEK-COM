@@ -51,7 +51,7 @@ class ZipCode(models.Model):
 
 class Phone(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=100, default="None")
+    phone = models.CharField(max_length=100, default='')
 
     def __str__(self):
         return f"{self.user.username}"
@@ -86,8 +86,8 @@ def update_user_profile(sender, instance, created, **kwargs):
     instance.address.save()
     instance.zipcode.save()
     instance.phone.save()
-    instance.git.save()
     instance.date.save()
+    instance.git.save()
 
 
 
