@@ -26,6 +26,12 @@ class Blog(PolymorphicModel):
     def is_poll(self):
         return False
 
+    def user_like(self):
+        users = []
+        for like in self.likes.all():
+            users.append(like.owner)
+        return users
+
     def __str__(self):
         return self.topic
 

@@ -286,12 +286,12 @@ label {
 .heart {
     background-color: rgb(200,200,200);
     display: inline-block;
-    height: 30px;
+    height: 25px;
     margin: 0 10px;
     position: relative;
     top: 0;
     transform: rotate(-45deg);
-    width: 30px;
+    width: 25px;
     transition: 0.3s;
   }
   
@@ -300,9 +300,9 @@ label {
     content: "";
     background-color: rgb(200,200,200);
     border-radius: 50%;
-    height: 30px;
+    height: 25px;
     position: absolute;
-    width: 30px;
+    width: 25px;
     transition: 0.3s;
   }
   

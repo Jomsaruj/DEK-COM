@@ -29,8 +29,10 @@
     {% for post in most_recent_post %}
     <div class="post-box">
         <div class="post-stat">
-            <div class="heart" style="margin-top: 30%;margin-left: 27%;" onclick="location.href=`{% url 'blog:like' post.id_code  %}`">
-            </div>
+            {% if request.user in post.user_like %}
+                <div class="heart" style="margin-top: 30%;margin-left: 30%;" onclick="location.href=`{% url 'blog:like' post.id_code  %}`">
+                </div>
+            {% endif %}
         </div>
         <div class="post-right">
             <div class="post-topic">

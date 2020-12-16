@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
 from users.models import Coin
-from ..models import Blog, Post, Question, Poll, Comment, Tag
+from ..models import Blog, Post, Question, Poll, Comment, Tag, Like
 from ..models.tag_manager import TagManager
 from .post_views import *
 from .question_views import *
@@ -133,7 +133,7 @@ def get_blog_from_id_code(id_code):
 def like(request, id):
     coin_this_type = False
     user = request.user
-    post = Post.objects.get(id_code=id)
+    post = get_blog_from_id_code(id)
     post_user = post.author
     if user.username == post_user.username:
         return redirect(reverse('blog:blog-index'))
@@ -150,5 +150,13 @@ def like(request, id):
             post_user.profile.coins.add(new_coin)
         else:
             coin_this_type = False
+
+    like = post.likes.filter(owner=user).first()
+    if not like:
+        like = Like(owner=user)
+        like.save()
+
+    post.likes.add(like)
+    post.save()
 
     return redirect(reverse('blog:blog-index'))
