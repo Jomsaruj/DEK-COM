@@ -8,6 +8,7 @@ from ..models.id_code_manager import IdCodeManager
 
 
 def create_job(request):
+    """Create the job for DEK_COM site."""
     topic = request.POST['job topic']
     requirement = request.POST['job requirement']
     detail = request.POST['job detail']
@@ -20,14 +21,18 @@ def create_job(request):
     job.save()
     return job
 
+
 def edit_job(request, job):
+    """Edit the job requirements."""
     job.topic = request.POST['job topic']
     job.requirement = request.POST['job requirement']
     job.content = request.POST['job detail']
     job.save()
 
+
 @login_required
 def apply_job(request, job_id_code):
+    """Accept the job that you choosen."""
     job = Job.objects.filter(id_code=job_id_code).first()
     job.candidates.add(request.user)
     job.save()

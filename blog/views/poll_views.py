@@ -7,6 +7,7 @@ from ..models.id_code_manager import IdCodeManager
 
 
 def create_poll(request):
+    """Create the polll with the question."""
     topic = request.POST['poll topic']
     content = request.POST['poll content']
     poll = Poll(topic=topic, content=content, author=request.user, id_code=IdCodeManager.get_new_id())
@@ -22,8 +23,10 @@ def create_poll(request):
                     poll.save()
     return poll
 
+
 @login_required
 def vote(request, choice_id_code):
+    """Count the amount the vote for the poll."""
     choice = Choice.objects.get(id_code=choice_id_code)
     poll = Poll.objects.filter(id_code=choice.poll_id_code).first()
     vote = Vote.objects.filter(question=poll, voter=request.user).first()

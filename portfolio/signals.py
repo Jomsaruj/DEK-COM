@@ -7,12 +7,12 @@ from users.models import Coin
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
+    """Create the profile of user."""
     if created:
         Profile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
+    """Save the profile of the user."""
     instance.profile.save()
-
-
