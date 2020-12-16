@@ -43,7 +43,10 @@
     <div class="border-top pt-3" style="margin-bottom: 30px;">
         <div class="tag-show">
         {% for tag in blog.get_tags %}
-            <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`">{{ tag.name }}</div>
+            <form name="tag-filter{{tag.name}}" action="{% url 'blog:blog-index' %}">
+                <textarea class="form-control mr-sm-2" style="display: none;"  name="tag">{{ tag.name }}</textarea>
+                <div class="tag" onClick="document.forms['tag-filter{{tag.name}}'].submit();">{{ tag.name }}</div>
+            </form>
         {% endfor %}
         </div>
         <small class="text-muted">Last edited {{ blog.pub_date }}</small>
