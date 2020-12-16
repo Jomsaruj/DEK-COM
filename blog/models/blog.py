@@ -20,9 +20,6 @@ class Blog(PolymorphicModel):
     def get_likes(self):
         return self.likes.all()
 
-    def get_like_amount(self):
-        return self.likes.all().count()
-
     def is_poll(self):
         return False
 

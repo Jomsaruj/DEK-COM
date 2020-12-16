@@ -16,9 +16,6 @@ class Comment(models.Model):
     def set_text(self, new_text: str):
         self.content = new_text
 
-    def get_like(self):
-        return self.ike
-
     @property
     def sub_comment(self):
         return SubComment.objects.filter(comment_id_code=self.id_code)
