@@ -36,10 +36,12 @@ def choose_solution(request, comment_id_code):
         return redirect(reverse('blog:blog-detail', args=[question.id_code]))
     if question.solution_id_code == comment_id_code:
         question.is_closed = False
+        comment.author.profile.give_coin(question, -5)
         question.solution_id_code = ''
         question.save()
     else:
         question.is_closed = True
+        comment.author.profile.give_coin(question, 5)
         question.solution_id_code = comment.id_code
         question.save()
     return redirect(reverse('blog:blog-detail', args=[question.id_code]))
