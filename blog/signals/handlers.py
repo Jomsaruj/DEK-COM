@@ -7,6 +7,7 @@ from ..models.tag_manager import TagManager
 
 @receiver(pre_delete, sender=Blog)
 def delete_blog(sender, instance, **kwargs):
+    """Delete the blog option."""
     comments = Comment.objects.filter(post=instance)
     for comment in comments:
         comment.delete()
@@ -18,10 +19,13 @@ def delete_blog(sender, instance, **kwargs):
 
 @receiver(post_delete, sender=Blog)
 def post_delete_blog(sender, instance, **kwargs):
+    """Delete the blog."""
     pass
+
 
 @receiver(pre_delete, sender=Comment)
 def delete_comment(sender, instance, **kwargs):
+    """Delete the comment for all the blog."""
     subcomments = SubComment.objects.filter(comment_id_code = instance.id_code)
     for subcomment in subcomments:
         subcomment.delete()
@@ -29,6 +33,7 @@ def delete_comment(sender, instance, **kwargs):
     id_code.delete()
 
 def clear_choice(poll_id_code):
+    """Clear all the choices."""
     choices = Choice.objects.filter(poll_id_code=poll_id_code)
     for choice in choices:
         id_code = IdCode.objects.filter(code=choice.id_code).first()
