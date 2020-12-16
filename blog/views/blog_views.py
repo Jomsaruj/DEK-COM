@@ -20,8 +20,10 @@ def blog(request):
     tag_filter = request.GET.getlist('tag')
 
     if search_post:
-        most_recent_post = Post.objects.filter(Q(topic__icontains=search_post) | Q(content__icontains=search_post))
-        return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag})
+        most_recent_post = Blog.objects.filter(Q(topic__icontains=search_post)
+                                        or Q(content__icontains=search_post)
+                                        or Q(body__icontains=search_post))
+        return render(request, 'blog/blog_index.html', {'most_recent_post': most_recent_post, 'popular_tag': all_tag},)
     for tag in all_tag:
         TagManager.update_tag_num(tag.name)
     

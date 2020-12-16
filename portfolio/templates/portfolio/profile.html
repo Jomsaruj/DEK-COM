@@ -16,16 +16,26 @@
                 background-color: #FCF2E1;
                 padding: 5px 20px;
             }
+            h4.box2 {
+                background-color: #042C47;
+                padding: 5px 20px;
+            }
+
+            bg.normal{
+                background-color: #FCF2E1;
+            }
+
         </style>
 
         <div class="container bg-light" style="width: 913px; height: 300px;">
             <img src="{{ user.profile.image.url }}" width="150" height="150" style="margin-top: 100px; margin-left: 190px" class="profile-image img-circle">
             <div class  = "header" style="margin-top: 100px; display: inline-block; vertical-align: text-top; position: absolute;">
                 <p class="h3" style="display: inline-block;margin-left: 100px; margin-right: 20px; ">{{user.username}}</p>
-                <a href="#"><button style="width: 150px; font-weight: 500; " type="button" class="btn btn-info">Edit Profile</button></a>
+
+                <a href="{% url 'profile_update' user.username %}"><button style="width: 150px; font-weight: 500; " type="button" class="btn btn-info">Edit Profile</button></a>
+
             </div>
-            <div class = "status" style="margin-top: 50px;margin-left: 3px; display: inline-block; vertical-align: text-top;" >
-                <p class="h5" style="display: inline-block; margin-left: 100px; margin-right: 30px; ">Post </p>
+            <div class = "status" style="margin-top: 50px;margin-left: 100px; display: inline-block; vertical-align: text-top;" >
                 <p class="h5" style="display: inline-block; margin-right: 30px; ">Total Coin  </p>
                 <p class="h5" style="display: inline-block; margin-right: 30px; ">{{user.profile.get_total_coin}}  </p>
             </div>
@@ -53,33 +63,288 @@
                         <h4 class="box">{{user.first_name}}  {{user.last_name}}</h4>
                     </div>
 
-                    <p class="h4" style="margin-left: 50px; margin-top: 20px;">Date of birth: </p>
-                    <p class="h4" style="margin-left: 50px; margin-top: 20px;">Address: </p>
-                    <p class="h4" style="margin-left: 50px; margin-top: 20px;">Zip code: </p>
+                    <div class="data" style="margin-left: 50px">
+                        <h4>Date of birth: </h4>
+                        <h4 class="box">{{user.date.date}}</h4>
+                    </div>
+
+                    <div class="data" style="margin-left: 50px">
+                        <h4>Address: </h4>
+                        <h4 class="box">{{user.address.address}}</h4>
+                    </div>
+
+                    <div class="data" style="margin-left: 50px">
+                        <h4>Zip Code: </h4>
+                        <h4 class="box">{{user.zipcode.zipcode}}</h4>
+                    </div>
 
                     <div class="data" style="margin-left: 50px">
                         <h4>Email Address: </h4>
                         <h4 class="box">{{user.email}}</h4>
                     </div>
-                    <p class="h4" style="margin-left: 50px; margin-top: 20px;">Phone:  </p>
-                    <p class="h4" style="margin-left: 50px; margin-top: 20px;">GitHub:  </p>
+
+                    <div class="data" style="margin-left: 50px">
+                        <h4>Phone number: </h4>
+                        <h4 class="box">{{user.phone.phone}}</h4>
+                    </div>
+                    <div class="data" style="margin-left: 50px; margin-top: 30px;">
+                        <a href="{{user.git.git}}"><h4 class="box2">Visit my GitHub</h4></a>
+                    </div>
                     </div>
                 </div>
             </div>
-        <div class="container bg-primary" style="margin-top: 50px; width: 1440px; height: 500px">
-            <p class="h1" style="display: inline-block; margin-left: 300px;  margin-top: 60px;">My Skills </p>
-            <div class="container bg-info" style="width: 200px; height: 200px">
+
+        <div class="container bg-primary" style="margin-top: 50px; width: 1440px; height: 1800px">
+
+            <p class="h1" style="display: inline-block; margin-left: 600px;  margin-top: 40px;">MY SKILLS </p>
+
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_java %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\java.png" class="img-thumbnail" style="height: 230px;">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\java.png" class="img-thumbnail" style="height: 230px;">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_python  %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\pytho.png" class="img-thumbnail" style="height: 230px;">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\pytho.png" class="img-thumbnail" style="height: 230px;">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_JavaScript%}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\js.png" class="img-thumbnail" style="height: 230px;">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\js.png" class="img-thumbnail" style="height: 230px;">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Csharp%}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\cs.png" class="img-thumbnail" style="height: 230px; width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\cs.png" class="img-thumbnail" style="height: 230px; width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_C  %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\c.png" class="img-thumbnail" style="height: 230px;  width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\c.png" class="img-thumbnail" style="height: 230px;  width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Cpp%}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\cpp.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\cpp.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Go%}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\g.png" class="img-thumbnail" style="height: 230px; width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\g.png" class="img-thumbnail" style="height: 230px; width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_R  %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\rp.png" class="img-thumbnail" style="height: 230px;  width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\rp.png" class="img-thumbnail" style="height: 230px;  width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Swift %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\sw.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\sw.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_PHP%}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\ph.png" class="img-thumbnail" style="height: 230px; width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 260px;">
+                        <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                        <img src="..\..\..\static\image\ph.png" class="img-thumbnail" style="height: 230px; width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Kotlin  %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\kotlin.png" class="img-thumbnail" style="height: 230px;  width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\kotlin.png" class="img-thumbnail" style="height: 230px;  width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Ruby %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\rub.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 857px; margin-top:-330px">
+                    <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\rub.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div style="margin-top: 50px">
+                {% if user.profession.is_Dart %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:10px">
+                    <div class="card-header text-center"><h1>Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\dart.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card text-white bg-success mb-3" style="width: 280px; height: 280px; margin-left: 560px; margin-top:10px">
+                    <div class="card-header text-center"><h1>Not Checked</h1></div>
+                        <div class="card-body">
+                            <img src="..\..\..\static\image\dart.png" class="img-thumbnail" style="height: 230px;   width: 280px">
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
-        <div>
-            <p class="h1" style="display: inline-block; margin-left: 300px;  margin-top: 60px;">Top 5 coins </p>
-            {% for coin in user.profile.get_most_coins %}
-                <div>
-                    <p class="h4" style="display: inline-block; margin-left: 30px">{{coin.type_coin}}</p>
-                    <p class="h4" style="display: inline-block; margin-left: 30px; ">{{coin}}</p>
-                </div>
-            {% endfor %}
+
+        <div class="container bg-success" style="margin-top: 50px; width: 1440px; height: 300px">
+            <div>
+                <p class="h1" style="display: inline-block; margin-left: 580px;  margin-top: 60px;">TOP 5 COINS </p>
+                {% for coin in user.profile.get_most_coins %}
+                    <div>
+                        <p class="h4" style="display: inline-block; margin-left: 30px">{{coin.type_coin}}</p>
+                        <p class="h4" style="display: inline-block; margin-left: 30px; ">{{coin}}</p>
+                    </div>
+                {% endfor %}
             </div>
+        </div>
     </body>
 </html>
 {% endblock %}

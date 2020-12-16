@@ -1,0 +1,23 @@
+{% extends "portfolio/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <h1>Profile update</h1>
+{% endblock %}
+
+{% block content %}
+        <form method='POST' enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form|crispy}}
+            {{date_form|crispy}}
+            {{address_form|crispy}}
+            {{zip_form|crispy}}
+            {{phone_form|crispy}}
+            {{git_form|crispy}}
+            {{profile_image_form|crispy}}
+            {{c_form|crispy}}
+
+            <button type="submit" name="profile" class="btn btn-success">Update</button>
+        </form>
+
+{% endblock content %}
