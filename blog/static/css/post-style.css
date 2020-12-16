@@ -282,3 +282,52 @@ label {
     justify-content: left;
     background-color: rgb(224,224,224);
 }
+
+.heart {
+    background-color: rgb(200,200,200);
+    display: inline-block;
+    height: 30px;
+    margin: 0 10px;
+    position: relative;
+    top: 0;
+    transform: rotate(-45deg);
+    width: 30px;
+    transition: 0.3s;
+  }
+  
+  .heart:before,
+  .heart:after {
+    content: "";
+    background-color: rgb(200,200,200);
+    border-radius: 50%;
+    height: 30px;
+    position: absolute;
+    width: 30px;
+    transition: 0.3s;
+  }
+  
+  .heart:before {
+    top: -15px;
+    left: 0;
+  }
+  
+  .heart:after {
+    left: 15px;
+    top: 0;
+  }
+
+.heart:hover {
+    background-color: rgb(200,0,0);
+    animation: pulse 1s ease infinite;
+}
+.heart:hover:before,
+.heart:hover:after {
+  background-color: rgb(200,0,0);
+  animation: pulse 1s ease infinite;
+}
+
+@keyframes pulse {
+    0% { background-color: rgb(200,0,0); }
+    50% { background-color: rgb(180,0,0); }
+    100% { background-color: rgb(200,0,0); }
+  }
