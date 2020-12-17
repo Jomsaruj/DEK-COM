@@ -1,6 +1,6 @@
 # DEK-COM
-[![Build Status](https://travis-ci.com/Jomsaruj/DEK-COM.svg?branch=Develop)](https://travis-ci.com/github/Jomsaruj/DEK-COM)
-[![codecov](https://codecov.io/gh/Jomsaruj/DEK-COM/branch/Develop/graph/badge.svg?token=KQQE46PTX7)](https://codecov.io/gh/Jomsaruj/DEK-COM)
+[![Build Status](https://travis-ci.com/Jomsaruj/DEK-COM.svg?branch=master)](https://travis-ci.com/github/Jomsaruj/DEK-COM)
+[![codecov](https://codecov.io/gh/Jomsaruj/DEK-COM/branch/master/graph/badge.svg?token=KQQE46PTX7)](https://codecov.io/gh/Jomsaruj/DEK-COM)
 
 Job opportunities website for students with IT profession to show their potential and communicate to each other in an online social network. There are 3 main pages in our website which are profile or portfolio page, online forum page and job opportunities page.
 
