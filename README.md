@@ -28,3 +28,7 @@ Iterations
 * [Patiphan Srichai](https://github.com/patiphan2000) 
 * [Saruj Sattayanurak](https://github.com/Jomsaruj) 
 * [Setthanat Kladee](https://github.com/Ing140943) 
+
+
+## Presentation
+ * [See the slide](https://docs.google.com/presentation/d/1KM6mTjMbUBHFRjeoNiPY0FvkhZmCzBafG2_zaTsAokY/edit?usp=sharing) 
