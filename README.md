@@ -28,10 +28,3 @@ Iterations
 * [Patiphan Srichai](https://github.com/patiphan2000) 
 * [Saruj Sattayanurak](https://github.com/Jomsaruj) 
 * [Setthanat Kladee](https://github.com/Ing140943) 
-
-## Licensing
-Contact any of team's member to license.
-* @markna551
-* @patiphan2000’s
-* @Jomsaruj
-* @Ing140943
