@@ -5,7 +5,14 @@
 <h1>All blog</h1>
 <div class="tag-show">
     {% for tag in selected_tags %}
-        <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`">{{ tag.name }}</div>
+        <form name="tag-filter{{tag.name}}" action="{% url 'blog:blog-index' %}">
+            {% for activetag in selected_tags %}
+                {% if activetag.name != tag.name %}
+                    <input type='text' value='{{ activetag.name }}' name='tag' style="display: none;">
+                {% endif %}
+            {% endfor %}
+            <div class="tag" onClick="document.forms['tag-filter{{tag.name}}'].submit();">{{ tag.name }}</div>
+        </form>
     {% endfor %}
 </div>
 {% endblock %}
@@ -22,7 +29,15 @@
     {% for post in most_recent_post %}
     <div class="post-box">
         <div class="post-stat">
-
+            {% if request.user in post.user_like %}
+                <div class="heart-red" style="margin-top: 30%;margin-left: 30%;" onclick="location.href=`{% url 'blog:like' post.id_code  %}`">
+                </div>
+            {% else %}
+                <div class="heart" style="margin-top: 30%;margin-left: 30%;" onclick="location.href=`{% url 'blog:like' post.id_code  %}`">
+                </div>
+            {% endif %}
+            <br>
+            <p style="margin-left: 20%;">{{ post.like_amount }} likes</p>
         </div>
         <div class="post-right">
             <div class="post-topic">
@@ -49,9 +64,6 @@
                     <div style="margin-left: 15px;">
                         <small class="text-muted">
                             <a href="{% url 'blog:blog-detail' post.id_code %}" style="margin-top: 5px;">write comment..</a>
-                            {% if post.author != request.user %}
-                                <a onclick="location.href=`{% url 'blog:like' post.id_code  %}`">like</a>
-                            {% endif %}
                         </small>
                     </div>
                     <div class="post-author">
@@ -72,11 +84,14 @@
     <div class="row" style="margin-left: 5px;">
         {% for tag in popular_tag %}
         <div style="margin-bottom: 4px;width: 90%;display: flex;flex-direction: row;">
-            {% if tag.active_status %}
-                <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`" style="width: 50%;background-color: rgb(200,200,200);">{{ tag.name }}</div>
-            {% else %}
-                <div class="tag" onclick="location.href=`{% url 'blog:tag' tag.name %}`" style="width: 50%;">{{ tag.name }}</div>
-            {% endif %}
+            <form name="tag-filter{{tag.name}}" action="{% url 'blog:blog-index' %}">
+                <!-- <textarea class="form-control mr-sm-2" style="display: none;"  name="tag" placeholder="{{ tag.name }}">{{ tag.name }}</textarea> -->
+                <input type='text' value='{{ tag.name }}' name='tag' style="display: none;">
+                {% for activetag in selected_tags %}
+                    <input type='text' value='{{ activetag.name }}' name='tag' style="display: none;">
+                {% endfor %}
+                <div class="tag" onClick="document.forms['tag-filter{{tag.name}}'].submit();">{{ tag.name }}</div>
+            </form>
             <div>{{ tag.post_num }} post</div>
         </div>
         {% endfor %}

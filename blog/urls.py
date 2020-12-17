@@ -17,5 +17,6 @@ urlpatterns = [
     path('tag/<tag_name>', tag, name='tag'),
     path('poll/vote/<choice_id_code>',vote, name='vote'),
     path('like/<id>',like, name='like'),
+    path('like/detail/<id>',like_detail, name='like-detail'),
     path('apply-job/<job_id_code>',apply_job, name='apply-job'),
 ]
