@@ -12,6 +12,8 @@ This application is a part of [Individual Software Process 01219245](https://cps
 * [Requirements](../../wiki/Requirements)
 * [Instruction for Installation Application](INSTALL.md)
 
+## Development process
+
 Code review
 * [Checklist](../../wiki/Code%20Review%20Checklist)
 * [Script](../../wiki/Code%20Review%20Script)
