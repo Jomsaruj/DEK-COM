@@ -14,16 +14,7 @@ This application is a part of [Individual Software Process 01219245](https://cps
 
 ## Development process
 
-Code review
-* [Checklist](../../wiki/Code%20Review%20Checklist)
-* [Script](../../wiki/Code%20Review%20Script)
-
-Iterations
-* [Iteration 1 Plan](../../wiki/Iteration%201%20Plan) and [Task Board](../../projects/1)
-* [Iteration 2 Plan](../../wiki/Iteration-2-Plan) and [Task Board](../../projects/2)
-* [Iteration 3 Plan](../../wiki/Iteration%203%20Plan) and [Task Board](../../projects/3)
-* [Iteration 4 Plan](../../wiki/Iteration%204%20Plan) and [Task Board](../../projects/5)
-* [Iteration 5 Plan](../../wiki/Iteration%205%20Plan) and [Task Board](../../projects/6)
+* [Development]()
 
 ## Team
 * [Auttakrit Wongsarawit](https://github.com/markna551) 
