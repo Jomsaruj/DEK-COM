@@ -14,7 +14,7 @@ This application is a part of [Individual Software Process 01219245](https://cps
 
 ## Development process
 
-* [Development](development)
+* [Development](../../wiki/Development)
 
 ## Team
 * [Auttakrit Wongsarawit](https://github.com/markna551) 
