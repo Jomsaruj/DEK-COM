@@ -8,3 +8,4 @@ bs4
 django-crispy-forms
 pillow
 gunicorn
+django_heroku
