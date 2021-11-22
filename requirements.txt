@@ -7,3 +7,4 @@ django-polymorphic
 bs4
 django-crispy-forms
 pillow
+django-heroku
